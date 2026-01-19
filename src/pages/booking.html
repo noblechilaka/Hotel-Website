@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Your Stay | Luxury Hotel</title>
+    <meta
+      name="description"
+      content="Book your perfect stay at Luxury Hotel. Select your dates, room, and complete your reservation."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/typography.css" />
+    <link rel="stylesheet" href="/src/styles/layout.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Flatpickr -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body class="booking-page">
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+
+    <div class="black-top"></div>
+  
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <!-- Menu Toggle - Left -->
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-text">MENU</span>
+        </button>
+
+        <!-- Logo - Centered -->
+        <div class="header-logo">
+          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+        </div>
+
+        <!-- Navigation - Right -->
+        <nav class="header-nav-right">
+          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Menu Panel -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <nav class="menu-panel" aria-label="Main navigation">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="/public/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item menu-divider"></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+        </ul>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+      </nav>
+    </div>
+
+    <main class="section-padding booking-main">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="booking-header">
+          <span class="meta-text gold">Reservation</span>
+          <h1 class="section-title booking-title">Book Your Stay</h1>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+          <div class="step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-label">Dates & Guests</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-label">Your Details</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+
+        <!-- Error Container -->
+        <div id="bookingError" style="margin-bottom: 1.5rem"></div>
+
+        <!-- Booking Content -->
+        <div>
+          <!-- Left Column - Steps -->
+          <div class="booking-steps">
+            <!-- Step 1: Dates & Guests -->
+            <div id="step-1" class="booking-step">
+              <h2
+                class="section-title"
+                style="font-size: 1.75rem; margin-bottom: 2rem"
+              >
+                Select Dates & Guests
+              </h2>
+
+              <!-- Selected Room Preview -->
+              <div
+                id="selectedRoom"
+                style="
+                  display: none;
+                  margin-bottom: 2rem;
+                  padding: 1.5rem;
+                  background: var(--bg-light);
+                  border-radius: 4px;
+                "
+              >
+                <div style="display: flex; gap: 1rem">
+                  <img
+                    id="roomImage"
+                    src=""
+                    alt=""
+                    style="
+                      width: 100px;
+                      height: 80px;
+                      object-fit: cover;
+                      border-radius: 4px;
+                    "
+                  />
+                  <div>
+                    <h4
+                      id="roomName"
+                      style="
+                        font-family: var(--font-heading);
+                        font-size: 1.25rem;
+                        margin-bottom: 0.5rem;
+                      "
+                    ></h4>
+                    <span
+                      id="roomPrice"
+                      class="meta-text"
+                      style="color: var(--gold)"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Date Selection -->
+              <div class="form-group-inline">
+                <div class="form-group">
+                  <label class="form-label">Check-in Date</label>
+                  <input
+                    type="text"
+                    id="checkInDate"
+                    class="form-field"
+                    placeholder="Select check-in date"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Check-out Date</label>
+                  <input
+                    type="text"
+                    id="checkOutDate"
+                    class="form-field"
+                    placeholder="Select check-out date"
+                  />
+                </div>
+              </div>
+
+              <!-- Date Preview -->
+              <div
+                id="datePreview"
+                style="
+                  margin-bottom: 2rem;
+                  padding: 1rem;
+                  background: rgba(198, 168, 107, 0.1);
+                  border-radius: 4px;
+                  display: none;
+                "
+              >
+                <span class="body-text" style="font-size: 0.875rem"
+                  >Your stay:
+                </span>
+                <span
+                  id="datePreviewText"
+                  class="meta-text"
+                  style="color: var(--gold)"
+                ></span>
+              </div>
+
+              <!-- Guest Selection -->
+              <div class="form-group">
+                <label class="form-label">Number of Guests</label>
+                <div style="display: flex; align-items: center; gap: 1.5rem">
+                  <button
+                    class="btn-text-only"
+                    id="guestDecrease"
+                    style="
+                      font-size: 1.5rem;
+                      width: 40px;
+                      height: 40px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    −
+                  </button>
+                  <div style="text-align: center">
+                    <span
+                      id="guestCount"
+                      style="
+                        font-family: var(--font-heading);
+                        font-size: 2rem;
+                        color: var(--gold);
+                      "
+                      >2</span
+                    >
+                    <span
+                      class="body-text"
+                      style="display: block; font-size: 0.875rem"
+                      >Guests</span
+                    >
+                  </div>
+                  <button
+                    class="btn-text-only"
+                    id="guestIncrease"
+                    style="
+                      font-size: 1.5rem;
+                      width: 40px;
+                      height: 40px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- Nights Display -->
+              <div
+                id="nightsDisplay"
+                style="
+                  margin-top: 2rem;
+                  padding: 1rem;
+                  background: var(--bg-light);
+                  border-radius: 4px;
+                  display: none;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  "
+                >
+                  <span class="body-text">Duration</span>
+                  <span
+                    id="nightsCount"
+                    class="meta-text"
+                    style="color: var(--gold); font-size: 1rem"
+                  ></span>
+                </div>
+              </div>
+
+              <button
+                id="nextStep"
+                class="btn btn-primary gold"
+                style="margin-block: 2rem; justify-content: center"
+              >
+                Continue to Details
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Step 2: Guest Details -->
+            <div id="step-2" class="booking-step" style="display: none">
+              <h2
+                class="section-title"
+                style="font-size: 1.75rem; margin-bottom: 2rem"
+              >
+                Guest Information
+              </h2>
+
+              <div class="form-group">
+                <label class="form-label">Full Name *</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  class="form-field"
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email Address *</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-field"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Phone Number *</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  class="form-field"
+                  placeholder="+234 800 123 4567"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Special Requests (Optional)</label>
+                <textarea
+                  id="specialRequests"
+                  class="form-field"
+                  rows="3"
+                  placeholder="Any special requirements or requests..."
+                ></textarea>
+              </div>
+
+              <div style="display: flex; gap: 1rem; margin-top: 2rem">
+                <button
+                  id="backStep"
+                  class="btn btn-primary dark"
+                  style="flex: 0 0 auto"
+                >
+                  Back
+                </button>
+                <button
+                  id="nextToPayment"
+                  class="btn btn-primary gold"
+                  style="flex: 1; justify-content: center"
+                >
+                  Continue to Payment
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3: Payment -->
+            <div id="step-3" class="booking-step" style="display: none">
+              <h2
+                class="section-title"
+                style="font-size: 1.75rem; margin-bottom: 2rem"
+              >
+                Payment Method
+              </h2>
+
+              <!-- Payment Methods -->
+              <div style="display: flex; gap: 1rem; margin-bottom: 2rem">
+                <button
+                  class="payment-method active"
+                  data-method="card"
+                  style="
+                    flex: 1;
+                    padding: 1.5rem;
+                    border: 1px solid var(--divider);
+                    background: var(--bg-light);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                    style="margin-bottom: 0.5rem"
+                  >
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                  </svg>
+                  <span class="meta-text" style="display: block"
+                    >Card Payment</span
+                  >
+                </button>
+                <button
+                  class="payment-method"
+                  data-method="bank_transfer"
+                  style="
+                    flex: 1;
+                    padding: 1.5rem;
+                    border: 1px solid var(--divider);
+                    background: var(--bg-light);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                  "
+                >
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                    style="margin-bottom: 0.5rem"
+                  >
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path
+                      d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                    />
+                  </svg>
+                  <span class="meta-text" style="display: block"
+                    >Bank Transfer</span
+                  >
+                </button>
+              </div>
+
+              <!-- Card Payment Form -->
+              <div id="cardPaymentForm">
+                <div class="form-group">
+                  <label class="form-label">Card Number</label>
+                  <input
+                    type="text"
+                    id="cardNumber"
+                    class="form-field"
+                    placeholder="1234 5678 9012 3456"
+                    maxlength="19"
+                  />
+                </div>
+
+                <div class="form-group-inline">
+                  <div class="form-group">
+                    <label class="form-label">Expiry Date</label>
+                    <input
+                      type="text"
+                      id="cardExpiry"
+                      class="form-field"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">CVV</label>
+                    <input
+                      type="text"
+                      id="cardCvv"
+                      class="form-field"
+                      placeholder="123"
+                      maxlength="4"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Cardholder Name</label>
+                  <input
+                    type="text"
+                    id="cardName"
+                    class="form-field"
+                    placeholder="Name on card"
+                  />
+                </div>
+              </div>
+
+              <!-- Bank Transfer Details -->
+              <div id="bankTransferDetails" style="display: none"></div>
+
+              <!-- Security Notice -->
+              <div
+                style="
+                  margin-top: 2rem;
+                  padding: 1rem;
+                  background: rgba(198, 168, 107, 0.1);
+                  border-radius: 4px;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    margin-bottom: 0.5rem;
+                  "
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  <span class="meta-text" style="color: var(--gold)"
+                    >Secure Payment</span
+                  >
+                </div>
+                <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
+                  Your payment information is encrypted and secure. We never
+                  store your full card details.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 1rem; margin-top: 2rem">
+                <button
+                  id="backStep2"
+                  class="btn btn-primary dark"
+                  style="flex: 0 0 auto"
+                >
+                  Back
+                </button>
+                <button
+                  id="submitBooking"
+                  class="btn btn-primary gold"
+                  style="flex: 1; justify-content: center"
+                >
+                  Complete Booking
+                </button>
+              </div>
+
+              <p
+                class="body-text"
+                style="
+                  font-size: 0.75rem;
+                  text-align: center;
+                  margin-top: 1rem;
+                  color: var(--brown);
+                "
+              >
+                By completing this booking, you agree to our Terms of Service
+                and Privacy Policy.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right Column - Booking Summary -->
+          <div class="booking-summary-sidebar">
+            <div
+              class="booking-widget dark"
+              style="position: sticky; top: 120px"
+            >
+              <h3
+                style="
+                  font-family: var(--font-heading);
+                  font-size: 1.25rem;
+                  margin-bottom: 1.5rem;
+                  color: var(--text-light);
+                "
+              >
+                Booking Summary
+              </h3>
+
+              <!-- Room Info -->
+              <div
+                id="summaryRoom"
+                style="
+                  display: none;
+                  margin-bottom: 1.5rem;
+                  padding-bottom: 1.5rem;
+                  border-bottom: 1px solid var(--divider);
+                "
+              >
+                <img
+                  id="summaryRoomImage"
+                  src=""
+                  alt=""
+                  style="
+                    width: 100%;
+                    height: 150px;
+                    object-fit: cover;
+                    margin-bottom: 1rem;
+                    border-radius: 4px;
+                  "
+                />
+                <h4
+                  id="summaryRoomName"
+                  style="
+                    font-family: var(--font-heading);
+                    font-size: 1.125rem;
+                    color: var(--text-light);
+                    margin-bottom: 0.5rem;
+                  "
+                ></h4>
+                <span
+                  id="summaryRoomPrice"
+                  class="meta-text"
+                  style="color: var(--gold)"
+                ></span>
+              </div>
+
+              <!-- Dates -->
+              <div
+                style="
+                  margin-bottom: 1.5rem;
+                  padding-bottom: 1.5rem;
+                  border-bottom: 1px solid var(--divider);
+                "
+              >
+                <div style="margin-bottom: 1rem">
+                  <span
+                    class="meta-text"
+                    style="
+                      color: var(--brown);
+                      display: block;
+                      margin-bottom: 0.25rem;
+                    "
+                    >Check-in</span
+                  >
+                  <span
+                    id="summaryCheckIn"
+                    class="body-text"
+                    style="color: var(--text-light)"
+                    >Select dates</span
+                  >
+                </div>
+                <div style="margin-bottom: 1rem">
+                  <span
+                    class="meta-text"
+                    style="
+                      color: var(--brown);
+                      display: block;
+                      margin-bottom: 0.25rem;
+                    "
+                    >Check-out</span
+                  >
+                  <span
+                    id="summaryCheckOut"
+                    class="body-text"
+                    style="color: var(--text-light)"
+                    >Select dates</span
+                  >
+                </div>
+                <div>
+                  <span
+                    class="meta-text"
+                    style="
+                      color: var(--brown);
+                      display: block;
+                      margin-bottom: 0.25rem;
+                    "
+                    >Guests</span
+                  >
+                  <span
+                    id="summaryGuests"
+                    class="body-text"
+                    style="color: var(--text-light)"
+                    >2 guests</span
+                  >
+                </div>
+              </div>
+
+              <!-- Price Breakdown -->
+              <div
+                id="priceBreakdown"
+                style="
+                  margin-bottom: 1.5rem;
+                  padding-bottom: 1.5rem;
+                  border-bottom: 1px solid var(--divider);
+                "
+              >
+                <div class="booking-row" style="margin-bottom: 0.75rem">
+                  <span class="booking-label" id="summaryRate">Room rate</span>
+                  <span class="booking-value" id="summarySubtotal">$0</span>
+                </div>
+                <div class="booking-row" style="margin-bottom: 0.75rem">
+                  <span class="booking-label">Taxes & fees (10%)</span>
+                  <span class="booking-value" id="summaryTax">$0</span>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <span
+                  class="booking-total-label"
+                  style="font-size: 1rem; color: var(--text-light)"
+                  >Total</span
+                >
+                <span
+                  class="booking-total-value"
+                  id="summaryTotal"
+                  style="font-size: 1.5rem"
+                  >$0</span
+                >
+              </div>
+
+              <!-- Change Room Link -->
+              <a
+                href="/src/pages/rooms.html"
+                class="btn-text-only"
+                style="
+                  display: block;
+                  text-align: center;
+                  margin-top: 1.5rem;
+                  color: var(--gold);
+                "
+              >
+                Change Room
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo">LUXURY HOTEL</span>
+          <p class="footer-tagline">
+            Where every moment becomes a cherished memory.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="/src/pages/rooms.html">Rooms & Suites</a></li>
+            <li><a href="/src/pages/dining.html">Dining</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="/src/pages/about.html">About Us</a></li>
+            <li><a href="/src/pages/contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Contact</h4>
+          <ul class="footer-links">
+            <li>+234 800 123 4567</li>
+            <li>reservations@luxuryhotel.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright"
+          >© 2024 Luxury Hotel. All rights reserved.</span
+        >
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/src/scripts/main.js"></script>
+    <script src="/src/scripts/animations.js"></script>
+    <script src="/src/scripts/supabase.js"></script>
+    <script src="/src/scripts/auth.js"></script>
+    <script src="/src/scripts/booking.js"></script>
+    <script src="/src/scripts/paystack.js"></script>
+
+    <script>
+      // Header Book Now Button Handler (booking page)
+      (function () {
+        const bookNowBtn = document.getElementById("bookNowBtn");
+
+        if (bookNowBtn) {
+          bookNowBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Ensure booking data is set
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            const todayISO = today.toISOString().split("T")[0];
+            const tomorrowISO = tomorrow.toISOString().split("T")[0];
+
+            // Get existing or set default booking data
+            const existingData = sessionStorage.getItem("homeBookingData");
+            let bookingData;
+
+            if (existingData) {
+              bookingData = JSON.parse(existingData);
+              // Ensure dates are set
+              if (!bookingData.checkIn) bookingData.checkIn = todayISO;
+              if (!bookingData.checkOut) bookingData.checkOut = tomorrowISO;
+              if (!bookingData.guests) bookingData.guests = 2;
+            } else {
+              bookingData = {
+                checkIn: todayISO,
+                checkOut: tomorrowISO,
+                guests: 2,
+              };
+            }
+
+            sessionStorage.setItem(
+              "homeBookingData",
+              JSON.stringify(bookingData)
+            );
+
+            // Scroll to booking form
+            const bookingForm = document.querySelector(".booking-steps");
+            if (bookingForm) {
+              bookingForm.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        }
+      })();
+
+      // Initialize booking page
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get room from URL or state
+        let selectedRoom = State.getBooking().room;
+        if (!selectedRoom) {
+          const params = new URLSearchParams(window.location.search);
+          const roomSlug = params.get("room") || "ocean-view-suite";
+          const rooms = window.Booking?.rooms || [];
+          selectedRoom = rooms.find((r) => r.slug === roomSlug) || {
+            id: "room-1",
+            name: "Ocean View Suite",
+            slug: "ocean-view-suite",
+            price_per_night: 450,
+            featured_image:
+              "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800",
+          };
+        }
+
+        // Check for home page booking data
+        const homeBookingData = sessionStorage.getItem("homeBookingData");
+        const roomBookingData = sessionStorage.getItem("roomBookingData");
+
+        // Merge data sources (roomBookingData takes priority if available)
+        let bookingData = {};
+
+        if (roomBookingData) {
+          bookingData = JSON.parse(roomBookingData);
+          sessionStorage.removeItem("roomBookingData");
+        }
+
+        if (homeBookingData) {
+          const homeParsed = JSON.parse(homeBookingData);
+          // Only use home data if not overridden by room data
+          if (!bookingData.checkIn) bookingData.checkIn = homeParsed.checkIn;
+          if (!bookingData.checkOut) bookingData.checkOut = homeParsed.checkOut;
+          if (!bookingData.guests) bookingData.guests = homeParsed.guests;
+          sessionStorage.removeItem("homeBookingData");
+        }
+
+        if (Object.keys(bookingData).length > 0) {
+          // Update booking state with booking data
+          State.setBooking({
+            ...bookingData,
+            room: selectedRoom,
+          });
+
+          // Pre-fill form fields
+          if (bookingData.checkIn && document.getElementById("checkInDate")) {
+            document.getElementById("checkInDate").value = bookingData.checkIn;
+          }
+          if (bookingData.checkOut && document.getElementById("checkOutDate")) {
+            document.getElementById("checkOutDate").value =
+              bookingData.checkOut;
+          }
+          if (bookingData.guests && document.getElementById("guestCount")) {
+            document.getElementById("guestCount").textContent =
+              bookingData.guests;
+            document.getElementById("summaryGuests").textContent = `${
+              bookingData.guests
+            } guest${bookingData.guests > 1 ? "s" : ""}`;
+          }
+
+          // Update summary if dates are set
+          if (
+            bookingData.checkIn &&
+            bookingData.checkOut &&
+            bookingData.guests
+          ) {
+            const nights = Math.ceil(
+              (new Date(bookingData.checkOut) - new Date(bookingData.checkIn)) /
+                (1000 * 60 * 60 * 24)
+            );
+            const subtotal = selectedRoom.price_per_night * nights;
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            document.getElementById("summaryCheckIn").textContent = new Date(
+              bookingData.checkIn
+            ).toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            });
+            document.getElementById("summaryCheckOut").textContent = new Date(
+              bookingData.checkOut
+            ).toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            });
+            document.getElementById("summaryRate").textContent = `$${
+              selectedRoom.price_per_night
+            } × ${nights} night${nights > 1 ? "s" : ""}`;
+            document.getElementById(
+              "summarySubtotal"
+            ).textContent = `$${subtotal.toLocaleString()}`;
+            document.getElementById(
+              "summaryTax"
+            ).textContent = `$${tax.toLocaleString()}`;
+            document.getElementById(
+              "summaryTotal"
+            ).textContent = `$${total.toLocaleString()}`;
+          }
+        }
+
+        // Update booking state
+        State.setBooking({ room: selectedRoom });
+
+        // Update room preview
+        const selectedRoomDiv = document.getElementById("selectedRoom");
+        if (selectedRoomDiv) {
+          selectedRoomDiv.style.display = "flex";
+          document.getElementById("roomImage").src =
+            selectedRoom.featured_image;
+          document.getElementById("roomName").textContent = selectedRoom.name;
+          document.getElementById(
+            "roomPrice"
+          ).textContent = `$${selectedRoom.price_per_night} / night`;
+        }
+
+        // Update summary
+        const summaryRoom = document.getElementById("summaryRoom");
+        if (summaryRoom) {
+          summaryRoom.style.display = "block";
+          document.getElementById("summaryRoomImage").src =
+            selectedRoom.featured_image;
+          document.getElementById("summaryRoomName").textContent =
+            selectedRoom.name;
+          document.getElementById(
+            "summaryRoomPrice"
+          ).textContent = `From $${selectedRoom.price_per_night}/night`;
+        }
+
+        // Initialize date picker
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const checkInPicker = flatpickr("#checkInDate", {
+          minDate: today,
+          defaultDate: today,
+          dateFormat: "Y-m-d",
+          onChange: (dates, dateStr) => {
+            const checkOutPicker =
+              document.getElementById("checkOutDate")._flatpickr;
+            checkOutPicker.set("minDate", dateStr);
+            updateDateSummary();
+          },
+        });
+
+        const checkOutPicker = flatpickr("#checkOutDate", {
+          minDate: tomorrow,
+          defaultDate: tomorrow,
+          dateFormat: "Y-m-d",
+          onChange: updateDateSummary,
+        });
+
+        function updateDateSummary() {
+          const checkIn = document.getElementById("checkInDate").value;
+          const checkOut = document.getElementById("checkOutDate").value;
+
+          if (checkIn && checkOut) {
+            const nights = Math.ceil(
+              (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24)
+            );
+
+            // Update date preview
+            const datePreview = document.getElementById("datePreview");
+            const datePreviewText = document.getElementById("datePreviewText");
+            if (datePreview && datePreviewText) {
+              datePreview.style.display = "block";
+              const start = new Date(checkIn);
+              const end = new Date(checkOut);
+              datePreviewText.textContent = `${start.toLocaleDateString(
+                "en-US",
+                { month: "short", day: "numeric" }
+              )} → ${end.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })} (${nights} night${nights > 1 ? "s" : ""})`;
+            }
+
+            // Update nights display
+            const nightsDisplay = document.getElementById("nightsDisplay");
+            const nightsCount = document.getElementById("nightsCount");
+            if (nightsDisplay && nightsCount) {
+              nightsDisplay.style.display = "block";
+              nightsCount.textContent = `${nights} night${
+                nights > 1 ? "s" : ""
+              }`;
+            }
+
+            // Update summary
+            document.getElementById("summaryCheckIn").textContent = new Date(
+              checkIn
+            ).toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            });
+            document.getElementById("summaryCheckOut").textContent = new Date(
+              checkOut
+            ).toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+            });
+
+            // Calculate price
+            const subtotal = selectedRoom.price_per_night * nights;
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            document.getElementById("summaryRate").textContent = `$${
+              selectedRoom.price_per_night
+            } × ${nights} night${nights > 1 ? "s" : ""}`;
+            document.getElementById(
+              "summarySubtotal"
+            ).textContent = `$${subtotal.toLocaleString()}`;
+            document.getElementById(
+              "summaryTax"
+            ).textContent = `$${tax.toLocaleString()}`;
+            document.getElementById(
+              "summaryTotal"
+            ).textContent = `$${total.toLocaleString()}`;
+
+            // Update booking state
+            State.setBooking({
+              checkIn,
+              checkOut,
+              nights,
+              price: { subtotal, tax, total },
+            });
+          }
+        }
+
+        // Initialize guest selector
+        const guestInput = document.getElementById("guestCount");
+        const guestDisplay = document.getElementById("guestCount");
+
+        document
+          .getElementById("guestIncrease")
+          .addEventListener("click", () => {
+            const current = parseInt(guestDisplay.textContent);
+            if (current < 6) {
+              guestDisplay.textContent = current + 1;
+              document.getElementById("summaryGuests").textContent = `${
+                current + 1
+              } guest${current + 1 > 1 ? "s" : ""}`;
+            }
+          });
+
+        document
+          .getElementById("guestDecrease")
+          .addEventListener("click", () => {
+            const current = parseInt(guestDisplay.textContent);
+            if (current > 1) {
+              guestDisplay.textContent = current - 1;
+              document.getElementById("summaryGuests").textContent = `${
+                current - 1
+              } guest${current - 1 > 1 ? "s" : ""}`;
+            }
+          });
+
+        // Payment method selection
+        const paymentMethods = document.querySelectorAll(".payment-method");
+        const cardForm = document.getElementById("cardPaymentForm");
+        const bankTransfer = document.getElementById("bankTransferDetails");
+
+        paymentMethods.forEach((method) => {
+          method.addEventListener("click", () => {
+            paymentMethods.forEach((m) => m.classList.remove("active"));
+            method.classList.add("active");
+
+            const methodType = method.dataset.method;
+            if (cardForm)
+              cardForm.style.display = methodType === "card" ? "block" : "none";
+            if (bankTransfer) {
+              bankTransfer.style.display =
+                methodType === "bank_transfer" ? "block" : "none";
+              if (methodType === "bank_transfer") {
+                const bookingId = "booking-" + Date.now();
+                const total =
+                  State.getBooking().price?.total ||
+                  selectedRoom.price_per_night * 1.1;
+                window.PaystackIntegration.showBankTransfer(bookingId, total);
+              }
+            }
+          });
+        });
+
+        // Navigation buttons
+        document.getElementById("nextStep")?.addEventListener("click", () => {
+          const checkIn = document.getElementById("checkInDate").value;
+          const checkOut = document.getElementById("checkOutDate").value;
+
+          if (!checkIn || !checkOut) {
+            showError("Please select check-in and check-out dates");
+            return;
+          }
+
+          State.setBooking({
+            checkIn,
+            checkOut,
+            guests: parseInt(document.getElementById("guestCount").textContent),
+          });
+
+          goToStep(2);
+        });
+
+        document
+          .getElementById("nextToPayment")
+          ?.addEventListener("click", () => {
+            const fullName = document.getElementById("fullName")?.value?.trim();
+            const email = document.getElementById("email")?.value?.trim();
+            const phone = document.getElementById("phone")?.value?.trim();
+
+            if (!fullName || !email || !phone) {
+              showError("Please fill in all required fields");
+              return;
+            }
+
+            if (!Utils.isValidEmail(email)) {
+              showError("Please enter a valid email address");
+              return;
+            }
+
+            State.setBooking({
+              guestDetails: { fullName, email, phone },
+            });
+
+            goToStep(3);
+          });
+
+        document
+          .getElementById("backStep")
+          ?.addEventListener("click", () => goToStep(1));
+        document
+          .getElementById("backStep2")
+          ?.addEventListener("click", () => goToStep(2));
+
+        // Submit booking
+        document
+          .getElementById("submitBooking")
+          ?.addEventListener("click", async () => {
+            const bookingData = State.getBooking();
+            const total =
+              bookingData.price?.total || selectedRoom.price_per_night * 1.1;
+
+            // Initialize payment
+            await window.PaystackIntegration.init({
+              bookingId: "BK-" + Date.now(),
+              email: bookingData.guestDetails?.email || "guest@example.com",
+              amount: total,
+              onSuccess: (response) => {
+                window.location.href = `/src/pages/confirmation.html?booking=${response.reference}`;
+              },
+              onCancel: () => {
+                console.log("Payment cancelled");
+              },
+            });
+          });
+
+        function showError(message) {
+          const container = document.getElementById("bookingError");
+          if (container) {
+            container.innerHTML = `<div class="alert alert-error">${message}</div>`;
+            container.style.display = "block";
+            setTimeout(() => (container.style.display = "none"), 5000);
+          }
+        }
+      });
+
+      // Step navigation function
+      function goToStep(step) {
+        [1, 2, 3].forEach((s) => {
+          const stepEl = document.getElementById(`step-${s}`);
+          if (stepEl) stepEl.style.display = s === step ? "block" : "none";
+        });
+
+        // Update progress
+        document.querySelectorAll(".step").forEach((el, index) => {
+          el.classList.remove("active", "completed");
+          if (index + 1 < step) el.classList.add("completed");
+          if (index + 1 === step) el.classList.add("active");
+        });
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>

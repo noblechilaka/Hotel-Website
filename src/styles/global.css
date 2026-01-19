@@ -1,0 +1,504 @@
+/* ============================================
+   LUXURY HOTEL - GLOBAL VARIABLES & RESET
+   Complete Responsive System v2.0
+   ============================================ */
+
+/* ============================================
+   CSS VARIABLES - EDITORIAL NOIR COLOR PALETTE
+   ============================================ */
+
+:root {
+  /* ============================================
+     CORE EDITORIAL NOIR PALETTE
+     Sophisticated "Quiet Luxury" aesthetic
+     ============================================ */
+
+  /* Deep Base - Hero, headers, footer */
+  --obsidian-noir: #121212;
+
+  /* Organic Accent - Featured room sections */
+  --smoked-forest: #2d3428;
+
+  /* Light Surface - Gallery, content sections */
+  --bone-linen: #f2f0ed;
+
+  /* Text Primary - Headlines/body on dark backgrounds */
+  --optic-white: #ffffff;
+
+  /* Text Secondary - Headlines/body on light backgrounds */
+  --onyx: #1a1a1a;
+
+  /* Dividers/UI - Thin borders and separators */
+  --graphite: #4d4d4d;
+
+  /* Legacy Mappings (for backward compatibility) */
+  --bg-dark: var(--obsidian-noir);
+  --bg-light: var(--bone-linen);
+  --text-light: var(--optic-white);
+  --text-dark: var(--onyx);
+  --divider: var(--graphite);
+
+  /* Accent Colors - Editorial Noir accent (muted gold-green) */
+  --editorial-accent: #8b9a7d;
+  --editorial-accent-light: #a5ad92;
+  --editorial-accent-muted: rgba(139, 154, 125, 0.3);
+
+  /* Gradients */
+  --gradient-editorial: linear-gradient(
+    135deg,
+    var(--smoked-forest) 0%,
+    var(--obsidian-noir) 100%
+  );
+
+  --gradient-hero: linear-gradient(
+    to bottom,
+    rgba(18, 18, 18, 0.95) 0%,
+    rgba(18, 18, 18, 0.5) 40%,
+    rgba(18, 18, 18, 0.2) 100%
+  );
+
+  /* Typography */
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --playfair: "Playfair Display", serif;
+
+  /* Spacing - Desktop (≥1200px) */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+  --space-xxl: 12rem;
+
+  /* Container */
+  --container-max: 1440px;
+  --container-padding: clamp(1.5rem, 5vw, 5rem);
+
+  /* Transitions */
+  --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Z-index Scale */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+}
+
+/* ============================================
+   RESPONSIVE SPACING SYSTEM
+   ============================================ */
+
+/* Tablet (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  :root {
+    --space-xs: 0.375rem;
+    --space-sm: 0.875rem;
+    --space-md: 1.5rem;
+    --space-lg: 3rem;
+    --space-xl: 5rem;
+    --space-xxl: 8rem;
+    --container-max: 1024px;
+  }
+}
+
+/* Mobile (≤767px) */
+@media (max-width: 767px) {
+  :root {
+    --space-xs: 0.25rem;
+    --space-sm: 0.625rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 3.5rem;
+    --space-xxl: 5rem;
+    --container-max: 100%;
+    --container-padding: 1.25rem;
+  }
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: var(--editorial-accent);
+  color: var(--obsidian-noir);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--obsidian-noir);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--graphite);
+  border-radius: 4px;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--editorial-accent);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Forms */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Lists */
+ul,
+ol {
+  list-style: none;
+}
+
+/* ============================================
+   TYPOGRAPHY - HEADINGS
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* Fluid typography - Desktop */
+h1 {
+  font-size: clamp(3rem, 10vw, 8rem);
+}
+
+h2 {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+}
+
+h3 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+h5 {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+h6 {
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+}
+
+/* ============================================
+   TYPOGRAPHY - BODY & META
+   ============================================ */
+
+p {
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 60ch;
+}
+
+.text-small {
+  font-size: 0.875rem;
+}
+
+.text-meta {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================ */
+
+/* Tablet Typography */
+@media (max-width: 1199px) and (min-width: 768px) {
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  }
+
+  h4 {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  }
+
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .text-small {
+    font-size: 0.8125rem;
+  }
+
+  .text-meta {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+  }
+}
+
+/* Mobile Typography */
+@media (max-width: 767px) {
+  h1 {
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  h4 {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  h6 {
+    font-size: 0.875rem;
+  }
+
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .text-small {
+    font-size: 0.8125rem;
+  }
+
+  .text-meta {
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.text-editorial {
+  color: var(--editorial-accent);
+}
+
+.bg-dark {
+  background-color: var(--obsidian-noir);
+  color: var(--optic-white);
+}
+
+.bg-light {
+  background-color: var(--bone-linen);
+  color: var(--onyx);
+}
+
+.bg-forest {
+  background-color: var(--smoked-forest);
+  color: var(--optic-white);
+}
+
+/* ============================================
+   ANIMATION BASE CLASSES
+   ============================================ */
+
+.reveal-text {
+  overflow: hidden;
+}
+
+.reveal-text span {
+  display: block;
+  transform: translateY(100%);
+  transition: transform var(--transition-smooth);
+}
+
+.reveal-text.active span {
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-smooth),
+    transform var(--transition-smooth);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   MOBILE NAVIGATION OVERLAY
+   ============================================ */
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-smooth);
+  z-index: 999;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ============================================
+   SECTION SPACING UTILITIES - RESPONSIVE
+   ============================================ */
+
+.section-padding {
+  padding: var(--space-xl) var(--container-padding);
+}
+
+.section-padding-lg {
+  padding: var(--space-xxl) var(--container-padding);
+}
+
+.section-margin {
+  margin: var(--space-xl) 0;
+}
+
+/* Tablet Section Spacing */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .section-padding {
+    padding: var(--space-lg) var(--container-padding);
+  }
+
+  .section-padding-lg {
+    padding: var(--space-xl) var(--container-padding);
+  }
+
+  .section-margin {
+    margin: var(--space-lg) 0;
+  }
+}
+
+/* Mobile Section Spacing */
+@media (max-width: 767px) {
+  .section-padding {
+    padding: var(--space-md) var(--container-padding);
+  }
+
+  .section-padding-lg {
+    padding: var(--space-lg) var(--container-padding);
+  }
+
+  .section-margin {
+    margin: var(--space-md) 0;
+  }
+}
+
+/* Offset section margins */
+.section-offset-top {
+  margin-top: -5vh;
+}
+
+.section-offset-bottom {
+  margin-bottom: -5vh;
+}

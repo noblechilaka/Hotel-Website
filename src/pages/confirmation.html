@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking Confirmed | Luxury Hotel</title>
+    <meta
+      name="description"
+      content="Your reservation at Luxury Hotel has been confirmed."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/typography.css" />
+    <link rel="stylesheet" href="/src/styles/layout.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body class="confirmation-page bg-dark">
+      <!-- Header -->
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <!-- Menu Toggle - Left -->
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-text">MENU</span>
+        </button>
+
+        <!-- Logo - Centered -->
+        <div class="header-logo">
+          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+        </div>
+
+        <!-- Navigation - Right -->
+        <nav class="header-nav-right">
+          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Menu Panel -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <nav class="menu-panel" aria-label="Main navigation">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="/public/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item menu-divider"></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+        </ul>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+      </nav>
+    </div>
+
+
+    <main
+      style="
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-xl) var(--container-padding);
+      "
+    >
+      <div style="max-width: 600px; width: 100%; text-align: center">
+        <!-- Success Icon -->
+        <div class="success-icon" style="margin-bottom: 2rem">
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--gold)"
+            stroke-width="1"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9 12l2 2 4-4" />
+          </svg>
+        </div>
+
+        <!-- Title -->
+        <span class="meta-text gold" style="margin-bottom: 1rem; display: block"
+          >Booking Confirmed</span
+        >
+        <h1
+          class="section-title"
+          style="color: var(--text-light); margin-bottom: 1rem"
+        >
+          Thank You!
+        </h1>
+        <p class="body-text light" style="margin-bottom: 3rem">
+          Your reservation has been confirmed. A confirmation email has been
+          sent to your inbox with all the details.
+        </p>
+
+        <!-- Booking Reference -->
+        <div
+          style="
+            background: rgba(198, 168, 107, 0.1);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+          "
+        >
+          <span
+            class="meta-text"
+            style="color: var(--brown); display: block; margin-bottom: 0.5rem"
+            >Booking Reference</span
+          >
+          <span
+            id="bookingRef"
+            class="text-gold"
+            style="font-family: var(--font-heading); font-size: 1.5rem"
+            >LH-XXXXX</span
+          >
+        </div>
+
+        <!-- Booking Details Card -->
+        <div
+          class="confirmation-card"
+          style="
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: left;
+          "
+        >
+          <h3
+            style="
+              font-family: var(--font-heading);
+              font-size: 1.25rem;
+              margin-bottom: 1.5rem;
+              color: var(--text-dark);
+            "
+          >
+            Reservation Details
+          </h3>
+
+          <!-- Room -->
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              margin-bottom: 1.5rem;
+              padding-bottom: 1.5rem;
+              border-bottom: 1px solid var(--divider);
+            "
+          >
+            <img
+              id="roomImage"
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=200"
+              alt="Room"
+              style="
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 4px;
+              "
+            />
+            <div>
+              <h4
+                id="roomName"
+                style="
+                  font-family: var(--font-heading);
+                  font-size: 1.125rem;
+                  color: var(--text-dark);
+                  margin-bottom: 0.25rem;
+                "
+              >
+                Ocean View Suite
+              </h4>
+              <span id="roomType" class="meta-text" style="color: var(--gold)"
+                >Ocean View</span
+              >
+            </div>
+          </div>
+
+          <!-- Details Grid -->
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 1rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <div>
+              <span
+                class="meta-text"
+                style="
+                  color: var(--brown);
+                  display: block;
+                  margin-bottom: 0.25rem;
+                "
+                >Check-in</span
+              >
+              <p
+                id="checkIn"
+                class="body-text"
+                style="color: var(--text-dark); font-weight: 500"
+              >
+                Dec 15, 2024
+              </p>
+              <p
+                class="body-text"
+                style="font-size: 0.75rem; color: var(--brown)"
+              >
+                From 3:00 PM
+              </p>
+            </div>
+            <div>
+              <span
+                class="meta-text"
+                style="
+                  color: var(--brown);
+                  display: block;
+                  margin-bottom: 0.25rem;
+                "
+                >Check-out</span
+              >
+              <p
+                id="checkOut"
+                class="body-text"
+                style="color: var(--text-dark); font-weight: 500"
+              >
+                Dec 18, 2024
+              </p>
+              <p
+                class="body-text"
+                style="font-size: 0.75rem; color: var(--brown)"
+              >
+                Until 11:00 AM
+              </p>
+            </div>
+            <div>
+              <span
+                class="meta-text"
+                style="
+                  color: var(--brown);
+                  display: block;
+                  margin-bottom: 0.25rem;
+                "
+                >Guests</span
+              >
+              <p
+                id="guests"
+                class="body-text"
+                style="color: var(--text-dark); font-weight: 500"
+              >
+                2 Adults
+              </p>
+            </div>
+            <div>
+              <span
+                class="meta-text"
+                style="
+                  color: var(--brown);
+                  display: block;
+                  margin-bottom: 0.25rem;
+                "
+                >Total Paid</span
+              >
+              <p
+                id="totalAmount"
+                class="body-text"
+                style="color: var(--gold); font-weight: 600"
+              >
+                $1,485
+              </p>
+            </div>
+          </div>
+
+          <!-- Guest Info -->
+          <div
+            style="padding-top: 1.5rem; border-top: 1px solid var(--divider)"
+          >
+            <span
+              class="meta-text"
+              style="color: var(--brown); display: block; margin-bottom: 0.5rem"
+              >Guest Name</span
+            >
+            <p
+              id="guestName"
+              class="body-text"
+              style="color: var(--text-dark); font-weight: 500"
+            >
+              John Doe
+            </p>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div
+          style="
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+          "
+        >
+          <a href="/src/pages/dashboard.html" class="btn btn-primary gold">
+            View in Dashboard
+          </a>
+          <a
+            href="/public/index.html"
+            class="btn btn-primary dark"
+            style="color: var(--text-light); border-color: var(--text-light)"
+          >
+            Return Home
+          </a>
+        </div>
+
+        <!-- Support Note -->
+        <p
+          class="body-text"
+          style="
+            font-size: 0.875rem;
+            margin-top: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+          "
+        >
+          Need help? Contact us at
+          <a href="tel:+2348001234567" style="color: var(--gold)"
+            >+234 800 123 4567</a
+          >
+          or
+          <a
+            href="mailto:reservations@luxuryhotel.com"
+            style="color: var(--gold)"
+            >reservations@luxuryhotel.com</a
+          >
+        </p>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/src/scripts/main.js"></script>
+    <script src="/src/scripts/supabase.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get booking info from URL or state
+        const params = new URLSearchParams(window.location.search);
+        const bookingId =
+          params.get("booking") ||
+          "LH-" + Date.now().toString(36).toUpperCase();
+        const demo = params.get("demo");
+
+        // Get booking data from state or use defaults
+        const bookingData = State.getBooking() || {};
+        const room = bookingData.room || {
+          name: "Ocean View Suite",
+          category: "Ocean View",
+          featured_image:
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=200",
+        };
+
+        const dates = bookingData.dates || {
+          checkIn: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0],
+          checkOut: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0],
+        };
+
+        const guests = bookingData.guests || 2;
+        const price = bookingData.price || { total: 1485 };
+        const guestDetails = bookingData.guestDetails || {
+          fullName: "John Doe",
+          email: "john@example.com",
+        };
+
+        // Update page content
+        document.getElementById("bookingRef").textContent = bookingId;
+        document.getElementById("roomImage").src = room.featured_image;
+        document.getElementById("roomName").textContent = room.name;
+        document.getElementById("roomType").textContent =
+          room.category || "Room";
+        document.getElementById("checkIn").textContent = new Date(
+          dates.checkIn
+        ).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        document.getElementById("checkOut").textContent = new Date(
+          dates.checkOut
+        ).toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        document.getElementById("guests").textContent =
+          guests + (guests > 1 ? " Adults" : " Adult");
+        document.getElementById("totalAmount").textContent =
+          "$" + price.total.toLocaleString();
+        document.getElementById("guestName").textContent =
+          guestDetails.fullName;
+
+        // If demo mode, show notification
+        if (demo) {
+          const icon = document.querySelector(".success-icon");
+          icon.innerHTML +=
+            '<span class="meta-text gold" style="display: block; margin-top: 1rem;">Demo Mode Active</span>';
+        }
+
+        // Animate entrance
+        gsap.from(".success-icon", {
+          scale: 0,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+        });
+
+        gsap.from(".confirmation-card", {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          delay: 0.3,
+          ease: "power3.out",
+        });
+      });
+    </script>
+  </body>
+</html>

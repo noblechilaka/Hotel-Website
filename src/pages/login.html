@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Luxury Hotel</title>
+    <meta
+      name="description"
+      content="Sign in to your Luxury Hotel account to manage your bookings."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/typography.css" />
+    <link rel="stylesheet" href="/src/styles/layout.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body class="auth-page bg-dark">
+    <!-- Header -->
+  
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <!-- Menu Toggle - Left -->
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-text">MENU</span>
+        </button>
+
+        <!-- Logo - Centered -->
+        <div class="header-logo">
+          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+        </div>
+
+        <!-- Navigation - Right -->
+        <nav class="header-nav-right">
+          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Menu Panel -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <nav class="menu-panel" aria-label="Main navigation">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="/public/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item menu-divider"></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+        </ul>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+      </nav>
+    </div>
+
+    <main
+      style="
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-xl) var(--container-padding);
+      "
+    >
+      <div style="width: 100%; max-width: 420px">
+        <!-- Logo -->
+        <div style="text-align: center; margin-bottom: 3rem">
+          <a href="/index.html" style="display: inline-block">
+            <span class="logo" style="font-size: 2rem; color: var(--text-light)"
+              >LOGIN</span
+            >
+          </a>
+        </div>
+
+        <!-- Auth Card -->
+        <div
+          class="auth-card"
+          style="background: var(--bg-light); padding: 3rem; border-radius: 4px"
+        >
+          <!-- Back Link -->
+          <a
+            href="/public/index.html"
+            class="btn-text-only dark"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 0.5rem;
+              margin-bottom: 2rem;
+              color: var(--brown);
+            "
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Back to Home
+          </a>
+
+          <!-- Title -->
+          <h1
+            class="section-title"
+            style="font-size: 2rem; margin-bottom: 0.5rem"
+          >
+            Welcome Back
+          </h1>
+          <p class="body-text dark" style="margin-bottom: 2rem">
+            Sign in to access your account
+          </p>
+
+          <!-- Error/Success Messages -->
+          <div id="authError" style="margin-bottom: 1.5rem"></div>
+          <div id="authSuccess" style="margin-bottom: 1.5rem"></div>
+
+          <!-- Login Form -->
+          <form id="loginForm">
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-field"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <div class="input-wrapper">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="form-field"
+                  placeholder="Enter your password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-password"
+                  style="
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0.5rem;
+                  "
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--brown)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember & Forgot -->
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+              "
+            >
+              <label
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  cursor: pointer;
+                "
+              >
+                <input type="checkbox" style="accent-color: var(--gold)" />
+                <span class="body-text" style="font-size: 0.875rem"
+                  >Remember me</span
+                >
+              </label>
+              <a
+                href="/src/pages/reset-password.html"
+                class="btn-text-only dark"
+                style="color: var(--gold)"
+                >Forgot Password?</a
+              >
+            </div>
+
+            <button
+              type="submit"
+              id="loginBtn"
+              class="btn btn-primary gold"
+              style="width: 100%; justify-content: center"
+            >
+              Sign In
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+              margin: 2rem 0;
+            "
+          >
+            <div style="flex: 1; height: 1px; background: var(--divider)"></div>
+            <span class="meta-text" style="color: var(--brown)">or</span>
+            <div style="flex: 1; height: 1px; background: var(--divider)"></div>
+          </div>
+
+          <!-- Sign Up Link -->
+          <p
+            class="body-text dark"
+            style="text-align: center; font-size: 0.875rem"
+          >
+            Don't have an account?
+            <a
+              href="/src/pages/signup.html"
+              class="btn-text-only dark"
+              style="color: var(--gold)"
+              >Create Account</a
+            >
+          </p>
+        </div>
+
+        <!-- Footer Note -->
+        <p
+          class="body-text"
+          style="
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+          "
+        >
+          By signing in, you agree to our
+          <a href="/src/pages/terms.html" style="color: var(--gold)"
+            >Terms of Service</a
+          >
+          and
+          <a href="/src/pages/privacy.html" style="color: var(--gold)"
+            >Privacy Policy</a
+          >
+        </p>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/src/scripts/main.js"></script>
+    <script src="/src/scripts/supabase.js"></script>
+    <script src="/src/scripts/auth.js"></script>
+  </body>
+</html>

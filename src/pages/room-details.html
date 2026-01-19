@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room Details | Luxury Hotel</title>
+    <meta
+      name="description"
+      content="View room details and amenities. Book your perfect stay at Luxury Hotel."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/typography.css" />
+    <link rel="stylesheet" href="/src/styles/layout.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Flatpickr for date picking -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body class="room-details-page">
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+
+  
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <!-- Menu Toggle - Left -->
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-text">MENU</span>
+        </button>
+
+        <!-- Logo - Centered -->
+        <div class="header-logo">
+          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+        </div>
+
+        <!-- Navigation - Right -->
+        <nav class="header-nav-right">
+          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Menu Panel -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <nav class="menu-panel" aria-label="Main navigation">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="/public/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item menu-divider"></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+        </ul>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+      </nav>
+    </div>
+
+
+
+    <main>
+
+        <!-- Page Header -->
+      <section class="hero-pages" style="min-height: 50vh">
+        <img
+          src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920"
+          alt="Room Interior"
+          class="hero-bg"
+        />
+        <div class="hero-overlay"></div>
+
+        <div class="hero_content" style="padding-top: 150px">
+          <span
+            class="meta-text gold"
+            style="margin-bottom: 1rem; display: block"
+            >Accommodations</span
+          >
+          <h1 class="hero-heading" style="font-size: clamp(3rem, 8vw, 6rem)">
+            <span class="line"><span>Inside</span></span>
+            <span class="line"><span>The Rooms &</span></span>
+            <span class="line"><span class="text-gold">Suites</span></span>
+          </h1>
+        </div>
+      </section>
+      <!-- Room Gallery -->
+      <section class="section-padding" style="padding-bottom: 0">
+        <div class="container">
+          <!-- Main Image -->
+           
+          <div class="" style="margin-bottom: var(--space-md)">
+            <img
+              id="mainImage"
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+              alt="Ocean View Suite"
+              style="
+                width: 100%;
+                height: 70vh;
+                object-fit: cover;
+                border-radius: 4px;
+              "
+            />
+          </div>
+
+          <!-- Thumbnails -->
+          <div
+            class="room-gallery"
+            style="
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: var(--space-sm);
+            "
+          >
+            <button
+              class="gallery-thumb active"
+              data-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+              style="overflow: hidden; border-radius: 4px; cursor: pointer"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400"
+                alt="View 1"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  transition: transform 0.3s ease;
+                "
+              />
+            </button>
+            <button
+              class="gallery-thumb"
+              data-src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800"
+              style="overflow: hidden; border-radius: 4px; cursor: pointer"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400"
+                alt="View 2"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  transition: transform 0.3s ease;
+                "
+              />
+            </button>
+            <button
+              class="gallery-thumb"
+              data-src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800"
+              style="overflow: hidden; border-radius: 4px; cursor: pointer"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400"
+                alt="View 3"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  transition: transform 0.3s ease;
+                "
+              />
+            </button>
+            <button
+              class="gallery-thumb"
+              data-src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800"
+              style="overflow: hidden; border-radius: 4px; cursor: pointer"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400"
+                alt="View 4"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  transition: transform 0.3s ease;
+                "
+              />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Room Details & Booking -->
+      <section class="section-padding">
+        <div class="container">
+          <div class="room-details-section">
+            <!-- Room Info -->
+            <div class="room-details">
+              <span class="meta-text gold" id="roomCategory">Ocean View</span>
+              <h1
+                class="section-title"
+                id="roomName"
+                style="margin-bottom: 1rem"
+              >
+                Ocean View Suite
+              </h1>
+
+              <p
+                class="body-text"
+                id="roomDescription"
+                style="margin-bottom: 2rem"
+              >
+                A luxurious suite with panoramic ocean views, featuring a
+                private terrace and elegant contemporary design. The spacious
+                interior combines comfort with sophistication, creating the
+                perfect retreat for discerning travelers.
+              </p>
+
+              <!-- Room Stats -->
+              <div
+                style="
+                  display: flex;
+                  gap: var(--space-xl);
+                  margin-bottom: 2rem;
+                  padding: 1.5rem;
+                  background: var(--bg-light);
+                  border-radius: 4px;
+                "
+              >
+                <div>
+                  <span class="stat-number" id="roomSize">65</span>
+                  <span class="stat-label">m²</span>
+                </div>
+                <div>
+                  <span class="stat-number" id="bedType">King</span>
+                  <span class="stat-label">Bed</span>
+                </div>
+                <div>
+                  <span class="stat-number" id="maxGuests">2</span>
+                  <span class="stat-label">Guests</span>
+                </div>
+              </div>
+
+              <!-- Amenities -->
+              <h3
+                class="section-title"
+                style="font-size: 1.5rem; margin-bottom: 1rem"
+              >
+                Amenities
+              </h3>
+              <ul
+                class="amenities-list"
+                id="amenitiesList"
+                style="
+                  list-style: none;
+                  display: grid;
+                  grid-template-columns: repeat(2, 1fr);
+                  gap: 1rem;
+                "
+              >
+                <li style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span>Ocean View</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span>Private Terrace</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span>Mini Bar</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span>Free WiFi</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span>Room Service</span>
+                </li>
+                <li style="display: flex; align-items: center; gap: 0.75rem">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  <span>Air Conditioning</span>
+                </li>
+              </ul>
+
+              <!-- Policies -->
+              <div
+                style="
+                  margin-top: 2rem;
+                  padding-top: 2rem;
+                  border-top: 1px solid var(--divider);
+                "
+              >
+                <h3
+                  class="section-title"
+                  style="font-size: 1.25rem; margin-bottom: 1rem"
+                >
+                  Policies
+                </h3>
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
+                  "
+                >
+                  <div>
+                    <span class="meta-text">Check-in</span>
+                    <p class="body-text" style="margin-top: 0.25rem">
+                      3:00 PM onwards
+                    </p>
+                  </div>
+                  <div>
+                    <span class="meta-text">Check-out</span>
+                    <p class="body-text" style="margin-top: 0.25rem">
+                      11:00 AM
+                    </p>
+                  </div>
+                  <div>
+                    <span class="meta-text">Cancellation</span>
+                    <p class="body-text" style="margin-top: 0.25rem">
+                      Free up to 48 hours before
+                    </p>
+                  </div>
+                  <div>
+                    <span class="meta-text">Children</span>
+                    <p class="body-text" style="margin-top: 0.25rem">
+                      Welcome of all ages
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Booking Widget -->
+            <div class="booking-widget sticky-widget">
+              <div style="text-align: center; margin-bottom: 1.5rem">
+                <span class="price" id="roomPrice">$450</span>
+                <span class="price-period">/ night</span>
+              </div>
+
+              <!-- Date Selection -->
+              <div class="form-group">
+                <label class="form-label">Check-in</label>
+                <input
+                  type="text"
+                  id="checkInDate"
+                  class="form-field"
+                  placeholder="Select date"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Check-out</label>
+                <input
+                  type="text"
+                  id="checkOutDate"
+                  class="form-field"
+                  placeholder="Select date"
+                />
+              </div>
+
+              <!-- Guest Selection -->
+              <div class="form-group">
+                <label class="form-label">Guests</label>
+                <div
+                  class="guest-selector"
+                  style="display: flex; align-items: center; gap: 1rem"
+                >
+                  <button
+                    class="btn-text-only"
+                    id="guestDecrease"
+                    style="font-size: 1.5rem; padding: 0.5rem"
+                  >
+                    −
+                  </button>
+                  <span
+                    id="guestDisplay"
+                    style="font-family: var(--font-heading); font-size: 1.25rem"
+                    >2</span
+                  >
+                  <input
+                    type="number"
+                    id="guestCount"
+                    value="2"
+                    min="1"
+                    max="6"
+                    style="
+                      width: 50px;
+                      text-align: center;
+                      border: none;
+                      background: transparent;
+                      font-family: var(--font-heading);
+                      font-size: 1.25rem;
+                    "
+                  />
+                  <button
+                    class="btn-text-only"
+                    id="guestIncrease"
+                    style="font-size: 1.5rem; padding: 0.5rem"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- Price Summary -->
+              <div class="booking-summary" style="margin-top: 1.5rem">
+                <div class="booking-row">
+                  <span class="booking-label" id="roomRate"
+                    >$450 × 1 night</span
+                  >
+                  <span class="booking-value" id="subtotal">$450</span>
+                </div>
+                <div class="booking-row">
+                  <span class="booking-label">Taxes & fees (10%)</span>
+                  <span class="booking-value" id="taxAmount">$45</span>
+                </div>
+                <div class="booking-total">
+                  <span class="booking-total-label">Total</span>
+                  <span class="booking-total-value" id="totalAmount">$495</span>
+                </div>
+              </div>
+
+              <a
+                href="/src/pages/booking.html"
+                class="btn btn-primary gold"
+                style="width: 100%; justify-content: center; margin-top: 1.5rem"
+              >
+                Book Now
+              </a>
+
+              <p
+                class="text-small"
+                style="
+                  text-align: center;
+                  margin-top: 1rem;
+                  color: var(--brown);
+                "
+              >
+                You won't be charged yet
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Rooms -->
+      <section class="section-padding bg-dark">
+        <div class="container">
+          <h2
+            class="section-title"
+            style="color: var(--text-light); margin-bottom: 2rem"
+          >
+            You May Also Like
+          </h2>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: var(--space-md);
+            "
+          >
+            <a
+              href="/src/pages/room-details.html?room=garden-retreat"
+              class="related-room"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600"
+                alt="Garden Retreat"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  margin-bottom: 1rem;
+                "
+              />
+              <h3
+                style="
+                  font-family: var(--font-heading);
+                  font-size: 1.25rem;
+                  color: var(--text-light);
+                "
+              >
+                Garden Retreat
+              </h3>
+              <span class="meta-text" style="color: var(--gold)"
+                >From $320/night</span
+              >
+            </a>
+
+            <a
+              href="/src/pages/room-details.html?room=presidential-suite"
+              class="related-room"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600"
+                alt="Presidential Suite"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  margin-bottom: 1rem;
+                "
+              />
+              <h3
+                style="
+                  font-family: var(--font-heading);
+                  font-size: 1.25rem;
+                  color: var(--text-light);
+                "
+              >
+                Presidential Suite
+              </h3>
+              <span class="meta-text" style="color: var(--gold)"
+                >From $1,200/night</span
+              >
+            </a>
+
+            <a
+              href="/src/pages/room-details.html?room=beach-villa"
+              class="related-room"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600"
+                alt="Beach Villa"
+                style="
+                  width: 100%;
+                  aspect-ratio: 4/3;
+                  object-fit: cover;
+                  margin-bottom: 1rem;
+                "
+              />
+              <h3
+                style="
+                  font-family: var(--font-heading);
+                  font-size: 1.25rem;
+                  color: var(--text-light);
+                "
+              >
+                Beach Villa
+              </h3>
+              <span class="meta-text" style="color: var(--gold)"
+                >From $850/night</span
+              >
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo">LUXURY HOTEL</span>
+          <p class="footer-tagline">
+            Where every moment becomes a cherished memory.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="/src/pages/rooms.html">Rooms & Suites</a></li>
+            <li><a href="/src/pages/dining.html">Dining</a></li>
+            <li><a href="/src/pages/spa.html">Spa & Wellness</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="/src/pages/about.html">About Us</a></li>
+            <li><a href="/src/pages/contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Contact</h4>
+          <ul class="footer-links">
+            <li>+234 800 123 4567</li>
+            <li>reservations@luxuryhotel.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright"
+          >© 2024 Luxury Hotel. All rights reserved.</span
+        >
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/src/scripts/main.js"></script>
+    <script src="/src/scripts/animations.js"></script>
+    <script src="/src/scripts/supabase.js"></script>
+    <script src="/src/scripts/auth.js"></script>
+    <script src="/src/scripts/booking.js"></script>
+
+    <script>
+      // Room Data
+      const roomData = {
+        "ocean-view-suite": {
+          name: "Ocean View Suite",
+          category: "Ocean View",
+          price: 450,
+          size: 65,
+          bed: "King",
+          guests: 2,
+          description:
+            "A luxurious suite with panoramic ocean views, featuring a private terrace and elegant contemporary design. The spacious interior combines comfort with sophistication, creating the perfect retreat for discerning travelers.",
+          amenities: [
+            "Ocean View",
+            "Private Terrace",
+            "Mini Bar",
+            "Free WiFi",
+            "Room Service",
+            "Air Conditioning",
+          ],
+          images: [
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
+            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400",
+            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1400",
+          ],
+        },
+        "garden-retreat": {
+          name: "Garden Retreat",
+          category: "Garden Setting",
+          price: 320,
+          size: 55,
+          bed: "Queen",
+          guests: 2,
+          description:
+            "Nestled within our lush tropical gardens, this sanctuary offers complete privacy and tranquility. The rain shower and private garden create an intimate connection with nature.",
+          amenities: [
+            "Garden View",
+            "Rain Shower",
+            "Private Garden",
+            "Free WiFi",
+            "Air Conditioning",
+            "Mini Bar",
+          ],
+          images: [
+            "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1400",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400",
+            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1400",
+          ],
+        },
+        "presidential-suite": {
+          name: "Presidential Suite",
+          category: "Ultimate Luxury",
+          price: 1200,
+          size: 150,
+          bed: "King",
+          guests: 4,
+          description:
+            "The pinnacle of luxury living. This expansive suite features exclusive amenities, dedicated butler service, and breathtaking panoramic views that will take your breath away.",
+          amenities: [
+            "Panoramic Views",
+            "Private Pool",
+            "Butler Service",
+            "Jacuzzi",
+            "Kitchen",
+            "Home Theater",
+          ],
+          images: [
+            "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1400",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
+            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400",
+            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400",
+          ],
+        },
+        "beach-villa": {
+          name: "Beach Villa",
+          category: "Beachfront",
+          price: 850,
+          size: 200,
+          bed: "King + Twins",
+          guests: 6,
+          description:
+            "Your private paradise with direct beach access and an infinity pool that seems to merge with the ocean. The ultimate retreat for those seeking space and exclusivity.",
+          amenities: [
+            "Beach Access",
+            "Private Pool",
+            "Kitchen",
+            "Butler Service",
+            "Outdoor Lounge",
+            "BBQ Area",
+          ],
+          images: [
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
+            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400",
+            "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1400",
+          ],
+        },
+      };
+      
+      
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get room from URL
+        const params = new URLSearchParams(window.location.search);
+        const roomSlug = params.get("room") || "ocean-view-suite";
+        const room = roomData[roomSlug] || roomData["ocean-view-suite"];
+
+        // Check for home page booking data
+        const homeBookingData = sessionStorage.getItem('homeBookingData');
+        if (homeBookingData) {
+            const parsed = JSON.parse(homeBookingData);
+            
+            // Pre-fill form fields
+            if (parsed.checkIn && document.getElementById('checkInDate')) {
+                document.getElementById('checkInDate').value = parsed.checkIn;
+            }
+            if (parsed.checkOut && document.getElementById('checkOutDate')) {
+                document.getElementById('checkOutDate').value = parsed.checkOut;
+            }
+            if (parsed.guests) {
+                document.getElementById('guestCount').value = Math.min(parsed.guests, room.guests);
+                document.getElementById('guestDisplay').textContent = Math.min(parsed.guests, room.guests);
+            }
+
+            // Update price with pre-filled data
+            if (parsed.checkIn && parsed.checkOut) {
+                setTimeout(updatePrice, 100);
+            }
+
+            // Clear home booking data
+            sessionStorage.removeItem('homeBookingData');
+        }
+
+        // Update page content
+        document.getElementById("roomName").textContent = room.name;
+        document.getElementById("roomCategory").textContent = room.category;
+        document.getElementById("roomDescription").textContent =
+          room.description;
+        document.getElementById("roomPrice").textContent = `$${room.price}`;
+        document.getElementById("roomSize").textContent = room.size;
+        document.getElementById("bedType").textContent = room.bed;
+        document.getElementById("maxGuests").textContent = room.guests;
+        document.title = `${room.name} | Luxury Hotel`;
+
+        // Update gallery
+        const mainImage = document.getElementById("mainImage");
+        mainImage.src = room.images[0];
+        mainImage.alt = room.name;
+
+        // Update thumbnails
+        const thumbs = document.querySelectorAll(".gallery-thumb");
+        thumbs.forEach((thumb, index) => {
+          thumb.dataset.src = room.images[index];
+          thumb.querySelector("img").src = room.images[index].replace(
+            "w=1400",
+            "w=400"
+          );
+        });
+
+        // Update amenities
+        const amenitiesList = document.getElementById("amenitiesList");
+        amenitiesList.innerHTML = room.amenities
+          .map(
+            (amenity) => `
+                <li style="display: flex; align-items: center; gap: 0.75rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    <span>${amenity}</span>
+                </li>
+            `
+          )
+          .join("");
+
+        // Initialize gallery click handlers
+        thumbs.forEach((thumb) => {
+          thumb.addEventListener("click", () => {
+            thumbs.forEach((t) => t.classList.remove("active"));
+            thumb.classList.add("active");
+            mainImage.src = thumb.dataset.src;
+
+            gsap.fromTo(
+              mainImage,
+              { opacity: 0.8 },
+              { opacity: 1, duration: 0.3 }
+            );
+          });
+        });
+
+        // Initialize date picker
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const checkIn = flatpickr("#checkInDate", {
+          minDate: today,
+          defaultDate: today,
+          dateFormat: "Y-m-d",
+          onChange: (selectedDates, dateStr) => {
+            const checkOutPicker =
+              document.getElementById("checkOutDate")._flatpickr;
+            checkOutPicker.set("minDate", dateStr);
+            checkOutPicker.open();
+            updatePrice();
+          },
+        });
+
+        const checkOut = flatpickr("#checkOutDate", {
+          minDate: tomorrow,
+          defaultDate: tomorrow,
+          dateFormat: "Y-m-d",
+          onChange: updatePrice,
+        });
+
+        // Initialize guest selector
+        const guestInput = document.getElementById("guestCount");
+        const guestDisplay = document.getElementById("guestDisplay");
+
+        document
+          .getElementById("guestIncrease")
+          .addEventListener("click", () => {
+            if (parseInt(guestInput.value) < room.guests) {
+              guestInput.value = parseInt(guestInput.value) + 1;
+              guestDisplay.textContent = guestInput.value;
+              updatePrice();
+            }
+          });
+
+        document
+          .getElementById("guestDecrease")
+          .addEventListener("click", () => {
+            if (parseInt(guestInput.value) > 1) {
+              guestInput.value = parseInt(guestInput.value) - 1;
+              guestDisplay.textContent = guestInput.value;
+              updatePrice();
+            }
+          });
+
+        guestInput.addEventListener("change", updatePrice);
+
+        function updatePrice() {
+          const checkInDate = document.getElementById("checkInDate").value;
+          const checkOutDate = document.getElementById("checkOutDate").value;
+
+          if (checkInDate && checkOutDate) {
+            const nights = Math.ceil(
+              (new Date(checkOutDate) - new Date(checkInDate)) /
+                (1000 * 60 * 60 * 24)
+            );
+            const subtotal = room.price * nights;
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            document.getElementById("roomRate").textContent = `$${
+              room.price
+            } × ${nights} night${nights > 1 ? "s" : ""}`;
+            document.getElementById(
+              "subtotal"
+            ).textContent = `$${subtotal.toLocaleString()}`;
+            document.getElementById(
+              "taxAmount"
+            ).textContent = `$${tax.toLocaleString()}`;
+            document.getElementById(
+              "totalAmount"
+            ).textContent = `$${total.toLocaleString()}`;
+          }
+        }
+
+        // Update booking link with room
+        const bookBtn = document.querySelector(".booking-widget .btn");
+        bookBtn.href = `/src/pages/booking.html?room=${roomSlug}`;
+
+        // Store booking data when clicking Book Now
+        bookBtn.addEventListener('click', () => {
+            const checkInDate = document.getElementById('checkInDate').value;
+            const checkOutDate = document.getElementById('checkOutDate').value;
+            const guests = parseInt(document.getElementById('guestCount').value);
+            
+            if (checkInDate && checkOutDate) {
+                const bookingData = {
+                    checkIn: checkInDate,
+                    checkOut: checkOutDate,
+                    guests,
+                    room: roomSlug
+                };
+                sessionStorage.setItem('roomBookingData', JSON.stringify(bookingData));
+            }
+        });
+
+        // Store room in state
+        State.setBooking({ room });
+      });
+    </script>
+  </body>
+</html>

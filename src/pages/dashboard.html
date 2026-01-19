@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Dashboard | Luxury Hotel</title>
+    <meta
+      name="description"
+      content="Manage your bookings and account settings at Luxury Hotel."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/typography.css" />
+    <link rel="stylesheet" href="/src/styles/layout.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  </head>
+  <body class="dashboard-page">
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+<div class="black-top"></div>
+    <!-- Header -->
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <!-- Menu Toggle - Left -->
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-text">MENU</span>
+        </button>
+
+        <!-- Logo - Centered -->
+        <div class="header-logo">
+          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+        </div>
+
+        <!-- Navigation - Right -->
+        <nav class="header-nav-right">
+          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Menu Panel -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <nav class="menu-panel" aria-label="Main navigation">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="/public/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item menu-divider"></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+        </ul>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+      </nav>
+    </div>
+
+
+    <main>
+        
+      <div class="container">
+        <!-- Welcome Section -->
+        <div class="dashboard-welcome">
+          <span class="meta-text gold">Welcome back</span>
+          <h1 class="section-title" id="userName">Guest</h1>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+          <!-- Sidebar -->
+          <aside class="dashboard-sidebar">
+            <nav class="dashboard-nav">
+              <ul>
+                <li>
+                  <a href="#bookings" class="dashboard-link active">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    My Bookings
+                  </a>
+                </li>
+                <li>
+                  <a href="#profile" class="dashboard-link">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <a href="#preferences" class="dashboard-link">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <circle cx="12" cy="12" r="3" />
+                      <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                      />
+                    </svg>
+                    Preferences
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+
+          <!-- Main Content -->
+          <div class="dashboard-content">
+            <!-- Bookings Section -->
+            <section id="bookings" class="dashboard-section">
+              <h2 class="section-title">My Bookings</h2>
+
+              <!-- Demo Bookings -->
+              <div id="bookingsList">
+                <!-- Demo Booking 1 -->
+                <div class="booking-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=200"
+                    alt="Ocean View Suite"
+                  />
+                  <div class="booking-card-content">
+                    <div class="booking-card-header">
+                      <div>
+                        <span class="meta-text gold">Confirmed</span>
+                        <h3>Ocean View Suite</h3>
+                      </div>
+                      <span class="loyalty-badge">Gold Member</span>
+                    </div>
+
+                    <div class="booking-stats">
+                      <div>
+                        <span class="meta-text">Check-in</span>
+                        <p class="body-text">Dec 15, 2024</p>
+                      </div>
+                      <div>
+                        <span class="meta-text ">Check-out</span>
+                        <p class="body-text">Dec 18, 2024</p>
+                      </div>
+                      <div>
+                        <span class="meta-text">Guests</span>
+                        <p class="body-text">2 Adults</p>
+                      </div>
+                      <div>
+                        <span class="meta-text">Total</span>
+                        <p class="body-text text-editorial">$1,485</p>
+                      </div>
+                    </div>
+
+                    <div class="booking-actions">
+                      <a
+                        href="/src/pages/confirmation.html"
+                        class="btn btn-primary gold"
+                        >View Details</a
+                      >
+                      <button class="btn-text-only dark">Modify</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Demo Booking 2 -->
+                <div class="booking-card completed">
+                  <img
+                    src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=200"
+                    alt="Garden Retreat"
+                  />
+                  <div class="booking-card-content">
+                    <div class="booking-card-header">
+                      <div>
+                        <span class="meta-text">Completed</span>
+                        <h3>Garden Retreat</h3>
+                      </div>
+                    </div>
+
+                    <div class="booking-stats">
+                      <div>
+                        <span class="meta-text">Check-in</span>
+                        <p class="body-text">Nov 20, 2024</p>
+                      </div>
+                      <div>
+                        <span class="meta-text">Check-out</span>
+                        <p class="body-text">Nov 23, 2024</p>
+                      </div>
+                      <div>
+                        <span class="meta-text">Total</span>
+                        <p class="body-text text-editorial">$1,056</p>
+                      </div>
+                    </div>
+
+                    <div class="booking-actions">
+                      <button class="btn btn-primary gold">Book Again</button>
+                      <button class="btn-text-only dark">View Receipt</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Empty State (hidden if bookings exist) -->
+              <div id="emptyBookings" class="hidden">
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="var(--divider)"
+                  stroke-width="1"
+                  style="margin-bottom: 1rem"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                <h3
+                  style="
+                    font-family: var(--font-heading);
+                    font-size: 1.25rem;
+                    margin-bottom: 0.5rem;
+                  "
+                >
+                  No Bookings Yet
+                </h3>
+                <p class="body-text" style="margin-bottom: 1.5rem">
+                  Start planning your next luxury escape
+                </p>
+                <a href="/src/pages/rooms.html" class="btn btn-primary gold"
+                  >Browse Rooms</a
+                >
+              </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="dashboard-section">
+              <h2 class="section-title">Profile Information</h2>
+
+              <div class="profile-card">
+                <form id="profileForm">
+                  <div class="form-group-inline">
+                    <div class="form-group">
+                      <label class="form-label">Full Name</label>
+                      <input
+                        type="text"
+                        id="profileName"
+                        class="form-field"
+                        value="John Doe"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email</label>
+                      <input
+                        type="email"
+                        id="profileEmail"
+                        class="form-field"
+                        value="john.doe@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group-inline">
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input
+                        type="tel"
+                        id="profilePhone"
+                        class="form-field"
+                        value="+234 800 123 4567"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Date of Birth</label>
+                      <input type="date" id="profileDob" class="form-field" />
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 1.5rem">
+                    <button type="submit" class="btn btn-primary gold">
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section id="preferences" class="dashboard-section">
+              <h2 class="section-title">Quick Actions</h2>
+
+              <div class="quick-actions-grid">
+                <a href="/src/pages/booking.html" class="quick-action">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                  </svg>
+                  <div>
+                    <h4>New Booking</h4>
+                    <p class="body-text">Reserve your next stay</p>
+                  </div>
+                </a>
+
+                <a href="/src/pages/contact.html" class="quick-action">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--gold)"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                  </svg>
+                  <div>
+                    <h4>Contact Us</h4>
+                    <p class="body-text">Get in touch</p>
+                  </div>
+                </a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo">LUXURY HOTEL</span>
+          <p class="footer-tagline">
+            Where every moment becomes a cherished memory.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Contact</h4>
+          <ul class="footer-links">
+            <li>+234 800 123 4567</li>
+            <li>reservations@luxuryhotel.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright"
+          >© 2024 Luxury Hotel. All rights reserved.</span
+        >
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/src/scripts/main.js"></script>
+    <script src="/src/scripts/animations.js"></script>
+    <script src="/src/scripts/supabase.js"></script>
+    <script src="/src/scripts/auth.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Update user name
+        const user = State.getUser();
+        const userName = document.getElementById("userName");
+
+        if (user && userName) {
+          const name =
+            user.user_metadata?.full_name ||
+            user.full_name ||
+            user.email?.split("@")[0] ||
+            "Guest";
+          userName.textContent = name;
+
+          // Pre-fill profile form
+          const profileName = document.getElementById("profileName");
+          const profileEmail = document.getElementById("profileEmail");
+          const profilePhone = document.getElementById("profilePhone");
+
+          if (profileName) profileName.value = name;
+          if (profileEmail) profileEmail.value = user.email || "";
+          if (profilePhone)
+            profilePhone.value = user.user_metadata?.phone || "";
+        }
+
+        // Sidebar navigation
+        const links = document.querySelectorAll(".dashboard-link");
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            links.forEach((l) => l.classList.remove("active"));
+            link.classList.add("active");
+
+            // Smooth scroll to section
+            const target = link.getAttribute("href").substring(1);
+            const section = document.getElementById(target);
+            if (section) {
+              section.scrollIntoView({ behavior: "smooth" });
+            }
+          });
+        });
+
+        // Profile form submission
+        document
+          .getElementById("profileForm")
+          ?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert("Profile updated successfully!");
+          });
+
+        // Initialize animations
+        gsap.from(".booking-card", {
+          y: 30,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+        });
+      });
+    </script>
+  </body>
+</html>

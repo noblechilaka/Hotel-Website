@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grand Emily Hotel | Where Timeless Elegance Lives</title>
+    <meta
+      name="description"
+      content="Experience timeless elegance at Grand Emily Hotel. Where contemporary design meets legendary hospitality."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/typography.css" />
+    <link rel="stylesheet" href="/src/styles/layout.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+    <link rel="stylesheet" href="/src/styles/animations.css" />
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Flatpickr -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </head>
+  <body class="home-page">
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <!-- Menu Toggle - Left -->
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+          </div>
+          <span class="menu-text">MENU</span>
+        </button>
+
+        <!-- Logo - Centered -->
+        <div class="header-logo">
+          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+        </div>
+
+        <!-- Navigation - Right -->
+        <nav class="header-nav-right">
+          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Menu Panel -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+      <nav class="menu-panel" aria-label="Main navigation">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="/public/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item menu-divider"></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+        </ul>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+      </nav>
+    </div>
+
+
+    <main>
+      <!-- Hero Section - Grand Emily Hotel -->
+      <section class="hero">
+        <!-- Hero Background Image - Moody Hotel Interior -->
+        <img
+          src="/assets/imgs/Luxurious Hotel Lobby (1).png"
+          alt="Grand Emily Hotel Lobby - Modern Interior with Fluted Wood and Concrete"
+          class="hero-bg"
+        />
+        
+        <!-- Directional Gradient Overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
+          <div class="hero-center-content">
+            <h1 class="hero-headline">GRAND EMILY HOTEL</h1>
+          </div>
+        </div>
+
+        <!-- Booking Interface Bar - Editorial Typography Style -->
+        <div class="hero-booking-bar">
+          <form class="editorial-filters" id="heroBookingForm">
+            <!-- Check-in Date Filter -->
+            <div class="filter-unit filter-dates">
+              <label class="filter-label" for="heroCheckIn">
+                Check-in
+                <span class="filter-arrow"></span>
+              </label>
+              <span class="filter-value" id="heroCheckInValue">Select Date</span>
+              <span class="filter-underline"></span>
+              <input
+                type="text"
+                id="heroCheckIn"
+                class="filter-select"
+                placeholder="Check-in"
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- Check-out Date Filter -->
+            <div class="filter-unit filter-dates">
+              <label class="filter-label" for="heroCheckOut">
+                Check-out
+                <span class="filter-arrow"></span>
+              </label>
+              <span class="filter-value" id="heroCheckOutValue">Select Date</span>
+              <span class="filter-underline"></span>
+              <input
+                type="text"
+                id="heroCheckOut"
+                class="filter-select"
+                placeholder="Check-out"
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- Rooms Filter -->
+            <div class="filter-unit filter-rooms">
+              <label class="filter-label" for="heroRooms">
+                Rooms
+                <span class="filter-arrow"></span>
+              </label>
+              <span class="filter-value" id="heroRoomsValue">1 Room</span>
+              <span class="filter-underline"></span>
+              <select id="heroRooms" class="filter-select">
+                <option value="1">1 Room</option>
+                <option value="2">2 Rooms</option>
+                <option value="3">3 Rooms</option>
+                <option value="4">4 Rooms</option>
+                <option value="5">5 Rooms</option>
+              </select>
+            </div>
+
+            <!-- Guests Filter -->
+            <div class="filter-unit filter-guests">
+              <label class="filter-label" for="heroGuests">
+                Guests
+                <span class="filter-arrow"></span>
+              </label>
+              <span class="filter-value" id="heroGuestsValue">2 Adults</span>
+              <span class="filter-underline"></span>
+              <select id="heroGuests" class="filter-select">
+                <option value="1-0">1 Adult</option>
+                <option value="2-0" selected>2 Adults</option>
+                <option value="2-1">2 Adults, 1 Child</option>
+                <option value="2-2">2 Adults, 2 Children</option>
+                <option value="3-0">3 Adults</option>
+                <option value="3-1">3 Adults, 1 Child</option>
+                <option value="4-0">4 Adults</option>
+                <option value="4-2">4 Adults, 2 Children</option>
+              </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="booking-cta">LET'S GO</button>
+          </form>
+        </div>
+
+
+        <!-- Bottom Caption -->
+        <div class="hero-caption">
+          <p>Where timeless elegance meets contemporary design. Experience the art of hospitality in the heart of the city.</p>
+        </div>
+      </section>
+
+      <!-- Quick Booking Widget (Below Hero)
+      <section class="booking-widget-section">
+        <div class="container">
+          <div class="home-booking-widget">
+            <h3 class="booking-widget-title">Book Your Stay</h3>
+            <div class="booking-form-row">
+              <div class="booking-form-group">
+                <label class="booking-label">Check-in</label>
+                <input
+                  type="text"
+                  id="homeCheckIn"
+                  class="booking-input"
+                  placeholder="Select date"
+                />
+              </div>
+              <div class="booking-form-group">
+                <label class="booking-label">Check-out</label>
+                <input
+                  type="text"
+                  id="homeCheckOut"
+                  class="booking-input"
+                  placeholder="Select date"
+                />
+              </div>
+              <div class="booking-form-group">
+                <label class="booking-label">Guests</label>
+                <div class="guest-selector">
+                  <button class="guest-btn" id="homeGuestDecrease">−</button>
+                  <span id="homeGuestCount" class="guest-count">2</span>
+                  <button class="guest-btn" id="homeGuestIncrease">+</button>
+                </div>
+              </div>
+              <a href="/src/pages/rooms.html" class="btn-ghost-pill booking-submit-btn" id="homeBookNow">
+                Check Availability
+              </a>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+      <!-- Discovery Section -->
+      <section class="discovery section-padding">
+        <div class="container">
+          <div class="discovery-grid">
+            <div class="discovery-image-wrapper" style="position: relative">
+              <div class="section-label-wrapper">
+                <span class="rotated-label">Our Story</span>
+              </div>
+              <img
+                src="/assets/imgs/Luxuriant Modern Lounge.png"
+                alt="Hotel Exterior at Sunset"
+                class="discovery-image"
+                style="border-radius: 4px"
+              />
+            </div>
+
+            <div class="discovery-content">
+              <span
+                class="meta-text gold"
+                style="margin-bottom: 1rem; display: block"
+                >Discover</span
+              >
+              <h2
+                class="section-title offset-right"
+                style="margin-bottom: 1.5rem"
+              >
+                A Sanctuary<br />of Calm
+              </h2>
+              <p class="body-text" style="margin-bottom: 1.5rem">
+                Nestled along the pristine coastline, Luxury Hotel offers an
+                escape from the ordinary. Every detail has been crafted to
+                create moments of pure indulgence and profound peace.
+              </p>
+              <p class="body-text" style="margin-bottom: 2rem; opacity: 0.7">
+                Our commitment to excellence and authentic hospitality ensures
+                your stay becomes a cherished memory.
+              </p>
+              <a href="/src/pages/about.html" class="btn-arrow">
+                Read Our Story
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+            <!-- Featured Rooms -->
+      <section class="featured-rooms section-padding bg-dark">
+        <div class="container">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-end;
+              margin-bottom: 3rem;
+            "
+          >
+            <div>
+              <span
+                class="meta-text gold"
+                style="margin-bottom: 0.5rem; display: block"
+                >Accommodations</span>
+              <h2 class="section-title" style="color: var(--text-light)">
+                Our Rooms
+              </h2>
+            </div>
+            <a
+              href="/src/pages/rooms.html"
+              class="btn-text-only dark"
+              style="color: var(--gold)"
+            >
+              View All
+            </a>
+          </div>
+
+        <div class="rooms-scroll-container">
+          <!-- Room Card 1 -->
+          <a
+            href="/src/pages/room-details.html?room=ocean-view-suite"
+            class="room-card"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+              alt="Ocean View Suite"
+              class="room-card-image"
+            />
+            <div class="room-card-overlay">
+              <span class="room-card-price">From $450/night</span>
+              <h3 class="room-card-title" style="color: var(--text-light)">
+                Ocean View Suite
+              </h3>
+              <p class="room-card-description">
+                Panoramic ocean views with private terrace
+              </p>
+              <span class="btn-text" style="color: var(--gold)"
+                >View Details →</span>
+            </div>
+          </a>
+
+          <!-- Room Card 2 -->
+          <a
+            href="/src/pages/room-details.html?room=garden-retreat"
+            class="room-card"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800"
+              alt="Garden Retreat"
+              class="room-card-image"
+            />
+            <div class="room-card-overlay">
+              <span class="room-card-price">From $320/night</span>
+              <h3 class="room-card-title" style="color: var(--text-light)">
+                Garden Retreat
+              </h3>
+              <p class="room-card-description">
+                Private sanctuary in tropical gardens
+              </p>
+              <span class="btn-text" style="color: var(--gold)"
+                >View Details →</span>
+            </div>
+          </a>
+
+          <!-- Room Card 3 -->
+          <a
+            href="/src/pages/room-details.html?room=presidential-suite"
+            class="room-card"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800"
+              alt="Presidential Suite"
+              class="room-card-image"
+            />
+            <div class="room-card-overlay">
+              <span class="room-card-price">From $1,200/night</span>
+              <h3 class="room-card-title" style="color: var(--text-light)">
+                Presidential Suite
+              </h3>
+              <p class="room-card-description">
+                Ultimate luxury with exclusive amenities
+              </p>
+              <span class="btn-text" style="color: var(--gold)"
+                >View Details →</span>
+            </div>
+          </a>
+
+          <!-- Room Card 4 -->
+          <a
+            href="/src/pages/room-details.html?room=beach-villa"
+            class="room-card"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800"
+              alt="Beach Villa"
+              class="room-card-image"
+            />
+            <div class="room-card-overlay">
+              <span class="room-card-price">From $850/night</span>
+              <h3 class="room-card-title" style="color: var(--text-light)">
+                Beach Villa
+              </h3>
+              <p class="room-card-description">
+                Direct beach access with private pool
+              </p>
+              <span class="btn-text" style="color: var(--gold)"
+                >View Details →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+
+      <!-- Experiences -->
+      <section class="experiences section-padding">
+        <div class="container">
+          <div style="margin-bottom: 3rem">
+            <span
+              class="meta-text gold"
+              style="margin-bottom: 0.5rem; display: block"
+              >Experiences</span
+            >
+            <h2 class="section-title" style="margin-left: -0.05em">
+              Curated Moments
+            </h2>
+          </div>
+        </div>
+
+        <div class="masonry-grid" style="padding: 0 var(--container-padding)">
+          <!-- Experience 1 - Large -->
+          <div class="experience-item experience-item.offset-content large">
+            <img
+              src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800"
+              alt="Spa Experience"
+              class="experience-image"
+            />
+            <div class="experience-content">
+              <h3 class="experience-title">Wellness & Spa</h3>
+              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
+                Rejuvenate your senses
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience 2 -->
+          <div class="experience-item">
+            <img
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800"
+              alt="Fine Dining"
+              class="experience-image"
+            />
+            <div class="experience-content">
+              <h3 class="experience-title">Fine Dining</h3>
+              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
+                Culinary excellence
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience 3 -->
+          <div class="experience-item">
+            <img
+              src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800"
+              alt="Cocktails"
+              class="experience-image"
+            />
+            <div class="experience-content">
+              <h3 class="experience-title">Sunset Bar</h3>
+              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
+                Waterside elegance
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience 4 -->
+          <div class="experience-item">
+            <img
+              src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800"
+              alt="Yoga"
+              class="experience-image"
+            />
+            <div class="experience-content">
+              <h3 class="experience-title">Yoga Deck</h3>
+              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
+                Morning serenity
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience 5 -->
+          <div class="experience-item">
+            <img
+              src="https://images.unsplash.com/photo-1599640842226-1c345dd0c3b1?w=800"
+              alt="Pool"
+              class="experience-image"
+            />
+            <div class="experience-content">
+              <h3 class="experience-title">Infinity Pool</h3>
+              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
+                Ocean horizon views
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <div class="cta-content">
+          <span
+            class="meta-text"
+            style="color: var(--gold); margin-bottom: 1rem; display: block"
+            >Begin Your Journey</span
+          >
+          <h2 class="cta-heading">Reserve Your<br />Escape Today</h2>
+          <a
+            href="/src/pages/booking.html"
+            class="btn btn-primary"
+            style="border-color: var(--text-light); margin-top: 2rem"
+          >
+            Book Your Stay
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo">EMILY HOTEL</span>
+          <p class="footer-tagline">
+            Where timeless elegance meets contemporary design. Experience the art of hospitality.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Explore</h4>
+          <ul class="footer-links">
+            <li><a href="/src/pages/rooms.html">Rooms & Suites</a></li>
+            <li><a href="#">Dining</a></li>
+            <li><a href="#">Spa & Wellness</a></li>
+            <li><a href="#">Experiences</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="/src/pages/about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="/src/pages/contact.html">Contact</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Contact</h4>
+          <ul class="footer-links">
+            <li>123 Luxury Avenue</li>
+            <li>New York, NY 10001</li>
+            <li>+1 (212) 555-0123</li>
+            <li>reservations@emilyhotel.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copyright"
+          >© 2024 Grand Emily Hotel. All rights reserved.</span
+        >
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Facebook</a>
+          <a href="#" class="social-link">Twitter</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/src/scripts/main.js"></script>
+    <script src="/src/scripts/animations.js"></script>
+    <script src="/src/scripts/supabase.js"></script>
+    <script src="/src/scripts/auth.js"></script>
+
+    <script>
+ 
+
+      // Header Book Now Button Handler
+      (function() {
+        const bookNowBtn = document.getElementById('bookNowBtn');
+        
+        if (bookNowBtn) {
+          bookNowBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get or set default dates
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const todayISO = today.toISOString().split('T')[0];
+            const tomorrowISO = tomorrow.toISOString().split('T')[0];
+            
+            // Store booking data in sessionStorage
+            const bookingData = {
+              checkIn: todayISO,
+              checkOut: tomorrowISO,
+              guests: 2,
+              fromHomePage: true
+            };
+            
+            sessionStorage.setItem('homeBookingData', JSON.stringify(bookingData));
+            
+            // Redirect to booking page
+            window.location.href = '/src/pages/booking.html';
+          });
+        }
+      })();
+
+      // Hero Booking Filter Functionality
+      (function() {
+        const heroForm = document.getElementById('heroBookingForm');
+        const heroCheckIn = document.getElementById('heroCheckIn');
+        const heroCheckOut = document.getElementById('heroCheckOut');
+        const heroRooms = document.getElementById('heroRooms');
+        const heroGuests = document.getElementById('heroGuests');
+        const heroCheckInValue = document.getElementById('heroCheckInValue');
+        const heroCheckOutValue = document.getElementById('heroCheckOutValue');
+        const heroRoomsValue = document.getElementById('heroRoomsValue');
+        const heroGuestsValue = document.getElementById('heroGuestsValue');
+        
+        // Helper function to format date (same as booking.js)
+        function formatShortDate(date) {
+          const options = { month: 'short', day: 'numeric' };
+          return new Date(date).toLocaleDateString('en-US', options);
+        }
+        
+        // Helper function to get ISO date string
+        function getISODate(date) {
+          return date.toISOString().split('T')[0];
+        }
+        
+        // Set today's date for check-in, tomorrow for check-out (same as booking.js)
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const todayISO = getISODate(today);
+        const tomorrowISO = getISODate(tomorrow);
+        const todayDisplay = formatShortDate(today);
+        const tomorrowDisplay = formatShortDate(tomorrow);
+        
+        // Set initial display values
+        if (heroCheckInValue) heroCheckInValue.textContent = todayDisplay;
+        if (heroCheckOutValue) heroCheckOutValue.textContent = tomorrowDisplay;
+        
+        // Initialize date pickers for hero section
+        if (typeof flatpickr !== 'undefined' && heroCheckIn && heroCheckOut) {
+          // Check-in date picker
+          flatpickr(heroCheckIn, {
+            minDate: 'today',
+            defaultDate: 'today',
+            dateFormat: 'M d',
+            showMonths: 1,
+            static: true,
+            onChange: function(selectedDates, dateStr) {
+              if (heroCheckInValue) {
+                heroCheckInValue.textContent = dateStr;
+              }
+              // Update check-out min date
+              if (heroCheckOut._flatpickr) {
+                heroCheckOut._flatpickr.set('minDate', dateStr);
+                // If check-out is now before check-in, move it to next day
+                const checkOutDate = heroCheckOut._flatpickr.selectedDates[0];
+                if (checkOutDate && checkOutDate <= selectedDates[0]) {
+                  const newCheckOut = new Date(selectedDates[0]);
+                  newCheckOut.setDate(newCheckOut.getDate() + 1);
+                  heroCheckOut._flatpickr.setDate(newCheckOut);
+                  if (heroCheckOutValue) {
+                    heroCheckOutValue.textContent = formatShortDate(newCheckOut);
+                  }
+                }
+              }
+            }
+          });
+          
+          // Check-out date picker
+          flatpickr(heroCheckOut, {
+            minDate: tomorrowISO,
+            defaultDate: tomorrow,
+            dateFormat: 'M d',
+            showMonths: 1,
+            static: true,
+            onChange: function(selectedDates, dateStr) {
+              if (heroCheckOutValue) {
+                heroCheckOutValue.textContent = dateStr;
+              }
+            }
+          });
+        } else {
+          // Fallback without flatpickr
+          if (heroCheckInValue) heroCheckInValue.textContent = todayDisplay;
+          if (heroCheckOutValue) heroCheckOutValue.textContent = tomorrowDisplay;
+        }
+
+        // Room selector update
+        if (heroRooms && heroRoomsValue) {
+          heroRooms.addEventListener('change', function() {
+            const rooms = parseInt(this.value);
+            heroRoomsValue.textContent = rooms + ' Room' + (rooms > 1 ? 's' : '');
+          });
+        }
+
+        // Guest selector update
+        if (heroGuests && heroGuestsValue) {
+          heroGuests.addEventListener('change', function() {
+            const value = this.value;
+            const [adults, children] = value.split('-').map(Number);
+            let text = adults + ' Adult' + (adults > 1 ? 's' : '');
+            if (children > 0) {
+              text += ', ' + children + ' Child' + (children > 1 ? 'ren' : '');
+            }
+            heroGuestsValue.textContent = text;
+          });
+        }
+
+        // Form submission
+        if (heroForm) {
+          heroForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get values - use ISO format for booking system
+            const checkInDate = heroCheckIn?._flatpickr?.selectedDates[0] || today;
+            const checkOutDate = heroCheckOut?._flatpickr?.selectedDates[0] || tomorrow;
+            const checkInISO = getISODate(checkInDate);
+            const checkOutISO = getISODate(checkOutDate);
+            const checkInDisplay = formatShortDate(checkInDate);
+            const checkOutDisplay = formatShortDate(checkOutDate);
+            
+            const rooms = parseInt(heroRooms?.value || '1');
+            const guestsValue = heroGuests?.value || '2-0';
+            const [adults, children] = guestsValue.split('-').map(Number);
+            
+            // Store booking data in sessionStorage (matching booking.js format)
+            const bookingData = {
+              checkIn: checkInISO,
+              checkOut: checkOutISO,
+              rooms: rooms,
+              guests: adults + children,
+              fromHomePage: true,
+              fromHeroFilter: true
+            };
+            
+            sessionStorage.setItem('homeBookingData', JSON.stringify(bookingData));
+            
+            // Redirect to rooms page
+            window.location.href = '/src/pages/rooms.html';
+          });
+        }
+      })();
+
+      // Initialize home booking widget
+      document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        // Initialize date pickers
+        const checkInPicker = flatpickr('#homeCheckIn', {
+          minDate: today,
+          defaultDate: today,
+          dateFormat: 'Y-m-d',
+          onChange: (dates, dateStr) => {
+            const checkOutPicker = document.getElementById('homeCheckOut')._flatpickr;
+            checkOutPicker.set('minDate', dateStr);
+          }
+        });
+
+        const checkOutPicker = flatpickr('#homeCheckOut', {
+          minDate: tomorrow,
+          defaultDate: tomorrow,
+          dateFormat: 'Y-m-d'
+        });
+
+        // Guest selector
+        const guestCountEl = document.getElementById('homeGuestCount');
+        
+        document.getElementById('homeGuestIncrease')?.addEventListener('click', () => {
+          const current = parseInt(guestCountEl.textContent);
+          if (current < 6) {
+            guestCountEl.textContent = current + 1;
+          }
+        });
+
+        document.getElementById('homeGuestDecrease')?.addEventListener('click', () => {
+          const current = parseInt(guestCountEl.textContent);
+          if (current > 1) {
+            guestCountEl.textContent = current - 1;
+          }
+        });
+
+        // Book Now button
+        document.getElementById('homeBookNow')?.addEventListener('click', (e) => {
+          const checkIn = document.getElementById('homeCheckIn').value;
+          const checkOut = document.getElementById('homeCheckOut').value;
+          const guests = parseInt(guestCountEl.textContent);
+          
+          // Store booking data in sessionStorage
+          const bookingData = {
+            checkIn,
+            checkOut,
+            guests,
+            fromHomePage: true
+          };
+          sessionStorage.setItem('homeBookingData', JSON.stringify(bookingData));
+        });
+      });
+    </script>
+  </body>
+</html>
