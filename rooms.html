@@ -18,11 +18,11 @@
     />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
-    <link rel="stylesheet" href="/src/styles/typography.css" />
-    <link rel="stylesheet" href="/src/styles/layout.css" />
-    <link rel="stylesheet" href="/src/styles/components.css" />
-    <link rel="stylesheet" href="/src/styles/animations.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/typography.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/components.css" />
+    <link rel="stylesheet" href="/styles/animations.css" />
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -33,12 +33,16 @@
     <div class="scroll-progress"></div>
 
     <!-- Header -->
-   
+
     <!-- Header -->
     <header class="header">
       <div class="header-inner">
         <!-- Menu Toggle - Left -->
-        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+        <button
+          class="header-menu"
+          id="menuToggle"
+          aria-label="Open navigation menu"
+        >
           <div class="menu-icon">
             <span></span>
             <span></span>
@@ -48,40 +52,87 @@
 
         <!-- Logo - Centered -->
         <div class="header-logo">
-          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+          <a href="/index.html" class="logo">EMILY HOTEL</a>
         </div>
 
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
-          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
-         <!-- Submit Button -->
-            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+          <a href="/signup.html" class="nav-link">JOIN US</a>
+          <!-- Submit Button -->
+          <button type="submit" class="booking-cta" id="bookNowBtn">
+            BOOK NOW
+          </button>
         </nav>
 
         <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
-            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          style="
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: none;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="24"
+            height="24"
+            viewBox="0 0 32 32"
+          >
+            <path
+              d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"
+            ></path>
           </svg>
         </button>
       </div>
     </header>
 
     <!-- Navigation Menu Panel -->
-    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div
+      class="menu-overlay"
+      id="menuOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
       <nav class="menu-panel" aria-label="Main navigation">
         <ul class="menu-list">
-          <li class="menu-item"><a href="/src/pages/index.html" class="menu-link">Home</a></li>
-          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
-          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
-          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item">
+            <a href="/index.html" class="menu-link">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="/rooms.html" class="menu-link">Rooms & Suites</a>
+          </li>
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">About Us</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">Experiences</a>
+          </li>
           <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
-          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item">
+            <a href="/contact.html" class="menu-link">Contact</a>
+          </li>
           <li class="menu-item menu-divider"></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-secondary">JOIN US</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-cta">Book Your Stay</a>
+          </li>
         </ul>
-        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+        <button
+          class="menu-close"
+          id="menuClose"
+          aria-label="Close navigation menu"
+        >
+          Close
+        </button>
       </nav>
     </div>
 
@@ -124,7 +175,7 @@
             >
               <div class="room-image">
                 <a
-                  href="/src/pages/room-details.html?room=ocean-view-suite"
+                  href="/room-details.html?room=ocean-view-suite"
                   class="hover-zoom"
                   style="display: block; overflow: hidden; border-radius: 4px"
                 >
@@ -192,7 +243,7 @@
                 </div>
 
                 <a
-                  href="/src/pages/room-details.html?room=ocean-view-suite"
+                  href="/room-details.html?room=ocean-view-suite"
                   class="btn btn-primary gold"
                 >
                   View Room
@@ -276,7 +327,7 @@
                 </div>
 
                 <a
-                  href="/src/pages/room-details.html?room=garden-retreat"
+                  href="/room-details.html?room=garden-retreat"
                   class="btn btn-primary gold"
                 >
                   View Room
@@ -295,7 +346,7 @@
 
               <div class="room-image">
                 <a
-                  href="/src/pages/room-details.html?room=garden-retreat"
+                  href="/room-details.html?room=garden-retreat"
                   class="hover-zoom"
                   style="display: block; overflow: hidden; border-radius: 4px"
                 >
@@ -321,7 +372,7 @@
             >
               <div class="room-image">
                 <a
-                  href="/src/pages/room-details.html?room=presidential-suite"
+                  href="/room-details.html?room=presidential-suite"
                   class="hover-zoom"
                   style="display: block; overflow: hidden; border-radius: 4px"
                 >
@@ -388,7 +439,7 @@
                 </div>
 
                 <a
-                  href="/src/pages/room-details.html?room=presidential-suite"
+                  href="/room-details.html?room=presidential-suite"
                   class="btn btn-primary gold"
                 >
                   View Room
@@ -472,7 +523,7 @@
                 </div>
 
                 <a
-                  href="/src/pages/room-details.html?room=beach-villa"
+                  href="/room-details.html?room=beach-villa"
                   class="btn btn-primary gold"
                 >
                   View Room
@@ -491,7 +542,7 @@
 
               <div class="room-image">
                 <a
-                  href="/src/pages/room-details.html?room=beach-villa"
+                  href="/room-details.html?room=beach-villa"
                   class="hover-zoom"
                   style="display: block; overflow: hidden; border-radius: 4px"
                 >
@@ -510,9 +561,7 @@
       <!-- Quick Booking Widget -->
       <section class="section-padding bg-dark">
         <div class="container">
-          <div
-          
-          >
+          <div>
             <div>
               <h2
                 class="section-title"
@@ -525,8 +574,8 @@
                 craft an unforgettable experience for you.
               </p>
             </div>
-            <div >
-              <a href="/src/pages/booking.html" class="btn btn-primary gold">
+            <div>
+              <a href="/booking.html" class="btn btn-primary gold">
                 Start Booking
                 <svg
                   width="24"
@@ -559,7 +608,7 @@
         <div class="footer-col">
           <h4 class="footer-title">Explore</h4>
           <ul class="footer-links">
-            <li><a href="/src/pages/rooms.html">Rooms & Suites</a></li>
+            <li><a href="/rooms.html">Rooms & Suites</a></li>
             <li><a href="#">Dining</a></li>
             <li><a href="#">Spa & Wellness</a></li>
             <li><a href="#">Experiences</a></li>
@@ -569,9 +618,9 @@
         <div class="footer-col">
           <h4 class="footer-title">Company</h4>
           <ul class="footer-links">
-            <li><a href="/src/pages/about.html">About Us</a></li>
+            <li><a href="/about.html">About Us</a></li>
             <li><a href="#">Careers</a></li>
-            <li><a href="/src/pages/contact.html">Contact</a></li>
+            <li><a href="/contact.html">Contact</a></li>
             <li><a href="#">Press</a></li>
           </ul>
         </div>
@@ -600,13 +649,12 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/src/scripts/main.js"></script>
-    <script src="/src/scripts/animations.js"></script>
-    <script src="/src/scripts/supabase.js"></script>
-    <script src="/src/scripts/auth.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/animations.js"></script>
+    <script src="/scripts/supabase.js"></script>
+    <script src="/scripts/auth.js"></script>
 
     <script>
-     
       // Process booking data from home page or hero filter
       (function () {
         const bookingData = sessionStorage.getItem("homeBookingData");

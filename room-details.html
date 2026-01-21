@@ -18,11 +18,11 @@
     />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
-    <link rel="stylesheet" href="/src/styles/typography.css" />
-    <link rel="stylesheet" href="/src/styles/layout.css" />
-    <link rel="stylesheet" href="/src/styles/components.css" />
-    <link rel="stylesheet" href="/src/styles/animations.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/typography.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/components.css" />
+    <link rel="stylesheet" href="/styles/animations.css" />
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -39,13 +39,15 @@
     <!-- Scroll Progress -->
     <div class="scroll-progress"></div>
 
-  
-
     <!-- Header -->
     <header class="header">
       <div class="header-inner">
         <!-- Menu Toggle - Left -->
-        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+        <button
+          class="header-menu"
+          id="menuToggle"
+          aria-label="Open navigation menu"
+        >
           <div class="menu-icon">
             <span></span>
             <span></span>
@@ -55,48 +57,92 @@
 
         <!-- Logo - Centered -->
         <div class="header-logo">
-          <a href="/public/index.html" class="logo">EMILY HOTEL</a>
+          <a href="/index.html" class="logo">EMILY HOTEL</a>
         </div>
 
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
-          <a href="/src/pages/signup.html" class="nav-link">JOIN US</a>
-         <!-- Submit Button -->
-            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+          <a href="/signup.html" class="nav-link">JOIN US</a>
+          <!-- Submit Button -->
+          <button type="submit" class="booking-cta" id="bookNowBtn">
+            BOOK NOW
+          </button>
         </nav>
 
         <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
-            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          style="
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: none;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="24"
+            height="24"
+            viewBox="0 0 32 32"
+          >
+            <path
+              d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"
+            ></path>
           </svg>
         </button>
       </div>
     </header>
 
     <!-- Navigation Menu Panel -->
-    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div
+      class="menu-overlay"
+      id="menuOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
       <nav class="menu-panel" aria-label="Main navigation">
         <ul class="menu-list">
-          <li class="menu-item"><a href="/src/pages/index.html" class="menu-link">Home</a></li>
-          <li class="menu-item"><a href="/src/pages/rooms.html" class="menu-link">Rooms & Suites</a></li>
-          <li class="menu-item"><a href="/src/pages/about.html" class="menu-link">About Us</a></li>
-          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item">
+            <a href="/index.html" class="menu-link">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="/rooms.html" class="menu-link">Rooms & Suites</a>
+          </li>
+          <li class="menu-item">
+            <a href="/about.html" class="menu-link">About Us</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">Experiences</a>
+          </li>
           <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
-          <li class="menu-item"><a href="/src/pages/contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item">
+            <a href="/contact.html" class="menu-link">Contact</a>
+          </li>
           <li class="menu-item menu-divider"></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-secondary">JOIN US</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-cta">Book Your Stay</a>
+          </li>
         </ul>
-        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+        <button
+          class="menu-close"
+          id="menuClose"
+          aria-label="Close navigation menu"
+        >
+          Close
+        </button>
       </nav>
     </div>
 
-
-
     <main>
-
-        <!-- Page Header -->
+      <!-- Page Header -->
       <section class="hero-pages" style="min-height: 50vh">
         <img
           src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920"
@@ -122,7 +168,7 @@
       <section class="section-padding" style="padding-bottom: 0">
         <div class="container">
           <!-- Main Image -->
-           
+
           <div class="" style="margin-bottom: var(--space-md)">
             <img
               id="mainImage"
@@ -502,7 +548,7 @@
               </div>
 
               <a
-                href="/src/pages/booking.html"
+                href="/booking.html"
                 class="btn btn-primary gold"
                 style="width: 100%; justify-content: center; margin-top: 1.5rem"
               >
@@ -542,7 +588,7 @@
             "
           >
             <a
-              href="/src/pages/room-details.html?room=garden-retreat"
+              href="/room-details.html?room=garden-retreat"
               class="related-room"
             >
               <img
@@ -570,7 +616,7 @@
             </a>
 
             <a
-              href="/src/pages/room-details.html?room=presidential-suite"
+              href="/room-details.html?room=presidential-suite"
               class="related-room"
             >
               <img
@@ -598,7 +644,7 @@
             </a>
 
             <a
-              href="/src/pages/room-details.html?room=beach-villa"
+              href="/room-details.html?room=beach-villa"
               class="related-room"
             >
               <img
@@ -642,17 +688,17 @@
         <div class="footer-col">
           <h4 class="footer-title">Explore</h4>
           <ul class="footer-links">
-            <li><a href="/src/pages/rooms.html">Rooms & Suites</a></li>
-            <li><a href="/src/pages/dining.html">Dining</a></li>
-            <li><a href="/src/pages/spa.html">Spa & Wellness</a></li>
+            <li><a href="/rooms.html">Rooms & Suites</a></li>
+            <li><a href="#">Dining</a></li>
+            <li><a href="#">Spa & Wellness</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4 class="footer-title">Company</h4>
           <ul class="footer-links">
-            <li><a href="/src/pages/about.html">About Us</a></li>
-            <li><a href="/src/pages/contact.html">Contact</a></li>
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/contact.html">Contact</a></li>
           </ul>
         </div>
 
@@ -673,11 +719,11 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/src/scripts/main.js"></script>
-    <script src="/src/scripts/animations.js"></script>
-    <script src="/src/scripts/supabase.js"></script>
-    <script src="/src/scripts/auth.js"></script>
-    <script src="/src/scripts/booking.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/animations.js"></script>
+    <script src="/scripts/supabase.js"></script>
+    <script src="/scripts/auth.js"></script>
+    <script src="/scripts/booking.js"></script>
 
     <script>
       // Room Data
@@ -779,8 +825,6 @@
           ],
         },
       };
-      
-      
 
       // Initialize page
       document.addEventListener("DOMContentLoaded", () => {
@@ -790,29 +834,35 @@
         const room = roomData[roomSlug] || roomData["ocean-view-suite"];
 
         // Check for home page booking data
-        const homeBookingData = sessionStorage.getItem('homeBookingData');
+        const homeBookingData = sessionStorage.getItem("homeBookingData");
         if (homeBookingData) {
-            const parsed = JSON.parse(homeBookingData);
-            
-            // Pre-fill form fields
-            if (parsed.checkIn && document.getElementById('checkInDate')) {
-                document.getElementById('checkInDate').value = parsed.checkIn;
-            }
-            if (parsed.checkOut && document.getElementById('checkOutDate')) {
-                document.getElementById('checkOutDate').value = parsed.checkOut;
-            }
-            if (parsed.guests) {
-                document.getElementById('guestCount').value = Math.min(parsed.guests, room.guests);
-                document.getElementById('guestDisplay').textContent = Math.min(parsed.guests, room.guests);
-            }
+          const parsed = JSON.parse(homeBookingData);
 
-            // Update price with pre-filled data
-            if (parsed.checkIn && parsed.checkOut) {
-                setTimeout(updatePrice, 100);
-            }
+          // Pre-fill form fields
+          if (parsed.checkIn && document.getElementById("checkInDate")) {
+            document.getElementById("checkInDate").value = parsed.checkIn;
+          }
+          if (parsed.checkOut && document.getElementById("checkOutDate")) {
+            document.getElementById("checkOutDate").value = parsed.checkOut;
+          }
+          if (parsed.guests) {
+            document.getElementById("guestCount").value = Math.min(
+              parsed.guests,
+              room.guests
+            );
+            document.getElementById("guestDisplay").textContent = Math.min(
+              parsed.guests,
+              room.guests
+            );
+          }
 
-            // Clear home booking data
-            sessionStorage.removeItem('homeBookingData');
+          // Update price with pre-filled data
+          if (parsed.checkIn && parsed.checkOut) {
+            setTimeout(updatePrice, 100);
+          }
+
+          // Clear home booking data
+          sessionStorage.removeItem("homeBookingData");
         }
 
         // Update page content
@@ -952,23 +1002,26 @@
 
         // Update booking link with room
         const bookBtn = document.querySelector(".booking-widget .btn");
-        bookBtn.href = `/src/pages/booking.html?room=${roomSlug}`;
+        bookBtn.href = `/booking.html?room=${roomSlug}`;
 
         // Store booking data when clicking Book Now
-        bookBtn.addEventListener('click', () => {
-            const checkInDate = document.getElementById('checkInDate').value;
-            const checkOutDate = document.getElementById('checkOutDate').value;
-            const guests = parseInt(document.getElementById('guestCount').value);
-            
-            if (checkInDate && checkOutDate) {
-                const bookingData = {
-                    checkIn: checkInDate,
-                    checkOut: checkOutDate,
-                    guests,
-                    room: roomSlug
-                };
-                sessionStorage.setItem('roomBookingData', JSON.stringify(bookingData));
-            }
+        bookBtn.addEventListener("click", () => {
+          const checkInDate = document.getElementById("checkInDate").value;
+          const checkOutDate = document.getElementById("checkOutDate").value;
+          const guests = parseInt(document.getElementById("guestCount").value);
+
+          if (checkInDate && checkOutDate) {
+            const bookingData = {
+              checkIn: checkInDate,
+              checkOut: checkOutDate,
+              guests,
+              room: roomSlug,
+            };
+            sessionStorage.setItem(
+              "roomBookingData",
+              JSON.stringify(bookingData)
+            );
+          }
         });
 
         // Store room in state

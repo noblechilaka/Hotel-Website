@@ -1,30 +1,40 @@
-# TODO: Make Header "BOOK NOW" Button Handle Bookings
+# File Path Update Task
 
-## Status: ✅ Completed
+## Goal
 
-### Changes Made
+Update all file paths from old structure (`/src/styles/`, `/src/scripts/`, `/src/pages/`) to new structure (`/styles/`, `/scripts/`, root level).
 
-- [x] Update `public/index.html` - Add ID `bookNowBtn` and click handler
-- [x] Update `src/pages/booking.html` - Add ID `bookNowBtn` and click handler
+## Path Mappings
 
-### Implementation Details
+| Old Path             | New Path      |
+| -------------------- | ------------- |
+| `/src/styles/`       | `/styles/`    |
+| `/src/scripts/`      | `/scripts/`   |
+| `/src/pages/`        | `/` (root)    |
+| `/public/index.html` | `/index.html` |
 
-**public/index.html:**
+## Files to Update
 
-- Added `id="bookNowBtn"` to header BOOK NOW button
-- Added inline click handler that:
-  - Sets default dates (today to tomorrow)
-  - Stores booking data in sessionStorage
-  - Redirects to booking.html
+### HTML Files
 
-**src/pages/booking.html:**
+- [ ] index.html
+- [ ] about.html
+- [ ] rooms.html
+- [ ] room-details.html
+- [ ] booking.html
+- [ ] confirmation.html
+- [ ] contact.html
+- [ ] dashboard.html
+- [ ] login.html
+- [ ] signup.html
 
-- Added `id="bookNowBtn"` to header BOOK NOW button
-- Added inline click handler that:
-  - Ensures dates are set in sessionStorage
-  - Scrolls smoothly to booking form
+### API Files
 
-### Expected Behavior
+- [ ] api/verify-payment.js
 
-- Click "BOOK NOW" on home page → Redirects to booking page with dates pre-filled (today/tomorrow, 2 guests)
-- Click "BOOK NOW" on booking page → Ensures dates are set and scrolls to booking form
+## Progress
+
+- Started: 2024
+- Updated: 2/11 files
+  - [x] index.html
+  - [x] about.html
