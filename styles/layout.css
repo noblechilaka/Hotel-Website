@@ -647,8 +647,11 @@
 /* Close button */
 .menu-close {
   position: absolute;
+  align-items: center;
+  display: flex;
+  gap: 3px;
   top: var(--space-lg);
-  right: var(--container-padding);
+  left: var(--container-padding);
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 500;
@@ -891,6 +894,7 @@ body.menu-open {
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
+.book-now-btn{display: none;}
 
 /* Bottom Caption */
 .hero-caption {
@@ -1043,6 +1047,7 @@ body.menu-open {
     
   }
   .book-now-btn{
+    display: block;
     background: var(--bg-light);
     color: var(--bg-dark);
     transform: translateX(-40px);
