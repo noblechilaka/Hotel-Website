@@ -29,12 +29,16 @@
   </head>
   <body class="auth-page bg-dark">
     <!-- Header -->
-  
+
     <!-- Header -->
     <header class="header">
       <div class="header-inner">
         <!-- Menu Toggle - Left -->
-        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+        <button
+          class="header-menu"
+          id="menuToggle"
+          aria-label="Open navigation menu"
+        >
           <div class="menu-icon">
             <span></span>
             <span></span>
@@ -50,34 +54,81 @@
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
           <a href="signup.html" class="nav-link">JOIN US</a>
-         <!-- Submit Button -->
-            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+          <!-- Submit Button -->
+          <button type="submit" class="booking-cta" id="bookNowBtn">
+            BOOK NOW
+          </button>
         </nav>
 
         <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
-          <svg xmlns="http:/www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
-            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          style="
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: none;
+          "
+        >
+          <svg
+            xmlns="http:/www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="24"
+            height="24"
+            viewBox="0 0 32 32"
+          >
+            <path
+              d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"
+            ></path>
           </svg>
         </button>
       </div>
     </header>
 
     <!-- Navigation Menu Panel -->
-    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div
+      class="menu-overlay"
+      id="menuOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
       <nav class="menu-panel" aria-label="Main navigation">
         <ul class="menu-list">
-          <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
-          <li class="menu-item"><a href="rooms.html" class="menu-link">Rooms & Suites</a></li>
-          <li class="menu-item"><a href="about.html" class="menu-link">About Us</a></li>
-          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item">
+            <a href="index.html" class="menu-link">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="rooms.html" class="menu-link">Rooms & Suites</a>
+          </li>
+          <li class="menu-item">
+            <a href="about.html" class="menu-link">About Us</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">Experiences</a>
+          </li>
           <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
-          <li class="menu-item"><a href="contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item">
+            <a href="contact.html" class="menu-link">Contact</a>
+          </li>
           <li class="menu-item menu-divider"></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-secondary">JOIN US</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-cta">Book Your Stay</a>
+          </li>
         </ul>
-        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+        <button
+          class="menu-close"
+          id="menuClose"
+          aria-label="Close navigation menu"
+        >
+          Close
+        </button>
       </nav>
     </div>
 
@@ -145,8 +196,20 @@
           <div id="authError" style="margin-bottom: 1.5rem"></div>
           <div id="authSuccess" style="margin-bottom: 1.5rem"></div>
 
-          <!-- Login Form -->
-          <form id="loginForm">
+          <!-- Login Method Tabs -->
+          <div class="login-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 2rem;">
+            <button type="button" id="tabEmail" class="tab-btn active" style="flex: 1; padding: 0.75rem; border: 1px solid var(--divider); background: var(--bg-dark); color: var(--text-light); cursor: pointer; border-radius: 4px;">
+              Email
+            </button>
+            <button type="button" id="tabPhone" class="tab-btn" style="flex: 1; padding: 0.75rem; border: 1px solid var(--divider); background: transparent; color: var(--text-light); cursor: pointer; border-radius: 4px;">
+              Phone
+            </button>
+          </div>
+
+          <!-- Email Login Section -->
+          <div id="emailLoginSection">
+            <!-- Login Form -->
+            <form id="loginForm">
             <div class="form-group">
               <label class="form-label" for="email">Email Address</label>
               <input
@@ -224,7 +287,7 @@
               <a
                 href="reset-password.html"
                 class="btn-text-only dark"
-                style="color: var(--text-dark); font-size: size 5px;"
+                style="color: var(--text-dark); font-size: size 5px"
                 >Forgot Password?</a
               >
             </div>
@@ -266,6 +329,69 @@
               >Create Account</a
             >
           </p>
+          </div>
+
+          <!-- Phone Login Section -->
+          <div id="phoneLoginSection" style="display: none;">
+            <!-- Phone Input -->
+            <div id="phoneInputSection">
+              <div class="form-group">
+                <label class="form-label" for="phoneLogin">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phoneLogin"
+                  class="form-field"
+                  placeholder="+234 800 123 4567"
+                />
+                <p class="body-text" style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--brown);">
+                  Enter your phone number with country code
+                </p>
+              </div>
+              <button
+                type="button"
+                id="sendOtpBtn"
+                class="btn btn-primary gold"
+                style="width: 100%; justify-content: center; margin-top: 1rem;"
+              >
+                Send Code
+              </button>
+            </div>
+
+            <!-- OTP Verification -->
+            <div id="otpSection" style="display: none;">
+              <div class="form-group">
+                <label class="form-label" for="otpInput">Verification Code</label>
+                <input
+                  type="text"
+                  id="otpInput"
+                  class="form-field"
+                  placeholder="Enter 6-digit code"
+                  maxlength="6"
+                  style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem;"
+                />
+                <p class="body-text" style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--brown);">
+                  Enter the code sent to your phone
+                </p>
+              </div>
+              <button
+                type="button"
+                id="verifyOtpBtn"
+                class="btn btn-primary gold"
+                style="width: 100%; justify-content: center; margin-top: 1rem;"
+              >
+                Verify & Login
+              </button>
+              <button
+                type="button"
+                id="resendOtpBtn"
+                class="btn-text-only dark"
+                style="width: 100%; justify-content: center; margin-top: 1rem; color: var(--gold);"
+              >
+                Resend Code
+              </button>
+            </div>
+          </div>
+          </div>
         </div>
 
         <!-- Footer Note -->
@@ -279,20 +405,219 @@
           "
         >
           By signing in, you agree to our
-          <a href="terms.html" style="color: var(--gold)"
-            >Terms of Service</a
-          >
+          <a href="terms.html" style="color: var(--gold)">Terms of Service</a>
           and
-          <a href="privacy.html" style="color: var(--gold)"
-            >Privacy Policy</a
-          >
+          <a href="privacy.html" style="color: var(--gold)">Privacy Policy</a>
         </p>
       </div>
     </main>
 
     <!-- Scripts -->
     <script src="/scripts/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
     <script src="/scripts/supabase.js"></script>
     <script src="/scripts/auth.js"></script>
+
+    <!-- Auth Form Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Initialize auth first
+        await window.HotelAuth.init();
+
+        const loginForm = document.getElementById("loginForm");
+        const authError = document.getElementById("authError");
+        const authSuccess = document.getElementById("authSuccess");
+        const loginBtn = document.getElementById("loginBtn");
+
+        // Tab switching
+        const tabEmail = document.getElementById("tabEmail");
+        const tabPhone = document.getElementById("tabPhone");
+        const emailSection = document.getElementById("emailLoginSection");
+        const phoneSection = document.getElementById("phoneLoginSection");
+        const phoneInputSection = document.getElementById("phoneInputSection");
+        const otpSection = document.getElementById("otpSection");
+
+        // Password toggle
+        const togglePasswordBtns =
+          document.querySelectorAll(".toggle-password");
+        togglePasswordBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const input = btn.parentElement.querySelector("input");
+            const type = input.type === "password" ? "text" : "password";
+            input.type = type;
+          });
+        });
+
+        // Tab switching logic
+        if (tabEmail && tabPhone) {
+          tabEmail.addEventListener("click", () => {
+            tabEmail.classList.add("active");
+            tabPhone.classList.remove("active");
+            emailSection.style.display = "block";
+            phoneSection.style.display = "none";
+          });
+
+          tabPhone.addEventListener("click", () => {
+            tabPhone.classList.add("active");
+            tabEmail.classList.remove("active");
+            emailSection.style.display = "none";
+            phoneSection.style.display = "block";
+          });
+        }
+
+        // Send OTP button
+        const sendOtpBtn = document.getElementById("sendOtpBtn");
+        if (sendOtpBtn) {
+          sendOtpBtn.addEventListener("click", async () => {
+            const phone = document.getElementById("phoneLogin").value.trim();
+
+            authError.innerHTML = "";
+            authSuccess.innerHTML = "";
+
+            if (!window.AuthValidator.isValidPhone(phone)) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter a valid phone number</div>';
+              return;
+            }
+
+            sendOtpBtn.disabled = true;
+            sendOtpBtn.textContent = "Sending...";
+
+            const result = await window.HotelAuth.sendPhoneOTP(phone);
+
+            if (result.success) {
+              phoneInputSection.style.display = "none";
+              otpSection.style.display = "block";
+              authSuccess.innerHTML =
+                '<div class="alert alert-success">' + result.message + "</div>";
+            } else {
+              authError.innerHTML =
+                '<div class="alert alert-error">' + result.error + "</div>";
+            }
+
+            sendOtpBtn.disabled = false;
+            sendOtpBtn.textContent = "Send Code";
+          });
+        }
+
+        // Verify OTP button
+        const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+        if (verifyOtpBtn) {
+          verifyOtpBtn.addEventListener("click", async () => {
+            const otp = document.getElementById("otpInput").value.trim();
+
+            authError.innerHTML = "";
+            authSuccess.innerHTML = "";
+
+            if (!otp) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter the verification code</div>';
+              return;
+            }
+
+            verifyOtpBtn.disabled = true;
+            verifyOtpBtn.textContent = "Verifying...";
+
+            const result = await window.HotelAuth.verifyPhoneOTP(otp);
+
+            if (result.success) {
+              window.location.href = "/dashboard.html";
+            } else {
+              authError.innerHTML =
+                '<div class="alert alert-error">' + result.error + "</div>";
+            }
+
+            verifyOtpBtn.disabled = false;
+            verifyOtpBtn.textContent = "Verify & Login";
+          });
+        }
+
+        // Resend OTP
+        const resendOtpBtn = document.getElementById("resendOtpBtn");
+        if (resendOtpBtn) {
+          resendOtpBtn.addEventListener("click", async () => {
+            const phone = sessionStorage.getItem("otp_phone");
+            if (phone) {
+              resendOtpBtn.textContent = "Sending...";
+              resendOtpBtn.disabled = true;
+
+              const result = await window.HotelAuth.sendPhoneOTP(phone);
+
+              if (result.success) {
+                authSuccess.innerHTML =
+                  '<div class="alert alert-success">New code sent!</div>';
+              } else {
+                authError.innerHTML =
+                  '<div class="alert alert-error">' + result.error + "</div>";
+              }
+
+              resendOtpBtn.textContent = "Resend Code";
+              resendOtpBtn.disabled = false;
+            }
+          });
+        }
+
+        // Email login form
+        if (loginForm) {
+          loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            authError.innerHTML = "";
+            authSuccess.innerHTML = "";
+
+            if (!email) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter your email address</div>';
+              return;
+            }
+
+            if (!window.AuthValidator.isValidEmail(email)) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter a valid email address</div>';
+              return;
+            }
+
+            if (!password) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter your password</div>';
+              return;
+            }
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Signing In...";
+
+            const result = await window.HotelAuth.loginWithEmail(
+              email,
+              password
+            );
+
+            if (result.success) {
+              window.location.href = "/dashboard.html";
+            } else {
+              authError.innerHTML =
+                '<div class="alert alert-error">' + result.error + "</div>";
+              loginBtn.disabled = false;
+              loginBtn.textContent = "Sign In";
+            }
+          });
+        }
+
+        // Check for existing session
+        const isLoggedIn = await window.HotelAuth.isLoggedIn();
+        if (isLoggedIn) {
+          window.location.href = "/dashboard.html";
+        }
+
+        // Check for email verification callback
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("type") === "email_confirmation") {
+          authSuccess.innerHTML =
+            '<div class="alert alert-success">Email verified! Please log in.</div>';
+        }
+      });
+    </script>
   </body>
 </html>

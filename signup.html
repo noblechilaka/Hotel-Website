@@ -28,14 +28,17 @@
     <script src="https:/cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body class="auth-page bg-dark">
-  
     <!-- Header -->
-  
+
     <!-- Header -->
     <header class="header">
       <div class="header-inner">
         <!-- Menu Toggle - Left -->
-        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
+        <button
+          class="header-menu"
+          id="menuToggle"
+          aria-label="Open navigation menu"
+        >
           <div class="menu-icon">
             <span></span>
             <span></span>
@@ -51,38 +54,83 @@
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
           <a href="signup.html" class="nav-link">JOIN US</a>
-         <!-- Submit Button -->
-            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
+          <!-- Submit Button -->
+          <button type="submit" class="booking-cta" id="bookNowBtn">
+            BOOK NOW
+          </button>
         </nav>
 
         <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
-          <svg xmlns="http:/www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
-            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          style="
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: none;
+          "
+        >
+          <svg
+            xmlns="http:/www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="24"
+            height="24"
+            viewBox="0 0 32 32"
+          >
+            <path
+              d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"
+            ></path>
           </svg>
         </button>
       </div>
     </header>
 
     <!-- Navigation Menu Panel -->
-    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div
+      class="menu-overlay"
+      id="menuOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
       <nav class="menu-panel" aria-label="Main navigation">
         <ul class="menu-list">
-          <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
-          <li class="menu-item"><a href="rooms.html" class="menu-link">Rooms & Suites</a></li>
-          <li class="menu-item"><a href="about.html" class="menu-link">About Us</a></li>
-          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item">
+            <a href="index.html" class="menu-link">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="rooms.html" class="menu-link">Rooms & Suites</a>
+          </li>
+          <li class="menu-item">
+            <a href="about.html" class="menu-link">About Us</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link">Experiences</a>
+          </li>
           <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
-          <li class="menu-item"><a href="contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item">
+            <a href="contact.html" class="menu-link">Contact</a>
+          </li>
           <li class="menu-item menu-divider"></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
-          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-secondary">JOIN US</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link menu-link-cta">Book Your Stay</a>
+          </li>
         </ul>
-        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+        <button
+          class="menu-close"
+          id="menuClose"
+          aria-label="Close navigation menu"
+        >
+          Close
+        </button>
       </nav>
     </div>
-
-
 
     <main
       style="
@@ -325,7 +373,134 @@
 
     <!-- Scripts -->
     <script src="/scripts/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
     <script src="/scripts/supabase.js"></script>
     <script src="/scripts/auth.js"></script>
+
+    <!-- Auth Form Script -->
+    <script>
+      // Wait for auth module to initialize
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Initialize auth first
+        await window.HotelAuth.init();
+
+        const signupForm = document.getElementById("signupForm");
+        const authError = document.getElementById("authError");
+        const authSuccess = document.getElementById("authSuccess");
+        const signupBtn = document.getElementById("signupBtn");
+
+        // Password toggle
+        const togglePasswordBtns =
+          document.querySelectorAll(".toggle-password");
+        togglePasswordBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const input = btn.parentElement.querySelector("input");
+            const type = input.type === "password" ? "text" : "password";
+            input.type = type;
+            btn.classList.toggle("active");
+          });
+        });
+
+        // Form submission
+        if (signupForm) {
+          signupForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const fullName = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword =
+              document.getElementById("confirmPassword").value;
+            const termsAgree = document.getElementById("termsAgree").checked;
+
+            // Clear previous messages
+            authError.innerHTML = "";
+            authSuccess.innerHTML = "";
+
+            // Validate
+            if (!fullName) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter your full name</div>';
+              return;
+            }
+
+            if (!email) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter your email address</div>';
+              return;
+            }
+
+            if (!window.AuthValidator.isValidEmail(email)) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please enter a valid email address</div>';
+              return;
+            }
+
+            const passwordCheck =
+              window.AuthValidator.isStrongPassword(password);
+            if (!passwordCheck.valid) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Password must be at least 8 characters with uppercase, lowercase, and numbers</div>';
+              return;
+            }
+
+            if (password !== confirmPassword) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Passwords do not match</div>';
+              return;
+            }
+
+            if (!termsAgree) {
+              authError.innerHTML =
+                '<div class="alert alert-error">Please agree to the Terms of Service</div>';
+              return;
+            }
+
+            // Disable button
+            signupBtn.disabled = true;
+            signupBtn.textContent = "Creating Account...";
+
+            // Attempt signup
+            const result = await window.HotelAuth.signUpWithEmail(
+              email,
+              password,
+              {
+                fullName: fullName,
+                phone: phone,
+              }
+            );
+
+            if (result.success) {
+              if (result.needsVerification) {
+                authSuccess.innerHTML =
+                  '<div class="alert alert-success">' +
+                  result.message +
+                  "</div>";
+                setTimeout(() => {
+                  window.location.href =
+                    "/login.html?email=" + encodeURIComponent(email);
+                }, 2000);
+              } else {
+                // Auto logged in, redirect to dashboard
+                window.location.href = "/dashboard.html";
+              }
+            } else {
+              authError.innerHTML =
+                '<div class="alert alert-error">' + result.error + "</div>";
+              signupBtn.disabled = false;
+              signupBtn.textContent = "Create Account";
+            }
+          });
+        }
+
+        // Check for existing session
+        const isLoggedIn = await window.HotelAuth.isLoggedIn();
+        if (isLoggedIn) {
+          window.location.href = "/dashboard.html";
+        }
+      });
+    </script>
   </body>
 </html>

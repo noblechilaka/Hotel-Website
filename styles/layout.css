@@ -710,7 +710,10 @@ body.menu-open {
   object-fit: cover;
   object-position: center;
   z-index: -2;
+  filter: brightness(0.50);
 }
+
+
 
 /* Directional Scrim Gradient - Dark left, clear right */
 .hero-overlay {
@@ -896,7 +899,7 @@ body.menu-open {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  max-width: 400px;
+  max-width: 1200px;
   padding: 0 var(--container-padding);
 }
 
@@ -1006,10 +1009,11 @@ body.menu-open {
     /* flex-direction: column;
     gap: var(--space-sm);
     align-items: flex-start; */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 100px;
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+    margin-bottom: 150px;
     margin-left: 30px;
+    
   }
 
   .filter-unit {
@@ -1017,7 +1021,7 @@ body.menu-open {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 5px; */
+    gap: 5px; */display: none;
   }
 
   .filter-label {
@@ -1029,12 +1033,19 @@ body.menu-open {
   }
 
   .booking-cta {
-    width: 100%;
+    width: 50%;
     text-align: center;
     padding: var(--space-sm) 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: var(--space-xs);
     align-items: center;
+    transform: translateX(-40px);
+    
+  }
+  .book-now-btn{
+    background: var(--bg-light);
+    color: var(--bg-dark);
+    transform: translateX(-40px);
   }
 
   .hero-caption {
