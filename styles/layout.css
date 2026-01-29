@@ -713,10 +713,8 @@ body.menu-open {
   object-fit: cover;
   object-position: center;
   z-index: -2;
-  filter: brightness(0.50);
+  filter: brightness(0.5);
 }
-
-
 
 /* Directional Scrim Gradient - Dark left, clear right */
 .hero-overlay {
@@ -767,12 +765,61 @@ body.menu-open {
 }
 
 /* ============================================
+   HERO MASKED REVEAL ANIMATION STYLES
+   ============================================ */
+
+/* Headline container for masked reveals */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05em;
+}
+
+/* Mask container - clips the text */
+.hero-headline-mask {
+  display: block;
+  overflow: hidden;
+  /* Ensure proper clipping */
+  position: relative;
+}
+
+/* The text that will animate */
+.hero-headline-text {
+  display: block;
+  /* Start position - shifted down (hidden) */
+  transform: translateY(100%);
+  /* Ensure clean rendering */
+  will-change: transform;
+  /* Prevent any gaps */
+  line-height: 0.95;
+}
+
+/* Ensure accessibility - text is still readable in source */
+.hero-headline-text[data-animate="heading"] {
+  /* No visual change needed - animation handles visibility */
+}
+
+/* Subtext fade-in animation */
+.hero-caption p[data-animate="subtext"] {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+}
+
+/* Booking bar animation */
+.hero-booking-bar[data-animate="booking"] {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+
+/* ============================================
    EDITORIAL BOOKING BAR - TYPORAPHIC STYLE
    ============================================ */
 
 .hero-booking-bar {
   position: absolute;
-  margin-top: 500px;
+  bottom: 260px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -894,7 +941,9 @@ body.menu-open {
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
-.book-now-btn{display: none;}
+.book-now-btn {
+  display: none;
+}
 
 /* Bottom Caption */
 .hero-caption {
@@ -919,6 +968,11 @@ body.menu-open {
   margin: 0;
 }
 
+@media (min-width: 1200px) {
+  .hero-content {
+    margin-bottom: 120px;
+  }
+}
 /* ============================================
    HERO RESPONSIVE - TABLET
    ============================================ */
@@ -935,11 +989,12 @@ body.menu-open {
 
   .hero-booking-bar {
     bottom: var(--space-md);
-    max-width: 700px;
+    max-width: 800px;
   }
 
   .editorial-filters {
     gap: var(--space-md);
+    margin-bottom: 200px;
   }
 
   .filter-label {
@@ -990,10 +1045,9 @@ body.menu-open {
   }
 
   .hero-booking-bar {
-    bottom: auto;
+    bottom: 120px;
     top: auto;
-    left: var(--container-padding);
-    right: var(--container-padding);
+   margin-left: 20px;
     transform: none;
     width: auto;
     padding: 0;
@@ -1017,7 +1071,6 @@ body.menu-open {
     grid-template-columns: repeat(2, 1fr); */
     margin-bottom: 150px;
     margin-left: 30px;
-    
   }
 
   .filter-unit {
@@ -1025,7 +1078,8 @@ body.menu-open {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 5px; */display: none;
+    gap: 5px; */
+    display: none;
   }
 
   .filter-label {
@@ -1044,9 +1098,8 @@ body.menu-open {
     margin-top: var(--space-xs);
     align-items: center;
     transform: translateX(-40px);
-    
   }
-  .book-now-btn{
+  .book-now-btn {
     display: block;
     background: var(--bg-light);
     color: var(--bg-dark);
@@ -3886,9 +3939,9 @@ body.menu-open {
   gap: var(--space-xl);
 }
 @media (max-width: 767px) {
- .room-details-section{
-   display: grid;
-  grid-template-columns: repeat(1,1fr);
-  gap: var(--space-xl);
- }
+  .room-details-section {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--space-xl);
+  }
 }

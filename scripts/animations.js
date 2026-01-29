@@ -21,54 +21,83 @@ if (typeof ScrollTrigger !== "undefined") {
 }
 
 // ============================================
-// HERO ANIMATIONS
+// HERO ANIMATIONS - MASKED REVEAL WITH CUSTOM EASING
 // ============================================
+
+/**
+ * Premium cubic bezier for sophisticated, heavy feel
+ * Values: 0.16, 1, 0.3, 1
+ */
+const premiumEase = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 function initHeroAnimation() {
   const hero = DOM.select(".hero");
 
   if (!hero) return;
 
-  const heading = DOM.select(".hero-heading");
-  const subtext = DOM.select(".hero-subtext");
-  const cta = DOM.select(".hero-cta");
+  // Get all animated elements
+  const headlineTexts = DOM.selectAll(
+    ".hero-headline-text[data-animate='heading']"
+  );
+  const subtext = DOM.select(".hero-caption p[data-animate='subtext']");
+  const bookingBar = DOM.select(".hero-booking-bar[data-animate='booking']");
 
-  // Initial load animation
-  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  // Create main timeline
+  const tl = gsap.timeline({
+    defaults: { ease: premiumEase },
+  });
 
-  if (heading) {
-    tl.from(heading.querySelectorAll(".line span"), {
-      y: "100%",
-      duration: 1.2,
-      stagger: 0.15,
-    });
+  // 1. Animate headline words with masked reveal
+  if (headlineTexts.length > 0) {
+    // Each word slides up from hidden position
+    tl.to(
+      headlineTexts,
+      {
+        y: "0%",
+        duration: 1.4,
+        stagger: 0.12, // Subtle stagger between words
+        ease: premiumEase,
+      },
+      0
+    ); // Start at time 0
   }
 
+  // 2. Subtext fade-in (starts after heading begins)
   if (subtext) {
-    tl.from(
+    tl.to(
       subtext,
       {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: premiumEase,
       },
-      "-=0.5"
-    );
+      0.8
+    ); // Start at 0.8s (when heading is animating)
   }
 
-  if (cta) {
-    tl.from(
-      cta,
+  // 3. Booking bar with vertical drift
+  if (bookingBar) {
+    // Use fromTo to explicitly set initial state including x position
+    gsap.fromTo(
+      bookingBar,
       {
-        y: 20,
         opacity: 0,
-        duration: 0.6,
+        y: 30,
+        x: "-50%", // Preserve the centered X position from CSS
       },
-      "-=0.4"
+      {
+        opacity: 1,
+        y: 0,
+        x: "-50%",
+        duration: 1.2,
+        ease: premiumEase,
+      },
+      1.0 // Start at 1.0s (after subtext)
     );
   }
 
-  // Parallax effect on scroll
+  // 4. Parallax effect on scroll
   gsap.to(".hero-bg", {
     yPercent: 30,
     ease: "none",
@@ -79,6 +108,23 @@ function initHeroAnimation() {
       scrub: true,
     },
   });
+
+  // 5. Background scale subtle effect
+  gsap.fromTo(
+    ".hero-bg",
+    { scale: 1.05 },
+    {
+      scale: 1,
+      duration: 2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    }
+  );
 }
 
 // ============================================
@@ -108,7 +154,7 @@ function initTextReveals() {
             y: 0,
             duration: 0.8,
             stagger: 0.1,
-            ease: "power3.out",
+            ease: premiumEase,
           });
         } else {
           el.classList.add("active");
@@ -422,7 +468,7 @@ function initHoverEffects() {
 }
 
 // ============================================
-// SMOOTH SCROLL SECTIONS
+// SMOOTH SCROLL SECTIONS (LENIS INTEGRATED)
 // ============================================
 
 function initSmoothScrollSections() {
@@ -448,11 +494,73 @@ function initSmoothScrollSections() {
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
+            // Lenis-compatible: update on every scroll frame
+            onUpdate: (self) => {
+              if (window.lenis) {
+                window.lenis.update();
+              }
+            },
           },
         });
       }
     }
   });
+}
+
+// ============================================
+// LENIS SMOOTH SCROLL SETUP
+// ============================================
+
+function initLenisSmoothScroll() {
+  // Check if Lenis is available
+  if (typeof Lenis === "undefined") {
+    console.warn("Lenis library not loaded, using native smooth scroll");
+    return;
+  }
+
+  // Initialize Lenis with optimized settings for hotel website
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: "vertical",
+    gestureDirection: "vertical",
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    lerp: 0.1,
+  });
+
+  // Integrate Lenis with GSAP ScrollTrigger
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  // Handle anchor link clicks for smooth scrolling to sections
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href");
+      if (targetId === "#") return;
+
+      const target = document.querySelector(targetId);
+      if (target) {
+        lenis.scrollTo(target, {
+          offset: -80, // Account for fixed header
+          duration: 1.2,
+        });
+      }
+    });
+  });
+
+  // Expose lenis to global scope
+  window.lenis = lenis;
+
+  console.log("Lenis smooth scrolling initialized");
 }
 
 // ============================================
@@ -788,6 +896,11 @@ document.addEventListener("DOMContentLoaded", () => {
     initLoadingAnimation();
     initPageTransition();
     initCursorEffects();
+
+    // Initialize Lenis smooth scrolling (if not already done in HTML)
+    if (typeof Lenis !== "undefined" && !window.lenis) {
+      initLenisSmoothScroll();
+    }
   }, 50);
 });
 
