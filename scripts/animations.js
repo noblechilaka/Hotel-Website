@@ -128,6 +128,300 @@ function initHeroAnimation() {
 }
 
 // ============================================
+// TEXT REVEAL ANIMATIONS - ENHANCED MOTION SYSTEM
+// ============================================
+
+/**
+ * "Soft Lift" - Section Titles
+ * Mask text line-by-line, slide up while transitioning blur
+ */
+function initSoftLiftTitles() {
+  const titles = DOM.selectAll(".section-title[data-animate='soft-lift']");
+  
+  titles.forEach((title) => {
+    // Wrap each line in a mask span
+    const text = title.textContent.trim();
+    const lines = text.split('\n');
+    
+    if (lines.length > 1) {
+      title.innerHTML = lines.map(line => 
+        `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${line}</span></span>`
+      ).join('');
+    } else {
+      // Single line - still wrap for consistency
+      title.innerHTML = `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${text}</span></span>`;
+    }
+    
+    // Animate with ScrollTrigger
+    ScrollTrigger.create({
+      trigger: title,
+      start: "top 80%",
+      onEnter: () => {
+        const lines = title.querySelectorAll(".soft-lift-text");
+        gsap.to(lines, {
+          y: "0%",
+          filter: "blur(0px)",
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out"
+        });
+      }
+    });
+  });
+}
+
+/**
+ * Staggered Line Reveal - Body Text
+ * Lines fade in with subtle 5px vertical drift
+ */
+function initStaggeredBodyText() {
+  const paragraphs = DOM.selectAll("p[data-animate='staggered']");
+  
+  paragraphs.forEach((p) => {
+    // Split into lines based on sentence endings
+    const text = p.textContent;
+    const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim());
+    
+    if (sentences.length > 1) {
+      p.innerHTML = sentences.map(sentence => 
+        `<span class="body-line" style="display: block; opacity: 0; transform: translateY(5px);">${sentence.trim()}</span>`
+      ).join(' ');
+      
+      // Animate with stagger
+      ScrollTrigger.create({
+        trigger: p,
+        start: "top 85%",
+        onEnter: () => {
+          const lines = p.querySelectorAll(".body-line");
+          gsap.to(lines, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out"
+          });
+        }
+      });
+    }
+  });
+}
+
+/**
+ * "Inset Scale" - Image Reveals
+ * Container has fixed aspect ratio, image scales from 1.15 to 1.0
+ */
+function initInsetScaleImages() {
+  const containers = DOM.selectAll(".inset-scale-container");
+  
+  containers.forEach((container) => {
+    const img = container.querySelector("img");
+    if (!img) return;
+    
+    // Set initial state
+    gsap.set(img, {
+      scale: 1.15,
+      transformOrigin: "center center"
+    });
+    
+    // Animate on scroll
+    ScrollTrigger.create({
+      trigger: container,
+      start: "top 70%",
+      onEnter: () => {
+        gsap.to(img, {
+          scale: 1,
+          duration: 1.5,
+          ease: "power2.out"
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(img, {
+          scale: 1.15,
+          duration: 0.5,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+}
+
+/**
+ * "Blur-to-Focus" - Guest Perspective / Social Proof
+ * Transitions from blur(15px)/opacity 0 to blur(0)/opacity 1 over 2s
+ */
+function initBlurToFocus() {
+  const elements = DOM.selectAll(".blur-to-focus");
+  
+  elements.forEach((el) => {
+    // Set initial blurred state
+    gsap.set(el, {
+      filter: "blur(15px)",
+      opacity: 0,
+      transformOrigin: "center center"
+    });
+    
+    // Animate to focus
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 75%",
+      onEnter: () => {
+        gsap.to(el, {
+          filter: "blur(0px)",
+          opacity: 1,
+          duration: 2,
+          ease: "power2.out"
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(el, {
+          filter: "blur(15px)",
+          opacity: 0,
+          duration: 0.5
+        });
+      }
+    });
+  });
+}
+
+/**
+ * Curated Moments Grid - 4-Item Grid with Hover Effects
+ */
+function initCuratedMomentsGrid() {
+  const grid = DOM.select(".curated-moments-grid");
+  if (!grid) return;
+  
+  const items = grid.querySelectorAll(".curated-item");
+  
+  items.forEach((item) => {
+    const img = item.querySelector(".curated-image");
+    const tagline = item.querySelector(".curated-tagline");
+    
+    if (!img || !tagline) return;
+    
+    // Hover enter
+    item.addEventListener("mouseenter", () => {
+      // Image scales to 1.05
+      gsap.to(img, {
+        scale: 1.05,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+      
+      // Tagline appears with letter-spacing expansion
+      gsap.to(tagline, {
+        opacity: 1,
+        letterSpacing: "5px",
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    });
+    
+    // Hover leave
+    item.addEventListener("mouseleave", () => {
+      // Image scales back
+      gsap.to(img, {
+        scale: 1,
+        duration: 0.6,
+        ease: "power2.out"
+      });
+      
+      // Tagline fades and letter-spacing contracts
+      gsap.to(tagline, {
+        opacity: 0.7,
+        letterSpacing: "2px",
+        duration: 0.6,
+        ease: "power2.out"
+      });
+    });
+  });
+}
+
+/**
+ * Enhanced Section Animations
+ */
+function initEnhancedSectionAnimations() {
+  // Enhanced fade up with more subtle motion
+  const fadeUps = DOM.selectAll(".fade-up-enhanced");
+  
+  fadeUps.forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 85%",
+      onEnter: () => {
+        gsap.fromTo(el,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+        );
+      }
+    });
+  });
+  
+  // Staggered grid items
+  const staggerGrids = DOM.selectAll(".stagger-grid");
+  
+  staggerGrids.forEach((grid) => {
+    const items = grid.children;
+    
+    ScrollTrigger.create({
+      trigger: grid,
+      start: "top 80%",
+      onEnter: () => {
+        gsap.fromTo(items,
+          { y: 40, opacity: 0 },
+          { 
+            y: 0, 
+            opacity: 1, 
+            duration: 0.8, 
+            stagger: 0.1, 
+            ease: "power3.out" 
+          }
+        );
+      }
+    });
+  });
+}
+
+/**
+ * Parallax Image with Reveal
+ */
+function initParallaxReveal() {
+  const parallaxImages = DOM.selectAll(".parallax-reveal");
+  
+  parallaxImages.forEach((container) => {
+    const img = container.querySelector("img");
+    if (!img) return;
+    
+    // Initial reveal animation
+    gsap.fromTo(img,
+      { scale: 1.1 },
+      {
+        scale: 1,
+        duration: 1.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: container,
+          start: "top 80%",
+          end: "bottom top",
+          scrub: true,
+        }
+      }
+    );
+    
+    // Parallax effect
+    gsap.to(img, {
+      yPercent: 15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: container,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+  });
+}
+
+// ============================================
 // TEXT REVEAL ANIMATIONS
 // ============================================
 
@@ -880,6 +1174,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Small delay to ensure DOM is ready
   setTimeout(() => {
     initHeroAnimation();
+    initSoftLiftTitles();
+    initStaggeredBodyText();
+    initInsetScaleImages();
+    initBlurToFocus();
+    initCuratedMomentsGrid();
+    initEnhancedSectionAnimations();
+    initParallaxReveal();
     initTextReveals();
     initImageAnimations();
     initSectionAnimations();

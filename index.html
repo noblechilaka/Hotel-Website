@@ -257,15 +257,20 @@ close
               <div class="section-label-wrapper">
                 <span class="rotated-label">Our Story</span>
               </div>
-              <img
-                src="/assets/imgs/Luxuriant Modern Lounge.png"
-                alt="Hotel Exterior at Sunset"
-                class="discovery-image"
-                style="border-radius: 4px"
-              />
+              
+              <!-- Inset Scale Image Reveal -->
+              <div class="inset-scale-container">
+                <img
+                  src="/assets/imgs/Luxuriant Modern Lounge.png"
+                  alt="Hotel Exterior at Sunset"
+                  class="discovery-image"
+                  style="border-radius: 4px"
+                />
+              </div>
             </div>
 
             <div class="discovery-content">
+              <!-- Soft Lift Section Title -->
               <span
                 class="meta-text gold"
                 style="margin-bottom: 1rem; display: block"
@@ -273,18 +278,19 @@ close
               >
               <h2
                 class="section-title offset-right"
+                data-animate="soft-lift"
                 style="margin-bottom: 1.5rem"
               >
-                A Sanctuary<br />of Calm
+                A Sanctuary
+                of Calm
               </h2>
-              <p class="body-text" style="margin-bottom: 1.5rem">
-                Nestled along the pristine coastline, Luxury Hotel offers an
-                escape from the ordinary. Every detail has been crafted to
-                create moments of pure indulgence and profound peace.
+              
+              <!-- Staggered Body Text -->
+              <p class="body-text" data-animate="staggered" style="margin-bottom: 1.5rem">
+                Nestled along the pristine coastline, Luxury Hotel offers an escape from the ordinary. Every detail has been crafted to create moments of pure indulgence and profound peace.
               </p>
-              <p class="body-text" style="margin-bottom: 2rem; opacity: 0.7">
-                Our commitment to excellence and authentic hospitality ensures
-                your stay becomes a cherished memory.
+              <p class="body-text" data-animate="staggered" style="margin-bottom: 2rem; opacity: 0.7">
+                Our commitment to excellence and authentic hospitality ensures your stay becomes a cherished memory.
               </p>
               <a href="/about.html" class="btn-arrow">
                 Read Our Story
@@ -429,95 +435,63 @@ close
       </section>
 
 
-      <!-- Experiences -->
-      <section class="experiences section-padding">
+           <!-- Curated Moments Grid -->
+      <section class="curated-moments section-padding">
         <div class="container">
-          <div style="margin-bottom: 3rem">
-            <span
-              class="meta-text gold"
-              style="margin-bottom: 0.5rem; display: block"
-              >Experiences</span
-            >
-            <h2 class="section-title" style="margin-left: -0.05em">
-              Curated Moments
-            </h2>
-          </div>
+          <span
+            class="meta-text gold"
+            style="margin-bottom: 0.5rem; display: block"
+            >Curated Moments</span
+          >
+          <h2 
+            class="section-title" 
+            data-animate="soft-lift"
+            style="margin-bottom: var(--space-lg);"
+          >
+            The Architecture
+            of Restoration
+          </h2>
         </div>
-
-        <div class="masonry-grid" style="padding: 0 var(--container-padding)">
-          <!-- Experience 1 - Large -->
-          <div class="experience-item experience-item.offset-content large">
+        
+        <div class="curated-moments-grid" style="padding: 0 var(--container-padding);">
+          <!-- Item 1 -->
+          <div class="curated-item">
             <img
-              src="assets/imgs/Facial Treatment Serenity.png"
+              src="/assets/imgs/Facial Treatment Serenity.png"
               alt="Spa Experience"
-              class="experience-image"
+              class="curated-image"
             />
-            <div class="experience-content">
-              <h3 class="experience-title">Wellness & Spa</h3>
-              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
-                Rejuvenate your senses
-              </p>
-            </div>
+            <span class="curated-tagline">The architecture of restoration</span>
           </div>
-
-          <!-- Experience 2 -->
-          <div class="experience-item">
+          
+          <!-- Item 2 -->
+          <div class="curated-item">
             <img
-              src="assets/imgs/Modern Restaurant Interior.png"
+              src="/assets/imgs/Modern Restaurant Interior.png"
               alt="Fine Dining"
-              class="experience-image"
+              class="curated-image"
             />
-            <div class="experience-content">
-              <h3 class="experience-title">Fine Dining</h3>
-              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
-                Culinary excellence
-              </p>
-            </div>
+            <span class="curated-tagline">Culinary artistry</span>
           </div>
-
-          <!-- Experience 3 -->
-          <div class="experience-item">
+          
+          <!-- Item 3 -->
+          <div class="curated-item">
             <img
-              src="assets/imgs/sunset bar.jpg"
-              alt="Cocktails"
-              class="experience-image"
+              src="/assets/imgs/sunset bar.jpg"
+              alt="Sunset Bar"
+              class="curated-image"
             />
-            <div class="experience-content">
-              <h3 class="experience-title">Sunset Bar</h3>
-              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
-                Waterside elegance
-              </p>
-            </div>
+            <span class="curated-tagline">Waterside elegance</span>
           </div>
-
-          <!-- Experience 4 -->
-          <div class="experience-item">
+          
+          <!-- Item 4 -->
+          <div class="curated-item">
             <img
-              src="assets/imgs/e902655945219df95ef857ee95954167.jpg"
-              alt="Yoga"
-              class="experience-image"
+              src="/assets/imgs/Poolside Relaxation at Luxury Resort.png"
+              alt="Infinity Pool"
+              class="curated-image"
             />
-            <div class="experience-content">
-              <h3 class="experience-title">Yoga Deck</h3>
-              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
-                Morning serenity
-              </p>
-            </div>
-          </div>
-
-          <!-- Experience 5 -->
-          <div class="experience-item">
-            <img
-              src="assets/imgs/Poolside Relaxation at Luxury Resort.png"
-              alt="Pool"
-              class="experience-image"
-            />
-            <div class="experience-content">
-              <h3 class="experience-title">Infinity Pool</h3>
-              <p class="body-text" style="font-size: 0.875rem; opacity: 0.8">
-                Ocean horizon views
-              </p>
-            </div>
+            <span class="curated-tagline">Ocean horizon views</span>
           </div>
         </div>
       </section>
@@ -540,6 +514,22 @@ close
           </a>
         </div>
       </section>
+
+      <!-- Guest Perspective - Blur to Focus -->
+      <section class="guest-perspective section-padding" style="background: var(--obsidian-noir); text-align: center;">
+        <div class="container" style="max-width: 800px;">
+          <div class="blur-to-focus">
+            <p style="font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2rem); font-style: italic; color: var(--optic-white); line-height: 1.6;">
+              "A rare masterclass in silence. The Emily doesn't just house you; it exhales with you."
+            </p>
+            <p style="font-family: var(--font-body); font-size: 0.75rem; color: var(--editorial-accent); text-transform: uppercase; letter-spacing: 0.2em; margin-top: var(--space-md);">
+              — L'Art de Vivre
+            </p>
+          </div>
+        </div>
+      </section>
+
+ 
     </main>
 
     <!-- Footer -->
