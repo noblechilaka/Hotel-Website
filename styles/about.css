@@ -1,0 +1,829 @@
+/* ============================================
+   ABOUT PAGE - SECTION SPECIFIC STYLES
+   "The Architecture of Intent" Design System
+   ============================================ */
+
+/* ============================================
+   HERO SECTION - MACRO VIDEO BACKGROUND
+   ============================================ */
+
+.about-hero-section {
+  height: 100vh;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--obsidian-noir);
+}
+
+/* Macro Video Background Container */
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-video-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 18, 18, 0.4);
+  z-index: 1;
+}
+
+/* Video Background */
+.hero-macro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* Fallback: Image slideshow if video not available */
+.hero-slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Macro material close-ups grid overlay */
+.macro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  height: 100%;
+  gap: 2px;
+}
+
+.macro-cell {
+  overflow: hidden;
+}
+
+.macro-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.2);
+  animation: macroPan 20s ease-in-out infinite alternate;
+}
+
+@keyframes macroPan {
+  0% {
+    transform: scale(1.2) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.4) translate(-5%, -5%);
+  }
+}
+
+/* Hero Content */
+.about-hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 var(--container-padding);
+}
+
+.hero-statement {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--optic-white);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-statement .serif-text {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+/* Hero scroll indicator */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.scroll-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleY(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* ============================================
+   NARRATIVE SECTION - SPLIT SCREEN LAYOUT
+   "A Study in Stillness"
+   ============================================ */
+
+.narrative-section {
+  min-height: 100vh;
+  position: relative;
+  background: var(--bone-linen);
+  transition: background-color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Split Screen Grid */
+.narrative-split {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  min-height: 100vh;
+}
+
+/* Sticky Left Side - Title */
+.narrative-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: var(--container-padding);
+  background: var(--bone-linen);
+  z-index: 10;
+}
+
+.narrative-title-wrapper {
+  position: relative;
+}
+
+.narrative-section-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.narrative-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  color: var(--onyx);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Scrollable Right Side - Content */
+.narrative-scrolling {
+  padding: var(--space-xl) var(--container-padding);
+  padding-left: 0;
+}
+
+.narrative-block {
+  margin-bottom: var(--space-xxl);
+}
+
+/* Poetic Paragraphs */
+.narrative-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 2;
+  color: var(--onyx);
+  margin-bottom: var(--space-lg);
+  max-width: 50ch;
+}
+
+.narrative-text.light {
+  color: rgba(26, 26, 26, 0.6);
+  font-style: italic;
+}
+
+/* Floating Images */
+.narrative-image-wrapper {
+  position: relative;
+  margin: var(--space-xl) 0;
+}
+
+.narrative-image-wrapper.right {
+  margin-left: auto;
+  padding-left: var(--space-xl);
+}
+
+.narrative-image-wrapper.center {
+  text-align: center;
+  padding: 0 var(--space-xl);
+}
+
+.floating-image {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slow-Reveal Clip Path Animation */
+.slow-reveal-image {
+  clip-path: inset(0 calc(50% - 30px) 0 calc(50% - 30px));
+  transition: clip-path 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slow-reveal-image.revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+.slow-reveal-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transform: scale(1.1);
+  transition: transform 1.5s ease;
+}
+
+.slow-reveal-image.revealed img {
+  transform: scale(1);
+}
+
+/* Ghost Text Parallax */
+.ghost-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.ghost-text p {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Image caption */
+.narrative-caption {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--editorial-accent);
+  margin-top: var(--space-md);
+}
+
+/* ============================================
+   MAKERS SECTION - HUMAN TOUCH
+   ============================================ */
+
+.makers-section {
+  min-height: 100vh;
+  position: relative;
+  background: var(--obsidian-noir);
+  overflow: hidden;
+}
+
+/* Color transition trigger */
+.color-transition-trigger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  transform: translateY(-50%);
+}
+
+.makers-header {
+  padding: var(--space-xl) var(--container-padding);
+  text-align: center;
+  padding-top: var(--space-xxl);
+}
+
+.makers-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.makers-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  color: var(--optic-white);
+  margin-bottom: var(--space-lg);
+}
+
+.makers-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Makers Grid */
+.makers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  padding: 0 var(--container-padding);
+  padding-bottom: var(--space-xxl);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Maker Portrait Card */
+.maker-card {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.maker-portrait-wrapper {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  margin-bottom: var(--space-md);
+}
+
+.maker-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+.maker-card:hover .maker-portrait {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.02);
+}
+
+/* Title Overlay - Fades out on hover */
+.maker-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--space-md);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  transition: opacity 0.4s ease;
+}
+
+.maker-card:hover .maker-info {
+  opacity: 0;
+}
+
+.maker-title {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--optic-white);
+  margin-bottom: 0.25rem;
+}
+
+.maker-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--optic-white);
+}
+
+/* Quote Overlay - Fades in on hover */
+.maker-quote {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.maker-card:hover .maker-quote {
+  opacity: 1;
+}
+
+.maker-quote-text {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--optic-white);
+  line-height: 1.5;
+}
+
+.maker-quote-text::before {
+  content: '"';
+  display: block;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-sm);
+}
+
+/* ============================================
+   NEIGHBORHOOD SECTION - THE MONOLITH IN THE CITY
+   ============================================ */
+
+.neighborhood-section {
+  min-height: 100vh;
+  position: relative;
+  background: var(--bone-linen);
+  overflow: hidden;
+}
+
+/* Styled Map Container */
+.neighborhood-map-wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--container-padding);
+}
+
+/* Minimal Map */
+.neighborhood-map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #f5f3ef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Charcoal map lines */
+.map-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.map-lines svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Hotel Location Marker */
+.hotel-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.marker-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--obsidian-noir);
+  border-radius: 50%;
+  position: relative;
+}
+
+.marker-dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--obsidian-noir);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: markerPulse 2s ease-out infinite;
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Points of Interest - Ink Drop Animation */
+.poi-marker {
+  position: absolute;
+  z-index: 5;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.poi-marker.active {
+  animation: inkDrop 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes inkDrop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.poi-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--editorial-accent);
+  border-radius: 50%;
+  position: relative;
+}
+
+.poi-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--editorial-accent);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.poi-label {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--onyx);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+
+.poi-marker.active .poi-label {
+  opacity: 1;
+}
+
+/* Neighborhood Content */
+.neighborhood-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  padding: var(--space-xl) var(--container-padding);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.neighborhood-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.neighborhood-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.neighborhood-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: var(--onyx);
+  margin-bottom: var(--space-lg);
+}
+
+.neighborhood-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--onyx);
+  max-width: 45ch;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .hero-statement {
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+
+  .narrative-split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .narrative-sticky {
+    height: auto;
+    position: relative;
+    padding: var(--space-lg) var(--container-padding);
+  }
+
+  .narrative-scrolling {
+    padding: var(--space-lg) var(--container-padding);
+  }
+
+  .makers-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .neighborhood-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .hero-statement {
+    font-size: clamp(1.75rem, 5vw, 3rem);
+  }
+
+  .narrative-split {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .narrative-sticky {
+    height: auto;
+    position: relative;
+    padding: var(--space-lg) var(--container-padding);
+    text-align: center;
+  }
+
+  .narrative-title {
+    font-size: 2rem;
+  }
+
+  .narrative-scrolling {
+    padding: var(--space-lg) var(--container-padding);
+  }
+
+  .narrative-image-wrapper,
+  .narrative-image-wrapper.right,
+  .narrative-image-wrapper.center {
+    padding: 0;
+    margin: var(--space-md) 0;
+  }
+
+  .slow-reveal-image img {
+    height: 250px;
+  }
+
+  .makers-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: 0 var(--container-padding);
+    padding-bottom: var(--space-xl);
+  }
+
+  .maker-portrait-wrapper {
+    aspect-ratio: 3/4;
+    max-width: 300px;
+    margin: 0 auto var(--space-md);
+  }
+
+  .neighborhood-map {
+    aspect-ratio: 4/3;
+  }
+
+  .neighborhood-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-lg) var(--container-padding);
+  }
+
+  .neighborhood-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .neighborhood-description {
+    text-align: center;
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   ANIMATION UTILITY CLASSES
+   ============================================ */
+
+/* Slow Reveal Image States */
+.slow-reveal-image {
+  clip-path: inset(0 50% 0 50%);
+}
+
+.slow-reveal-image.revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Ghost Text States */
+.ghost-text p {
+  transform: translateY(0);
+}
+
+.ghost-text p.scrolled {
+  transform: translateY(-10px);
+}
+
+/* Color Transition States */
+.narrative-section.light-theme {
+  background: var(--bone-linen);
+}
+
+.narrative-section.dark-theme {
+  background: var(--obsidian-noir);
+}
+
+.narrative-section.dark-theme .narrative-sticky,
+.narrative-section.dark-theme .narrative-title,
+.narrative-section.dark-theme .narrative-text {
+  color: var(--optic-white);
+}
+
+.narrative-section.dark-theme .narrative-text.light {
+  color: rgba(255, 255, 255, 0.5);
+}

@@ -16,7 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/typography.css" />
@@ -34,17 +34,11 @@
     <!-- Scroll Progress -->
     <div class="scroll-progress"></div>
 
-    <!-- Header -->
-
-    <!-- Header -->
+   <!-- Header -->
     <header class="header">
       <div class="header-inner">
         <!-- Menu Toggle - Left -->
-        <button
-          class="header-menu"
-          id="menuToggle"
-          aria-label="Open navigation menu"
-        >
+        <button class="header-menu" id="menuToggle" aria-label="Open navigation menu">
           <div class="menu-icon">
             <span></span>
             <span></span>
@@ -60,505 +54,108 @@
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
           <a href="/signup.html" class="nav-link">JOIN US</a>
-          <!-- Submit Button -->
-          <button type="submit" class="booking-cta" id="bookNowBtn">
-            BOOK NOW
-          </button>
+         <!-- Submit Button -->
+            <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
         </nav>
 
         <!-- Mobile Menu Toggle -->
-        <button
-          class="menu-toggle"
-          aria-label="Toggle navigation"
-          style="
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            display: none;
-          "
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="24"
-            height="24"
-            viewBox="0 0 32 32"
-          >
-            <path
-              d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"
-            ></path>
+        <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+            <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
           </svg>
         </button>
       </div>
     </header>
 
     <!-- Navigation Menu Panel -->
-    <div
-      class="menu-overlay"
-      id="menuOverlay"
-      role="dialog"
-      aria-modal="true"
-      aria-hidden="true"
-    >
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
       <nav class="menu-panel" aria-label="Main navigation">
         <ul class="menu-list">
-          <li class="menu-item">
-            <a href="/index.html" class="menu-link">Home</a>
-          </li>
-          <li class="menu-item">
-            <a href="/rooms.html" class="menu-link">Rooms & Suites</a>
-          </li>
-          <li class="menu-item">
-            <a href="/about.html" class="menu-link">About Us</a>
-          </li>
-          <li class="menu-item">
-            <a href="#" class="menu-link">Experiences</a>
-          </li>
-          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
-          <li class="menu-item">
-            <a href="/contact.html" class="menu-link">Contact</a>
-          </li>
+          <li class="menu-item"><a href="/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
+          <li class="menu-item"><a href="/gallery.html" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/contact.html" class="menu-link">Contact</a></li>
           <li class="menu-item menu-divider"></li>
-          <li class="menu-item">
-            <a href="#" class="menu-link menu-link-secondary">JOIN US</a>
-          </li>
-          <li class="menu-item">
-            <a href="#" class="menu-link menu-link-cta">Book Your Stay</a>
-          </li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
+          <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
         </ul>
-        <button
-          class="menu-close"
-          id="menuClose"
-          aria-label="Close navigation menu"
-        >
-          Close
-        </button>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu"><span class="material-symbols-outlined">
+close
+</span>Close</button>
+        
       </nav>
     </div>
 
     <main>
-      <!-- Page Header -->
-      <section class="hero-pages" style="min-height: 50vh">
-        <img
-          src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920"
-          alt="Room Interior"
-          class="hero-bg"
-        />
-        <div class="hero-overlay"></div>
-
-        <div class="hero_content" style="padding-top: 150px">
-          <span
-            class="meta-text gold"
-            style="margin-bottom: 1rem; display: block"
-            >Accommodations</span
+      <!-- THE HERO: The Passage of Light -->
+      <section class="rooms-hero-video">
+        <video
+          class="hero-video-element"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920"
+        >
+          <source
+            src="https://assets.mixkit.co/videos/preview/mixkit-sunlight-coming-through-the-window-in-a-room-4165-large.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+        <div class="hero-video-overlay"></div>
+        <div class="hero-video-content">
+          <h1 class="choose-stillness">Choose Your Stillness</h1>
+        </div>
+        <div class="scroll-indicator-hero">
+          <span>Scroll to explore</span>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
           >
-          <h1 class="hero-heading" style="font-size: clamp(3rem, 8vw, 6rem)">
-            <span class="line"><span>Our</span></span>
-            <span class="line"><span>Rooms &</span></span>
-            <span class="line"><span class="text-gold">Suites</span></span>
-          </h1>
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
         </div>
       </section>
 
-      <!-- Rooms List -->
-      <section class="section-padding" style="padding-top: 0">
-        <div class="container">
-          <!-- Room 1 - Ocean View Suite (Left aligned image) -->
-          <div class="room-section" style="margin-bottom: var(--space-xxl)">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: 1.2fr 1fr;
-                gap: var(--space-lg);
-                align-items: center;
-              "
-            >
-              <div class="room-image">
-                <a
-                  href="/room-details.html?room=ocean-view-suite"
-                  class="hover-zoom"
-                  style="display: block; overflow: hidden; border-radius: 4px"
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1000"
-                    alt="Ocean View Suite"
-                    style="width: 100%; height: 600px; object-fit: cover"
-                  />
-                </a>
-              </div>
-
-              <div class="room-info" style="padding-left: var(--space-lg)">
-                <span
-                  class="meta-text gold"
-                  style="margin-bottom: 1rem; display: block"
-                  >Ocean View</span
-                >
-                <h2 class="section-title" style="margin-bottom: 1rem">
-                  Ocean View Suite
-                </h2>
-                <p class="body-text" style="margin-bottom: 1.5rem">
-                  Panoramic ocean views await from every corner of this
-                  expansive suite. The private terrace is perfect for morning
-                  coffee or evening cocktails as you watch the sun dip below the
-                  horizon.
-                </p>
-
-                <div
-                  style="
-                    display: flex;
-                    gap: var(--space-lg);
-                    margin-bottom: 1.5rem;
-                  "
-                >
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >65</span
-                    >
-                    <span class="stat-label">m²</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >King</span
-                    >
-                    <span class="stat-label">Bed</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >2</span
-                    >
-                    <span class="stat-label">Guests</span>
-                  </div>
-                </div>
-
-                <div style="margin-bottom: 2rem">
-                  <span class="price"
-                    >$450 <span class="price-period">/ night</span></span
-                  >
-                </div>
-
-                <a
-                  href="/room-details.html?room=ocean-view-suite"
-                  class="btn btn-primary gold"
-                >
-                  View Room
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
+      <!-- Rooms List - Dynamically Loaded - Editorial Container -->
+      <div class="rooms-editorial-container">
+        <section class="section-padding" style="padding-top: 0">
+          <div class="container" id="rooms-container">
+            <!-- Rooms will be loaded here by JavaScript -->
           </div>
+        </section>
+      </div>
 
-          <!-- Room 2 - Garden Retreat (Right aligned image) -->
-          <div class="room-section" style="margin-bottom: var(--space-xxl)">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: 1fr 1.2fr;
-                gap: var(--space-lg);
-                align-items: center;
-              "
-            >
-              <div class="room-info" style="padding-right: var(--space-lg)">
-                <span
-                  class="meta-text gold"
-                  style="margin-bottom: 1rem; display: block"
-                  >Garden Setting</span
-                >
-                <h2 class="section-title" style="margin-bottom: 1rem">
-                  Garden Retreat
-                </h2>
-                <p class="body-text" style="margin-bottom: 1.5rem">
-                  Nestled within our lush tropical gardens, this sanctuary
-                  offers complete privacy and tranquility. The rain shower and
-                  private garden create an intimate connection with nature.
-                </p>
+      <script>
+        // Initialize rooms on page load
+        document.addEventListener("DOMContentLoaded", function () {
+          const container = document.getElementById("rooms-container");
+          if (container && window.RoomManager) {
+            container.innerHTML = window.RoomManager.getAll("rooms")
+              .map((room, index) =>
+                window.RoomManager.renderRoomSection(room, index)
+              )
+              .join("");
 
-                <div
-                  style="
-                    display: flex;
-                    gap: var(--space-lg);
-                    margin-bottom: 1.5rem;
-                  "
-                >
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >55</span
-                    >
-                    <span class="stat-label">m²</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >Queen</span
-                    >
-                    <span class="stat-label">Bed</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >2</span
-                    >
-                    <span class="stat-label">Guests</span>
-                  </div>
-                </div>
-
-                <div style="margin-bottom: 2rem">
-                  <span class="price"
-                    >$320 <span class="price-period">/ night</span></span
-                  >
-                </div>
-
-                <a
-                  href="/room-details.html?room=garden-retreat"
-                  class="btn btn-primary gold"
-                >
-                  View Room
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-
-              <div class="room-image">
-                <a
-                  href="/room-details.html?room=garden-retreat"
-                  class="hover-zoom"
-                  style="display: block; overflow: hidden; border-radius: 4px"
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1000"
-                    alt="Garden Retreat"
-                    style="width: 100%; height: 600px; object-fit: cover"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Room 3 - Presidential Suite (Left aligned image) -->
-          <div class="room-section" style="margin-bottom: var(--space-xxl)">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: 1.3fr 1fr;
-                gap: var(--space-lg);
-                align-items: center;
-              "
-            >
-              <div class="room-image">
-                <a
-                  href="/room-details.html?room=presidential-suite"
-                  class="hover-zoom"
-                  style="display: block; overflow: hidden; border-radius: 4px"
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1000"
-                    alt="Presidential Suite"
-                    style="width: 100%; height: 650px; object-fit: cover"
-                  />
-                </a>
-              </div>
-
-              <div class="room-info" style="padding-left: var(--space-lg)">
-                <span
-                  class="meta-text gold"
-                  style="margin-bottom: 1rem; display: block"
-                  >Ultimate Luxury</span
-                >
-                <h2 class="section-title" style="margin-bottom: 1rem">
-                  Presidential Suite
-                </h2>
-                <p class="body-text" style="margin-bottom: 1.5rem">
-                  The pinnacle of luxury living. This expansive suite features
-                  exclusive amenities, dedicated butler service, and
-                  breathtaking panoramic views that will take your breath away.
-                </p>
-
-                <div
-                  style="
-                    display: flex;
-                    gap: var(--space-lg);
-                    margin-bottom: 1.5rem;
-                  "
-                >
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >150</span
-                    >
-                    <span class="stat-label">m²</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >King</span
-                    >
-                    <span class="stat-label">Bed</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >4</span
-                    >
-                    <span class="stat-label">Guests</span>
-                  </div>
-                </div>
-
-                <div style="margin-bottom: 2rem">
-                  <span class="price"
-                    >$1,200 <span class="price-period">/ night</span></span
-                  >
-                </div>
-
-                <a
-                  href="/room-details.html?room=presidential-suite"
-                  class="btn btn-primary gold"
-                >
-                  View Room
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Room 4 - Beach Villa (Right aligned image) -->
-          <div class="room-section" style="margin-bottom: var(--space-xxl)">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: 1fr 1.3fr;
-                gap: var(--space-lg);
-                align-items: center;
-              "
-            >
-              <div class="room-info" style="padding-right: var(--space-lg)">
-                <span
-                  class="meta-text gold"
-                  style="margin-bottom: 1rem; display: block"
-                  >Beachfront</span
-                >
-                <h2 class="section-title" style="margin-bottom: 1rem">
-                  Beach Villa
-                </h2>
-                <p class="body-text" style="margin-bottom: 1.5rem">
-                  Your private paradise with direct beach access and an infinity
-                  pool that seems to merge with the ocean. The ultimate retreat
-                  for those seeking space and exclusivity.
-                </p>
-
-                <div
-                  style="
-                    display: flex;
-                    gap: var(--space-lg);
-                    margin-bottom: 1.5rem;
-                  "
-                >
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >200</span
-                    >
-                    <span class="stat-label">m²</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >King+</span
-                    >
-                    <span class="stat-label">Bed</span>
-                  </div>
-                  <div>
-                    <span
-                      class="stat-number"
-                      style="font-size: 1.5rem; color: var(--gold)"
-                      >6</span
-                    >
-                    <span class="stat-label">Guests</span>
-                  </div>
-                </div>
-
-                <div style="margin-bottom: 2rem">
-                  <span class="price"
-                    >$850 <span class="price-period">/ night</span></span
-                  >
-                </div>
-
-                <a
-                  href="/room-details.html?room=beach-villa"
-                  class="btn btn-primary gold"
-                >
-                  View Room
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-
-              <div class="room-image">
-                <a
-                  href="/room-details.html?room=beach-villa"
-                  class="hover-zoom"
-                  style="display: block; overflow: hidden; border-radius: 4px"
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1000"
-                    alt="Beach Villa"
-                    style="width: 100%; height: 650px; object-fit: cover"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            // Initialize scroll animations after a short delay
+            setTimeout(() => {
+              if (
+                typeof gsap !== "undefined" &&
+                typeof ScrollTrigger !== "undefined"
+              ) {
+                window.RoomManager.initEditorialRoomAnimations();
+              }
+            }, 100);
+          }
+        });
+      </script>
 
       <!-- Quick Booking Widget -->
       <section class="section-padding bg-dark">
@@ -655,20 +252,21 @@
     <script src="/scripts/animations.js"></script>
     <script src="/scripts/supabase.js"></script>
     <script src="/scripts/auth.js"></script>
+    <script src="/scripts/rooms-data.js"></script>
     <!-- Lenis Smooth Scrolling Initialization -->
     <script>
       const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
+        direction: "vertical",
+        gestureDirection: "vertical",
         smooth: true,
         mouseMultiplier: 1,
         smoothTouch: false,
         touchMultiplier: 2,
       });
 
-      lenis.on('scroll', ScrollTrigger.update);
+      lenis.on("scroll", ScrollTrigger.update);
 
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
@@ -676,14 +274,14 @@
 
       gsap.ticker.lagSmoothing(0);
 
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
           e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
+          const target = document.querySelector(this.getAttribute("href"));
           if (target) {
             lenis.scrollTo(target, {
               offset: -100,
-              duration: 1.2
+              duration: 1.2,
             });
           }
         });

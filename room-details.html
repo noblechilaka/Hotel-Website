@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Room Details | Luxury Hotel</title>
+    <title>Loading Room | EMILY HOTEL</title>
     <meta
       name="description"
-      content="View room details and amenities. Book your perfect stay at Luxury Hotel."
+      content="View room details and amenities. Book your perfect stay at EMILY HOTEL."
     />
 
     <!-- Fonts -->
@@ -16,7 +16,10 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close"
+    />
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/typography.css" />
@@ -36,10 +39,22 @@
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Room Data - Load first for immediate access -->
+    <script src="/scripts/rooms-data.js"></script>
   </head>
   <body class="room-details-page">
     <!-- Scroll Progress -->
     <div class="scroll-progress"></div>
+
+    <!-- Loading State -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loading-content">
+        <span class="loading-logo">EMILY HOTEL</span>
+        <div class="loading-spinner"></div>
+        <span class="loading-text">Preparing your sanctuary...</span>
+      </div>
+    </div>
 
     <!-- Header -->
     <header class="header">
@@ -65,23 +80,16 @@
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
           <a href="/signup.html" class="nav-link">JOIN US</a>
-          <!-- Submit Button -->
           <button type="submit" class="booking-cta" id="bookNowBtn">
             BOOK NOW
           </button>
         </nav>
 
-        <!-- Mobile Menu Toggle -->
+        <!-- Mobile Menu Toggle - Visible on mobile only -->
         <button
           class="menu-toggle"
+          id="mobileMenuToggle"
           aria-label="Toggle navigation"
-          style="
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            display: none;
-          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +129,9 @@
           <li class="menu-item">
             <a href="#" class="menu-link">Experiences</a>
           </li>
-          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
+          <li class="menu-item">
+            <a href="/gallery.html" class="menu-link">Gallery</a>
+          </li>
           <li class="menu-item">
             <a href="/contact.html" class="menu-link">Contact</a>
           </li>
@@ -138,16 +148,17 @@
           id="menuClose"
           aria-label="Close navigation menu"
         >
-          Close
+          <span class="material-symbols-outlined"> close </span>Close
         </button>
       </nav>
     </div>
 
-    <main>
-      <!-- Page Header -->
+    <main id="main-content" style="opacity: 0;">
+      <!-- Page Header - Dynamically Populated -->
       <section class="hero-pages" style="min-height: 50vh">
         <img
-          src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1920"
+          id="hero-bg-image"
+          src=""
           alt="Room Interior"
           class="hero-bg"
         />
@@ -156,26 +167,30 @@
         <div class="hero_content" style="padding-top: 150px">
           <span
             class="meta-text gold"
+            id="hero-category"
             style="margin-bottom: 1rem; display: block"
             >Accommodations</span
           >
-          <h1 class="hero-heading" style="font-size: clamp(3rem, 8vw, 6rem)">
-            <span class="line"><span>Inside</span></span>
+          <h1
+            class="hero-heading"
+            id="hero-title"
+            style="font-size: clamp(3rem, 8vw, 6rem)"
+          >
             <span class="line"><span>The Rooms &</span></span>
             <span class="line"><span class="text-gold">Suites</span></span>
           </h1>
         </div>
       </section>
-      <!-- Room Gallery -->
+
+      <!-- Room Gallery - Dynamically Populated -->
       <section class="section-padding" style="padding-bottom: 0">
         <div class="container">
           <!-- Main Image -->
-
-          <div class="" style="margin-bottom: var(--space-md)">
+          <div style="margin-bottom: var(--space-md)">
             <img
-              id="mainImage"
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
-              alt="Ocean View Suite"
+              id="main-image"
+              src=""
+              alt="Room View"
               style="
                 width: 100%;
                 height: 70vh;
@@ -185,8 +200,9 @@
             />
           </div>
 
-          <!-- Thumbnails -->
+          <!-- Thumbnails Container -->
           <div
+            id="gallery-container"
             class="room-gallery"
             style="
               display: grid;
@@ -194,385 +210,29 @@
               gap: var(--space-sm);
             "
           >
-            <button
-              class="gallery-thumb active"
-              data-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
-              style="overflow: hidden; border-radius: 4px; cursor: pointer"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400"
-                alt="View 1"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  transition: transform 0.3s ease;
-                "
-              />
-            </button>
-            <button
-              class="gallery-thumb"
-              data-src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800"
-              style="overflow: hidden; border-radius: 4px; cursor: pointer"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400"
-                alt="View 2"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  transition: transform 0.3s ease;
-                "
-              />
-            </button>
-            <button
-              class="gallery-thumb"
-              data-src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800"
-              style="overflow: hidden; border-radius: 4px; cursor: pointer"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400"
-                alt="View 3"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  transition: transform 0.3s ease;
-                "
-              />
-            </button>
-            <button
-              class="gallery-thumb"
-              data-src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800"
-              style="overflow: hidden; border-radius: 4px; cursor: pointer"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400"
-                alt="View 4"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  transition: transform 0.3s ease;
-                "
-              />
-            </button>
+            <!-- Gallery thumbnails loaded dynamically -->
           </div>
         </div>
       </section>
 
-      <!-- Room Details & Booking -->
+      <!-- Room Details & Booking - Dynamically Populated -->
       <section class="section-padding">
         <div class="container">
           <div class="room-details-section">
             <!-- Room Info -->
-            <div class="room-details">
-              <span class="meta-text gold" id="roomCategory">Ocean View</span>
-              <h1
-                class="section-title"
-                id="roomName"
-                style="margin-bottom: 1rem"
-              >
-                Ocean View Suite
-              </h1>
-
-              <p
-                class="body-text"
-                id="roomDescription"
-                style="margin-bottom: 2rem"
-              >
-                A luxurious suite with panoramic ocean views, featuring a
-                private terrace and elegant contemporary design. The spacious
-                interior combines comfort with sophistication, creating the
-                perfect retreat for discerning travelers.
-              </p>
-
-              <!-- Room Stats -->
-              <div
-                style="
-                  display: flex;
-                  gap: var(--space-xl);
-                  margin-bottom: 2rem;
-                  padding: 1.5rem;
-                  background: var(--bg-light);
-                  border-radius: 4px;
-                "
-              >
-                <div>
-                  <span class="stat-number" id="roomSize">65</span>
-                  <span class="stat-label">m²</span>
-                </div>
-                <div>
-                  <span class="stat-number" id="bedType">King</span>
-                  <span class="stat-label">Bed</span>
-                </div>
-                <div>
-                  <span class="stat-number" id="maxGuests">2</span>
-                  <span class="stat-label">Guests</span>
-                </div>
-              </div>
-
-              <!-- Amenities -->
-              <h3
-                class="section-title"
-                style="font-size: 1.5rem; margin-bottom: 1rem"
-              >
-                Amenities
-              </h3>
-              <ul
-                class="amenities-list"
-                id="amenitiesList"
-                style="
-                  list-style: none;
-                  display: grid;
-                  grid-template-columns: repeat(2, 1fr);
-                  gap: 1rem;
-                "
-              >
-                <li style="display: flex; align-items: center; gap: 0.75rem">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    stroke-width="1.5"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  <span>Ocean View</span>
-                </li>
-                <li style="display: flex; align-items: center; gap: 0.75rem">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    stroke-width="1.5"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  <span>Private Terrace</span>
-                </li>
-                <li style="display: flex; align-items: center; gap: 0.75rem">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    stroke-width="1.5"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  <span>Mini Bar</span>
-                </li>
-                <li style="display: flex; align-items: center; gap: 0.75rem">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    stroke-width="1.5"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  <span>Free WiFi</span>
-                </li>
-                <li style="display: flex; align-items: center; gap: 0.75rem">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    stroke-width="1.5"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  <span>Room Service</span>
-                </li>
-                <li style="display: flex; align-items: center; gap: 0.75rem">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--gold)"
-                    stroke-width="1.5"
-                  >
-                    <path d="M20 6L9 17l-5-5" />
-                  </svg>
-                  <span>Air Conditioning</span>
-                </li>
-              </ul>
-
-              <!-- Policies -->
-              <div
-                style="
-                  margin-top: 2rem;
-                  padding-top: 2rem;
-                  border-top: 1px solid var(--divider);
-                "
-              >
-                <h3
-                  class="section-title"
-                  style="font-size: 1.25rem; margin-bottom: 1rem"
-                >
-                  Policies
-                </h3>
-                <div
-                  style="
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1rem;
-                  "
-                >
-                  <div>
-                    <span class="meta-text">Check-in</span>
-                    <p class="body-text" style="margin-top: 0.25rem">
-                      3:00 PM onwards
-                    </p>
-                  </div>
-                  <div>
-                    <span class="meta-text">Check-out</span>
-                    <p class="body-text" style="margin-top: 0.25rem">
-                      11:00 AM
-                    </p>
-                  </div>
-                  <div>
-                    <span class="meta-text">Cancellation</span>
-                    <p class="body-text" style="margin-top: 0.25rem">
-                      Free up to 48 hours before
-                    </p>
-                  </div>
-                  <div>
-                    <span class="meta-text">Children</span>
-                    <p class="body-text" style="margin-top: 0.25rem">
-                      Welcome of all ages
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div class="room-details" id="room-details-content">
+              <!-- Content loaded dynamically -->
             </div>
 
             <!-- Booking Widget -->
-            <div class="booking-widget sticky-widget">
-              <div style="text-align: center; margin-bottom: 1.5rem">
-                <span class="price" id="roomPrice">$450</span>
-                <span class="price-period">/ night</span>
-              </div>
-
-              <!-- Date Selection -->
-              <div class="form-group">
-                <label class="form-label">Check-in</label>
-                <input
-                  type="text"
-                  id="checkInDate"
-                  class="form-field"
-                  placeholder="Select date"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Check-out</label>
-                <input
-                  type="text"
-                  id="checkOutDate"
-                  class="form-field"
-                  placeholder="Select date"
-                />
-              </div>
-
-              <!-- Guest Selection -->
-              <div class="form-group">
-                <label class="form-label">Guests</label>
-                <div
-                  class="guest-selector"
-                  style="display: flex; align-items: center; gap: 1rem"
-                >
-                  <button
-                    class="btn-text-only"
-                    id="guestDecrease"
-                    style="font-size: 1.5rem; padding: 0.5rem"
-                  >
-                    −
-                  </button>
-                  <span
-                    id="guestDisplay"
-                    style="font-family: var(--font-heading); font-size: 1.25rem"
-                    >2</span
-                  >
-                  <input
-                    type="number"
-                    id="guestCount"
-                    value="2"
-                    min="1"
-                    max="6"
-                    style="
-                      width: 50px;
-                      text-align: center;
-                      border: none;
-                      background: transparent;
-                      font-family: var(--font-heading);
-                      font-size: 1.25rem;
-                    "
-                  />
-                  <button
-                    class="btn-text-only"
-                    id="guestIncrease"
-                    style="font-size: 1.5rem; padding: 0.5rem"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
-              <!-- Price Summary -->
-              <div class="booking-summary" style="margin-top: 1.5rem">
-                <div class="booking-row">
-                  <span class="booking-label" id="roomRate"
-                    >$450 × 1 night</span
-                  >
-                  <span class="booking-value" id="subtotal">$450</span>
-                </div>
-                <div class="booking-row">
-                  <span class="booking-label">Taxes & fees (10%)</span>
-                  <span class="booking-value" id="taxAmount">$45</span>
-                </div>
-                <div class="booking-total">
-                  <span class="booking-total-label">Total</span>
-                  <span class="booking-total-value" id="totalAmount">$495</span>
-                </div>
-              </div>
-
-              <a
-                href="/booking.html"
-                class="btn btn-primary gold"
-                style="width: 100%; justify-content: center; margin-top: 1.5rem"
-              >
-                Book Now
-              </a>
-
-              <p
-                class="text-small"
-                style="
-                  text-align: center;
-                  margin-top: 1rem;
-                  color: var(--brown);
-                "
-              >
-                You won't be charged yet
-              </p>
+            <div class="booking-widget sticky-widget" id="booking-widget">
+              <!-- Content loaded dynamically -->
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Related Rooms -->
+      <!-- Related Rooms - Dynamically Populated -->
       <section class="section-padding bg-dark">
         <div class="container">
           <h2
@@ -583,95 +243,14 @@
           </h2>
 
           <div
+            id="related-rooms-container"
             style="
               display: grid;
               grid-template-columns: repeat(3, 1fr);
               gap: var(--space-md);
             "
           >
-            <a
-              href="/room-details.html?room=garden-retreat"
-              class="related-room"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600"
-                alt="Garden Retreat"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  margin-bottom: 1rem;
-                "
-              />
-              <h3
-                style="
-                  font-family: var(--font-heading);
-                  font-size: 1.25rem;
-                  color: var(--text-light);
-                "
-              >
-                Garden Retreat
-              </h3>
-              <span class="meta-text" style="color: var(--gold)"
-                >From $320/night</span
-              >
-            </a>
-
-            <a
-              href="/room-details.html?room=presidential-suite"
-              class="related-room"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600"
-                alt="Presidential Suite"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  margin-bottom: 1rem;
-                "
-              />
-              <h3
-                style="
-                  font-family: var(--font-heading);
-                  font-size: 1.25rem;
-                  color: var(--text-light);
-                "
-              >
-                Presidential Suite
-              </h3>
-              <span class="meta-text" style="color: var(--gold)"
-                >From $1,200/night</span
-              >
-            </a>
-
-            <a
-              href="/room-details.html?room=beach-villa"
-              class="related-room"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600"
-                alt="Beach Villa"
-                style="
-                  width: 100%;
-                  aspect-ratio: 4/3;
-                  object-fit: cover;
-                  margin-bottom: 1rem;
-                "
-              />
-              <h3
-                style="
-                  font-family: var(--font-heading);
-                  font-size: 1.25rem;
-                  color: var(--text-light);
-                "
-              >
-                Beach Villa
-              </h3>
-              <span class="meta-text" style="color: var(--gold)"
-                >From $850/night</span
-              >
-            </a>
+            <!-- Related rooms loaded dynamically -->
           </div>
         </div>
       </section>
@@ -681,9 +260,10 @@
     <footer class="footer">
       <div class="footer-grid">
         <div class="footer-brand">
-          <span class="footer-logo">LUXURY HOTEL</span>
+          <span class="footer-logo">EMILY HOTEL</span>
           <p class="footer-tagline">
-            Where every moment becomes a cherished memory.
+            Where timeless elegance meets contemporary design. Experience the
+            art of hospitality.
           </p>
         </div>
 
@@ -693,6 +273,7 @@
             <li><a href="/rooms.html">Rooms & Suites</a></li>
             <li><a href="#">Dining</a></li>
             <li><a href="#">Spa & Wellness</a></li>
+            <li><a href="#">Experiences</a></li>
           </ul>
         </div>
 
@@ -700,23 +281,32 @@
           <h4 class="footer-title">Company</h4>
           <ul class="footer-links">
             <li><a href="/about.html">About Us</a></li>
+            <li><a href="#">Careers</a></li>
             <li><a href="/contact.html">Contact</a></li>
+            <li><a href="#">Press</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4 class="footer-title">Contact</h4>
           <ul class="footer-links">
-            <li>+234 800 123 4567</li>
-            <li>reservations@luxuryhotel.com</li>
+            <li>123 Luxury Avenue</li>
+            <li>New York, NY 10001</li>
+            <li>+1 (212) 555-0123</li>
+            <li>reservations@emilyhotel.com</li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span class="footer-copyright"
-          >© 2024 Luxury Hotel. All rights reserved.</span
+          >© 2024 Grand Emily Hotel. All rights reserved.</span
         >
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Facebook</a>
+          <a href="#" class="social-link">Twitter</a>
+        </div>
       </div>
     </footer>
 
@@ -728,307 +318,532 @@
     <script src="/scripts/booking.js"></script>
 
     <script>
-      // Room Data
-      const roomData = {
-        "ocean-view-suite": {
-          name: "Ocean View Suite",
-          category: "Ocean View",
-          price: 450,
-          size: 65,
-          bed: "King",
-          guests: 2,
-          description:
-            "A luxurious suite with panoramic ocean views, featuring a private terrace and elegant contemporary design. The spacious interior combines comfort with sophistication, creating the perfect retreat for discerning travelers.",
-          amenities: [
-            "Ocean View",
-            "Private Terrace",
-            "Mini Bar",
-            "Free WiFi",
-            "Room Service",
-            "Air Conditioning",
-          ],
-          images: [
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
-            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400",
-            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400",
-            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1400",
-          ],
-        },
-        "garden-retreat": {
-          name: "Garden Retreat",
-          category: "Garden Setting",
-          price: 320,
-          size: 55,
-          bed: "Queen",
-          guests: 2,
-          description:
-            "Nestled within our lush tropical gardens, this sanctuary offers complete privacy and tranquility. The rain shower and private garden create an intimate connection with nature.",
-          amenities: [
-            "Garden View",
-            "Rain Shower",
-            "Private Garden",
-            "Free WiFi",
-            "Air Conditioning",
-            "Mini Bar",
-          ],
-          images: [
-            "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1400",
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
-            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400",
-            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1400",
-          ],
-        },
-        "presidential-suite": {
-          name: "Presidential Suite",
-          category: "Ultimate Luxury",
-          price: 1200,
-          size: 150,
-          bed: "King",
-          guests: 4,
-          description:
-            "The pinnacle of luxury living. This expansive suite features exclusive amenities, dedicated butler service, and breathtaking panoramic views that will take your breath away.",
-          amenities: [
-            "Panoramic Views",
-            "Private Pool",
-            "Butler Service",
-            "Jacuzzi",
-            "Kitchen",
-            "Home Theater",
-          ],
-          images: [
-            "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1400",
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
-            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400",
-            "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400",
-          ],
-        },
-        "beach-villa": {
-          name: "Beach Villa",
-          category: "Beachfront",
-          price: 850,
-          size: 200,
-          bed: "King + Twins",
-          guests: 6,
-          description:
-            "Your private paradise with direct beach access and an infinity pool that seems to merge with the ocean. The ultimate retreat for those seeking space and exclusivity.",
-          amenities: [
-            "Beach Access",
-            "Private Pool",
-            "Kitchen",
-            "Butler Service",
-            "Outdoor Lounge",
-            "BBQ Area",
-          ],
-          images: [
-            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400",
-            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1400",
-            "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400",
-            "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1400",
-          ],
-        },
-      };
+      // Initialize page with dynamic content immediately
+      (function() {
+        'use strict';
 
-      // Initialize page
-      document.addEventListener("DOMContentLoaded", () => {
-        // Get room from URL
+        // Get room data immediately
         const params = new URLSearchParams(window.location.search);
-        const roomSlug = params.get("room") || "ocean-view-suite";
-        const room = roomData[roomSlug] || roomData["ocean-view-suite"];
+        const roomSlug = params.get('room') || 'garden-studio';
+        const roomData = window.RoomManager.initRoomDetailsPage(roomSlug);
+        const room = roomData.rawRoom;
 
-        // Check for home page booking data
-        const homeBookingData = sessionStorage.getItem("homeBookingData");
-        if (homeBookingData) {
-          const parsed = JSON.parse(homeBookingData);
+        // Update page title
+        document.title = roomData.title;
 
-          // Pre-fill form fields
-          if (parsed.checkIn && document.getElementById("checkInDate")) {
-            document.getElementById("checkInDate").value = parsed.checkIn;
-          }
-          if (parsed.checkOut && document.getElementById("checkOutDate")) {
-            document.getElementById("checkOutDate").value = parsed.checkOut;
-          }
-          if (parsed.guests) {
-            document.getElementById("guestCount").value = Math.min(
-              parsed.guests,
-              room.guests
-            );
-            document.getElementById("guestDisplay").textContent = Math.min(
-              parsed.guests,
-              room.guests
-            );
-          }
+        // Update hero section
+        const heroBgImage = document.getElementById('hero-bg-image');
+        heroBgImage.src = roomData.heroImage;
+        heroBgImage.alt = roomData.heroName;
+        
+        document.getElementById('hero-category').textContent = roomData.roomCategory;
+        document.getElementById('hero-title').innerHTML = `
+          <span class="line"><span>${roomData.roomName.split(' ').slice(0, -1).join(' ')}</span></span>
+          <span class="line"><span class="text-gold">${roomData.roomName.split(' ').slice(-1)}</span></span>
+        `;
 
-          // Update price with pre-filled data
-          if (parsed.checkIn && parsed.checkOut) {
-            setTimeout(updatePrice, 100);
-          }
-
-          // Clear home booking data
-          sessionStorage.removeItem("homeBookingData");
-        }
-
-        // Update page content
-        document.getElementById("roomName").textContent = room.name;
-        document.getElementById("roomCategory").textContent = room.category;
-        document.getElementById("roomDescription").textContent =
-          room.description;
-        document.getElementById("roomPrice").textContent = `$${room.price}`;
-        document.getElementById("roomSize").textContent = room.size;
-        document.getElementById("bedType").textContent = room.bed;
-        document.getElementById("maxGuests").textContent = room.guests;
-        document.title = `${room.name} | Luxury Hotel`;
+        // Update main image
+        document.getElementById('main-image').src = roomData.mainImage;
+        document.getElementById('main-image').alt = roomData.roomName;
 
         // Update gallery
-        const mainImage = document.getElementById("mainImage");
-        mainImage.src = room.images[0];
-        mainImage.alt = room.name;
+        document.getElementById('gallery-container').innerHTML = roomData.gallery;
 
-        // Update thumbnails
-        const thumbs = document.querySelectorAll(".gallery-thumb");
-        thumbs.forEach((thumb, index) => {
-          thumb.dataset.src = room.images[index];
-          thumb.querySelector("img").src = room.images[index].replace(
-            "w=1400",
-            "w=400"
-          );
-        });
+        // Build room details content
+        const roomDetailsContent = document.getElementById('room-details-content');
+        roomDetailsContent.innerHTML = `
+          <span class="meta-text gold">${roomData.roomCategory}</span>
+          <h1 class="section-title" style="margin-bottom: 1rem">
+            ${roomData.roomName}
+          </h1>
+          <p class="body-text" style="margin-bottom: 2rem">
+            ${roomData.roomDescription}
+          </p>
 
-        // Update amenities
-        const amenitiesList = document.getElementById("amenitiesList");
-        amenitiesList.innerHTML = room.amenities
-          .map(
-            (amenity) => `
-                <li style="display: flex; align-items: center; gap: 0.75rem;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5">
-                        <path d="M20 6L9 17l-5-5"/>
-                    </svg>
-                    <span>${amenity}</span>
-                </li>
-            `
-          )
-          .join("");
+          <!-- Room Stats -->
+          <div
+            style="
+              display: flex;
+              gap: var(--space-xl);
+              margin-bottom: 2rem;
+              padding: 1.5rem;
+              background: var(--bg-light);
+              border-radius: 4px;
+            "
+          >
+            <div>
+              <span class="stat-number">${roomData.roomSize}</span>
+              <span class="stat-label">${roomData.roomSizeUnit}</span>
+            </div>
+            <div>
+              <span class="stat-number">${roomData.bedType}</span>
+              <span class="stat-label">Bed</span>
+            </div>
+            <div>
+              <span class="stat-number">${roomData.maxGuests}</span>
+              <span class="stat-label">Guests</span>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem">
+            Amenities
+          </h3>
+          ${roomData.amenities}
+
+          <!-- Sensory Specs -->
+          ${roomData.sensorySpecs}
+
+          <!-- Key Sensory Highlights -->
+          ${
+            roomData.lightOrientation || roomData.bedding || roomData.bath ? `
+            <div class="sensory-highlights" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              ${roomData.lightOrientation ? `
+                <div class="sensory-highlight">
+                  <span class="highlight-label">Light</span>
+                  <span class="highlight-value">${roomData.lightOrientation}</span>
+                </div>
+              ` : ''}
+              ${roomData.bedding ? `
+                <div class="sensory-highlight">
+                  <span class="highlight-label">Bedding</span>
+                  <span class="highlight-value">${roomData.bedding}</span>
+                </div>
+              ` : ''}
+              ${roomData.bath ? `
+                <div class="sensory-highlight">
+                  <span class="highlight-label">Bath</span>
+                  <span class="highlight-value">${roomData.bath}</span>
+                </div>
+              ` : ''}
+            </div>
+          ` : ''
+          }
+
+          <!-- Policies -->
+          <div
+            style="
+              margin-top: 2rem;
+              padding-top: 2rem;
+              border-top: 1px solid var(--divider);
+            "
+          >
+            <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 1rem">
+              Policies
+            </h3>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+              "
+            >
+              <div>
+                <span class="meta-text">Check-in</span>
+                <p class="body-text" style="margin-top: 0.25rem">
+                  3:00 PM onwards
+                </p>
+              </div>
+              <div>
+                <span class="meta-text">Check-out</span>
+                <p class="body-text" style="margin-top: 0.25rem">
+                  11:00 AM
+                </p>
+              </div>
+              <div>
+                <span class="meta-text">Cancellation</span>
+                <p class="body-text" style="margin-top: 0.25rem">
+                  Free up to 48 hours before
+                </p>
+              </div>
+              <div>
+                <span class="meta-text">Children</span>
+                <p class="body-text" style="margin-top: 0.25rem">
+                  Welcome of all ages
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Build booking widget
+        const bookingWidget = document.getElementById('booking-widget');
+        bookingWidget.innerHTML = `
+          <div style="text-align: center; margin-bottom: 1.5rem">
+            <span class="price">${roomData.roomPrice}</span>
+            <span class="price-period">/ night</span>
+          </div>
+
+          <!-- Date Selection -->
+          <div class="form-group">
+            <label class="form-label">Check-in</label>
+            <input
+              type="text"
+              id="checkInDate"
+              class="form-field"
+              placeholder="Select date"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Check-out</label>
+            <input
+              type="text"
+              id="checkOutDate"
+              class="form-field"
+              placeholder="Select date"
+            />
+          </div>
+
+          <!-- Guest Selection -->
+          <div class="form-group">
+            <label class="form-label">Guests</label>
+            <div
+              class="guest-selector"
+              style="display: flex; align-items: center; gap: 1rem"
+            >
+              <button
+                class="btn-text-only"
+                id="guestDecrease"
+                style="font-size: 1.5rem; padding: 0.5rem"
+              >
+                −
+              </button>
+              <span
+                id="guestDisplay"
+                style="font-family: var(--font-heading); font-size: 1.25rem"
+                >2</span
+              >
+              <input
+                type="number"
+                id="guestCount"
+                value="2"
+                min="1"
+                max="6"
+                style="
+                  width: 50px;
+                  text-align: center;
+                  border: none;
+                  background: transparent;
+                  font-family: var(--font-heading);
+                  font-size: 1.25rem;
+                "
+              />
+              <button
+                class="btn-text-only"
+                id="guestIncrease"
+                style="font-size: 1.5rem; padding: 0.5rem"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Price Summary -->
+          <div class="booking-summary" style="margin-top: 1.5rem">
+            <div class="booking-row">
+              <span class="booking-label" id="roomRate">${roomData.roomPrice} × 1 night</span>
+              <span class="booking-value" id="subtotal">${roomData.roomPrice}</span>
+            </div>
+            <div class="booking-row">
+              <span class="booking-label">Taxes & fees (10%)</span>
+              <span class="booking-value" id="taxAmount">${roomData.roomPrice.replace(/[^\d]/g, '') * 0.1}</span>
+            </div>
+            <div class="booking-total">
+              <span class="booking-total-label">Total</span>
+              <span class="booking-total-value" id="totalAmount">${Math.round(roomData.roomPrice.replace(/[^\d]/g, '') * 1.1)}</span>
+            </div>
+          </div>
+
+          <a
+            href="/booking.html"
+            class="btn btn-primary gold"
+            id="bookNowLink"
+            style="width: 100%; justify-content: center; margin-top: 1.5rem"
+          >
+            Book Now
+          </a>
+
+          <p
+            class="text-small"
+            style="
+              text-align: center;
+              margin-top: 1rem;
+              color: var(--brown);
+            "
+          >
+            You won't be charged yet
+          </p>
+        `;
+
+        // Update related rooms
+        document.getElementById('related-rooms-container').innerHTML = roomData.relatedRooms;
 
         // Initialize gallery click handlers
-        thumbs.forEach((thumb) => {
-          thumb.addEventListener("click", () => {
-            thumbs.forEach((t) => t.classList.remove("active"));
-            thumb.classList.add("active");
-            mainImage.src = thumb.dataset.src;
-
-            gsap.fromTo(
-              mainImage,
-              { opacity: 0.8 },
-              { opacity: 1, duration: 0.3 }
-            );
-          });
-        });
+        initGallery();
 
         // Initialize date picker
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-
-        const checkIn = flatpickr("#checkInDate", {
-          minDate: today,
-          defaultDate: today,
-          dateFormat: "Y-m-d",
-          onChange: (selectedDates, dateStr) => {
-            const checkOutPicker =
-              document.getElementById("checkOutDate")._flatpickr;
-            checkOutPicker.set("minDate", dateStr);
-            checkOutPicker.open();
-            updatePrice();
-          },
-        });
-
-        const checkOut = flatpickr("#checkOutDate", {
-          minDate: tomorrow,
-          defaultDate: tomorrow,
-          dateFormat: "Y-m-d",
-          onChange: updatePrice,
-        });
+        initDatePicker(room);
 
         // Initialize guest selector
-        const guestInput = document.getElementById("guestCount");
-        const guestDisplay = document.getElementById("guestDisplay");
+        initGuestSelector(room);
 
-        document
-          .getElementById("guestIncrease")
-          .addEventListener("click", () => {
-            if (parseInt(guestInput.value) < room.guests) {
+        // Initialize booking link
+        initBookingLink(roomSlug);
+
+        // Store room in state
+        if (window.State) {
+          window.State.setBooking({ room });
+        }
+
+        // Hide loading overlay and show content
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const mainContent = document.getElementById('main-content');
+        
+        // Small delay for smooth transition
+        setTimeout(() => {
+          loadingOverlay.style.opacity = '0';
+          loadingOverlay.style.visibility = 'hidden';
+          loadingOverlay.style.transition = 'opacity 0.5s ease, visibility 0.5s ease';
+          
+          mainContent.style.transition = 'opacity 0.8s ease';
+          mainContent.style.opacity = '1';
+          
+          // Remove loading overlay from DOM after transition
+          setTimeout(() => {
+            loadingOverlay.style.display = 'none';
+          }, 500);
+        }, 300);
+
+        // Handle home page booking data
+        const homeBookingData = sessionStorage.getItem('homeBookingData');
+        if (homeBookingData) {
+          const parsed = JSON.parse(homeBookingData);
+          
+          if (parsed.checkIn && document.getElementById('checkInDate')) {
+            document.getElementById('checkInDate').value = parsed.checkIn;
+          }
+          if (parsed.checkOut && document.getElementById('checkOutDate')) {
+            document.getElementById('checkOutDate').value = parsed.checkOut;
+          }
+          if (parsed.guests) {
+            document.getElementById('guestCount').value = Math.min(parsed.guests, room.guests);
+            document.getElementById('guestDisplay').textContent = Math.min(parsed.guests, room.guests);
+          }
+          
+          if (parsed.checkIn && parsed.checkOut) {
+            setTimeout(() => updatePrice(), 100);
+          }
+          
+          sessionStorage.removeItem('homeBookingData');
+        }
+
+        // Initialize Lenis smooth scrolling
+        initLenis();
+
+        // Initialize scroll animations
+        initScrollAnimations();
+
+        // Initialize navigation menu
+        initNavigation();
+
+        function initGallery() {
+          const mainImage = document.getElementById('main-image');
+          const thumbs = document.querySelectorAll('.gallery-thumb');
+
+          thumbs.forEach((thumb) => {
+            thumb.addEventListener('click', () => {
+              thumbs.forEach((t) => t.classList.remove('active'));
+              thumb.classList.add('active');
+              
+              const newSrc = thumb.dataset.src;
+              
+              gsap.fromTo(mainImage, 
+                { opacity: 0.8 },
+                { opacity: 1, duration: 0.3 }
+              );
+              
+              mainImage.src = newSrc;
+            });
+          });
+        }
+
+        function initDatePicker(room) {
+          const today = new Date();
+          const tomorrow = new Date(today);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+
+          const checkIn = flatpickr('#checkInDate', {
+            minDate: today,
+            defaultDate: today,
+            dateFormat: 'Y-m-d',
+            onChange: (selectedDates, dateStr) => {
+              const checkOutPicker = document.getElementById('checkOutDate')._flatpickr;
+              checkOutPicker.set('minDate', dateStr);
+              checkOutPicker.open();
+              updatePrice();
+            },
+          });
+
+          const checkOut = flatpickr('#checkOutDate', {
+            minDate: tomorrow,
+            defaultDate: tomorrow,
+            dateFormat: 'Y-m-d',
+            onChange: updatePrice,
+          });
+
+          function updatePrice() {
+            const checkInDate = document.getElementById('checkInDate').value;
+            const checkOutDate = document.getElementById('checkOutDate').value;
+
+            if (checkInDate && checkOutDate) {
+              const nights = Math.ceil(
+                (new Date(checkOutDate) - new Date(checkInDate)) /
+                  (1000 * 60 * 60 * 24)
+              );
+              const pricePerNight = room.price;
+              const subtotal = pricePerNight * nights;
+              const tax = subtotal * 0.1;
+              const total = subtotal + tax;
+
+              const priceFormatted = `₦${pricePerNight.toLocaleString()}`;
+              const subtotalFormatted = `₦${subtotal.toLocaleString()}`;
+              const taxFormatted = `₦${tax.toLocaleString()}`;
+              const totalFormatted = `₦${total.toLocaleString()}`;
+
+              document.getElementById('roomRate').textContent = `${priceFormatted} × ${nights} night${nights > 1 ? 's' : ''}`;
+              document.getElementById('subtotal').textContent = subtotalFormatted;
+              document.getElementById('taxAmount').textContent = taxFormatted;
+              document.getElementById('totalAmount').textContent = totalFormatted;
+            }
+          }
+
+          // Expose updatePrice for use in guest selector
+          window.updatePrice = updatePrice;
+        }
+
+        function initGuestSelector(room) {
+          const guestInput = document.getElementById('guestCount');
+          const guestDisplay = document.getElementById('guestDisplay');
+          const maxGuests = room.guests || 6;
+
+          document.getElementById('guestIncrease').addEventListener('click', () => {
+            if (parseInt(guestInput.value) < maxGuests) {
               guestInput.value = parseInt(guestInput.value) + 1;
               guestDisplay.textContent = guestInput.value;
-              updatePrice();
+              if (typeof updatePrice === 'function') updatePrice();
             }
           });
 
-        document
-          .getElementById("guestDecrease")
-          .addEventListener("click", () => {
+          document.getElementById('guestDecrease').addEventListener('click', () => {
             if (parseInt(guestInput.value) > 1) {
               guestInput.value = parseInt(guestInput.value) - 1;
               guestDisplay.textContent = guestInput.value;
-              updatePrice();
+              if (typeof updatePrice === 'function') updatePrice();
             }
           });
 
-        guestInput.addEventListener("change", updatePrice);
-
-        function updatePrice() {
-          const checkInDate = document.getElementById("checkInDate").value;
-          const checkOutDate = document.getElementById("checkOutDate").value;
-
-          if (checkInDate && checkOutDate) {
-            const nights = Math.ceil(
-              (new Date(checkOutDate) - new Date(checkInDate)) /
-                (1000 * 60 * 60 * 24)
-            );
-            const subtotal = room.price * nights;
-            const tax = subtotal * 0.1;
-            const total = subtotal + tax;
-
-            document.getElementById("roomRate").textContent = `$${
-              room.price
-            } × ${nights} night${nights > 1 ? "s" : ""}`;
-            document.getElementById(
-              "subtotal"
-            ).textContent = `$${subtotal.toLocaleString()}`;
-            document.getElementById(
-              "taxAmount"
-            ).textContent = `$${tax.toLocaleString()}`;
-            document.getElementById(
-              "totalAmount"
-            ).textContent = `$${total.toLocaleString()}`;
-          }
+          guestInput.addEventListener('change', () => {
+            if (parseInt(guestInput.value) > maxGuests) {
+              guestInput.value = maxGuests;
+              guestDisplay.textContent = maxGuests;
+            }
+            if (typeof updatePrice === 'function') updatePrice();
+          });
         }
 
-        // Update booking link with room
-        const bookBtn = document.querySelector(".booking-widget .btn");
-        bookBtn.href = `/booking.html?room=${roomSlug}`;
+        function initBookingLink(roomSlug) {
+          const bookBtn = document.getElementById('bookNowLink');
+          
+          bookBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const checkInDate = document.getElementById('checkInDate').value;
+            const checkOutDate = document.getElementById('checkOutDate').value;
+            const guests = parseInt(document.getElementById('guestCount').value);
 
-        // Store booking data when clicking Book Now
-        bookBtn.addEventListener("click", () => {
-          const checkInDate = document.getElementById("checkInDate").value;
-          const checkOutDate = document.getElementById("checkOutDate").value;
-          const guests = parseInt(document.getElementById("guestCount").value);
-
-          if (checkInDate && checkOutDate) {
             const bookingData = {
               checkIn: checkInDate,
               checkOut: checkOutDate,
               guests,
               room: roomSlug,
             };
-            sessionStorage.setItem(
-              "roomBookingData",
-              JSON.stringify(bookingData)
-            );
-          }
-        });
+            
+            sessionStorage.setItem('roomBookingData', JSON.stringify(bookingData));
+            
+            window.location.href = `/booking.html?room=${roomSlug}`;
+          });
+        }
 
-        // Store room in state
-        State.setBooking({ room });
-      });
+        function initLenis() {
+          if (typeof Lenis !== 'undefined') {
+            const lenis = new Lenis({
+              duration: 1.2,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              direction: 'vertical',
+              gestureDirection: 'vertical',
+              smooth: true,
+              mouseMultiplier: 1,
+              smoothTouch: false,
+              touchMultiplier: 2,
+            });
+
+            if (typeof ScrollTrigger !== 'undefined') {
+              lenis.on('scroll', ScrollTrigger.update);
+            }
+
+            gsap.ticker.add((time) => {
+              lenis.raf(time * 1000);
+            });
+
+            gsap.ticker.lagSmoothing(0);
+
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+              anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                  lenis.scrollTo(target, {
+                    offset: -100,
+                    duration: 1.2,
+                  });
+                }
+              });
+            });
+
+            window.lenis = lenis;
+          }
+        }
+
+        function initScrollAnimations() {
+          if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate elements on scroll
+            const animatedElements = document.querySelectorAll('[data-animate]');
+            
+            animatedElements.forEach((el) => {
+              gsap.fromTo(el,
+                { opacity: 0, y: 30 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.8,
+                  ease: 'power3.out',
+                  scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse'
+                  }
+                }
+              );
+            });
+          }
+        }
+
+
+      })();
     </script>
   </body>
 </html>
+

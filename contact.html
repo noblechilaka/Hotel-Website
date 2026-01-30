@@ -3,38 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us | Luxury Hotel</title>
+    <title>Contact | Emily Hotels</title>
     <meta
       name="description"
-      content="Get in touch with Luxury Hotel. We're here to assist you with any inquiries."
+      content="Contact Emily Hotels - Reach out for reservations, inquiries, or special requests."
     />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https:/fonts.googleapis.com" />
-    <link rel="preconnect" href="https:/fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https:/fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
     <!-- Styles -->
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/typography.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/components.css" />
     <link rel="stylesheet" href="/styles/animations.css" />
+    <link rel="stylesheet" href="/styles/contact.css" />
 
     <!-- GSAP -->
-    <script src="https:/cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https:/cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
   <body class="contact-page">
     <!-- Scroll Progress -->
     <div class="scroll-progress"></div>
+    <div class="black-top"></div>
 
-    <!-- Header -->
-
-    <!-- Header -->
+<!-- Header -->
     <header class="header">
       <div class="header-inner">
         <!-- Menu Toggle - Left -->
@@ -53,14 +53,14 @@
 
         <!-- Navigation - Right -->
         <nav class="header-nav-right">
-          <a href="signup.html" class="nav-link">JOIN US</a>
+          <a href="/signup.html" class="nav-link">JOIN US</a>
          <!-- Submit Button -->
             <button type="submit" class="booking-cta" id="bookNowBtn">BOOK NOW</button>
         </nav>
 
         <!-- Mobile Menu Toggle -->
         <button class="menu-toggle" aria-label="Toggle navigation" style="background: transparent; border: none; cursor: pointer; padding: 0.5rem; display: none;">
-          <svg xmlns="http:/www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 32 32">
             <path d="M 4 7 L 4 9 L 28 9 L 28 7 L 4 7 z M 4 15 L 4 17 L 28 17 L 28 15 L 4 15 z M 4 23 L 4 25 L 28 25 L 28 23 L 4 23 z"></path>
           </svg>
         </button>
@@ -71,357 +71,180 @@
     <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-hidden="true">
       <nav class="menu-panel" aria-label="Main navigation">
         <ul class="menu-list">
-          <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
-          <li class="menu-item"><a href="rooms.html" class="menu-link">Rooms & Suites</a></li>
-          <li class="menu-item"><a href="about.html" class="menu-link">About Us</a></li>
+          <li class="menu-item"><a href="/index.html" class="menu-link">Home</a></li>
+          <li class="menu-item"><a href="/rooms.html" class="menu-link">Rooms & Suites</a></li>
+          <li class="menu-item"><a href="/about.html" class="menu-link">About Us</a></li>
           <li class="menu-item"><a href="#" class="menu-link">Experiences</a></li>
-          <li class="menu-item"><a href="#" class="menu-link">Gallery</a></li>
-          <li class="menu-item"><a href="contact.html" class="menu-link">Contact</a></li>
+          <li class="menu-item"><a href="/gallery.html" class="menu-link">Gallery</a></li>
+          <li class="menu-item"><a href="/contact.html" class="menu-link">Contact</a></li>
           <li class="menu-item menu-divider"></li>
           <li class="menu-item"><a href="#" class="menu-link menu-link-secondary">JOIN US</a></li>
           <li class="menu-item"><a href="#" class="menu-link menu-link-cta">Book Your Stay</a></li>
         </ul>
-        <button class="menu-close" id="menuClose" aria-label="Close navigation menu">Close</button>
+        <button class="menu-close" id="menuClose" aria-label="Close navigation menu"><span class="material-symbols-outlined">
+close
+</span>Close</button>
+        
       </nav>
     </div>
 
-    <main>
-      <!-- Hero Section -->
-      <section class="hero-pages contact-hero">
-        <img
-          src="https:/images.unsplash.com/photo-1566073771259-6a8506099945?w=1920"
-          alt="Hotel Lobby"
-          class="hero-bg"
-        />
-        <div class="hero-overlay"></div>
 
-        <div class="hero_content">
-          <span class="meta-text gold">Get in Touch</span>
-          <h1 class="hero-heading">
-            <span class="line"><span>We're Here</span></span>
-            <span class="line"><span class="text-gold">To Help</span></span>
-          </h1>
+    <main>
+      <!-- ============================================
+           PAGE HEADER - MINIMALIST
+           ============================================ -->
+      <section class="contact-header">
+        <div class="contact-header-content">
+          <span class="meta-text editorial reveal-label">The Column of Intent</span>
+          <h1 class="contact-title reveal-title">Get in Touch</h1>
         </div>
       </section>
 
-      <!-- Contact Grid -->
-      <section class="section-padding">
-        <div class="container contact">
-          <div class="contact-grid">
-            <!-- Contact Info -->
-            <div class="contact-info-section">
-              <span class="meta-text gold">Contact Information</span>
-              <h2 class="section-title">Reach Out to Us</h2>
-              <p class="body-text">
-                Whether you have a question about our rooms, services, or need
-                assistance with your booking, our team is here to help.
-              </p>
-
-              <!-- Contact Details -->
-              <div>
-                <div class="contact-info-item">
-                  <div class="contact-icon-wrapper">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="var(--gold)"
-                      stroke-width="1.5"
-                    >
-                      <path
-                        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                      />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4>Our Location</h4>
-                    <p class="body-text">
-                      123 Coastal Drive<br />
-                      Lagos, Nigeria
-                    </p>
-                  </div>
-                </div>
-
-                <div class="contact-info-item">
-                  <div class="contact-icon-wrapper">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="var(--gold)"
-                      stroke-width="1.5"
-                    >
-                      <path
-                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4>Phone</h4>
-                    <p class="body-text">
-                      <a href="tel:+2348001234567">+234 800 123 4567</a>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="contact-info-item">
-                  <div class="contact-icon-wrapper">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="var(--gold)"
-                      stroke-width="1.5"
-                    >
-                      <path
-                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                      />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4>Email</h4>
-                    <p class="body-text">
-                      <a href="mailto:reservations@luxuryhotel.com"
-                        >reservations@luxuryhotel.com</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Hours -->
-              <div class="contact-hours-card">
-                <h4>Front Desk Hours</h4>
-                <div class="contact-hours-grid">
-                  <div>
-                    <span class="meta-text">Monday - Friday</span>
-                    <p class="body-text">24 Hours</p>
-                  </div>
-                  <div>
-                    <span class="meta-text">Saturday - Sunday</span>
-                    <p class="body-text">24 Hours</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Contact Form -->
-            <div class="contact-form-wrapper">
-              <h3>Send Us a Message</h3>
-
-              <form id="contactForm">
-                <div class="form-group-inline">
-                  <div class="form-group">
-                    <label class="form-label" for="contactName"
-                      >Your Name *</label
-                    >
-                    <input
-                      type="text"
-                      id="contactName"
-                      class="form-field"
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="contactEmail"
-                      >Email Address *</label
-                    >
-                    <input
-                      type="email"
-                      id="contactEmail"
-                      class="form-field"
-                      placeholder="john@example.com"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="contactPhone"
-                    >Phone Number</label
-                  >
-                  <input
-                    type="tel"
-                    id="contactPhone"
-                    class="form-field"
-                    placeholder="+234 800 123 4567"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="contactSubject"
-                    >Subject *</label
-                  >
-                  <select
-                    id="contactSubject"
-                    class="form-field form-select"
+      <!-- ============================================
+           MAIN CONTENT - FORM + COORDINATES
+           ============================================ -->
+      <section class="contact-main">
+        <div class="contact-grid-wrapper">
+          <!-- LEFT: The Column of Intent Form -->
+          <div class="form-column reveal-form">
+            <form id="contactForm" class="column-form">
+              <!-- Name Field -->
+              <div class="form-group">
+                <div class="floating-label-wrapper">
+                  <input 
+                    type="text" 
+                    id="fullName" 
+                    class="floating-input" 
+                    placeholder=" " 
                     required
-                  >
-                    <option value="">Select a topic</option>
-                    <option value="booking">Booking Inquiry</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="events">Events & Weddings</option>
-                    <option value="feedback">Feedback</option>
-                    <option value="other">Other</option>
-                  </select>
+                  />
+                  <label for="fullName" class="floating-label">Full Name</label>
+                  <span class="input-border"></span>
                 </div>
+              </div>
 
-                <div class="form-group">
-                  <label class="form-label" for="contactMessage"
-                    >Message *</label
-                  >
+              <!-- Email Field -->
+              <div class="form-group">
+                <div class="floating-label-wrapper">
+                  <input 
+                    type="email" 
+                    id="email" 
+                    class="floating-input" 
+                    placeholder=" " 
+                    required
+                  />
+                  <label for="email" class="floating-label">Email Address</label>
+                  <span class="input-border"></span>
+                </div>
+              </div>
+
+              <!-- Phone Field -->
+              <div class="form-group">
+                <div class="floating-label-wrapper">
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    class="floating-input" 
+                    placeholder=" " 
+                  />
+                  <label for="phone" class="floating-label">Phone Number</label>
+                  <span class="input-border"></span>
+                </div>
+              </div>
+
+              <!-- Subject Field -->
+              <div class="form-group">
+                <div class="floating-label-wrapper">
+                  <select id="subject" class="floating-input" required>
+                    <option value="" disabled selected></option>
+                    <option value="reservations">Reservations</option>
+                    <option value="events">Events & Weddings</option>
+                    <option value="dining">Dining</option>
+                    <option value="wellness">Spa & Wellness</option>
+                    <option value="press">Press & Media</option>
+                    <option value="general">General Inquiry</option>
+                  </select>
+                  <label for="subject" class="floating-label">Subject</label>
+                  <span class="input-border"></span>
+                </div>
+              </div>
+
+              <!-- Private Chauffeur Field -->
+              <div class="form-group">
+                <div class="floating-label-wrapper">
+                  <select id="chauffeurService" class="floating-input">
+                    <option value="" disabled selected></option>
+                    <option value="yes">Yes, I require private chauffeur & secure escort services</option>
+                    <option value="no">No, thank you</option>
+                  </select>
+                  <label for="chauffeurService" class="floating-label">Private Chauffeur & Secure Escort Services</label>
+                  <span class="input-border"></span>
+                </div>
+              </div>
+
+              <!-- Message Field -->
+              <div class="form-group">
+                <div class="floating-label-wrapper textarea-wrapper">
                   <textarea
-                    id="contactMessage"
-                    class="form-field"
-                    rows="5"
-                    placeholder="How can we help you?"
+                    id="message"
+                    class="floating-input"
+                    rows="4"
+                    placeholder=" "
                     required
                   ></textarea>
+                  <label for="message" class="floating-label">Your Message</label>
+                  <span class="input-border"></span>
                 </div>
-
-                <button type="submit" class="btn btn-primary gold">
-                  Send Message
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  >
-                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                  </svg>
-                </button>
-              </form>
-
-              <!-- Success Message (hidden by default) -->
-              <div id="contactSuccess" class="contact-success-message">
-                <svg
-                  width="64"
-                  height="64"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--gold)"
-                  stroke-width="1"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M9 12l2 2 4-4" />
-                </svg>
-                <h3>Message Sent!</h3>
-                <p class="body-text">
-                  Thank you for reaching out. We'll get back to you shortly.
-                </p>
               </div>
+
+              <!-- Submit Button -->
+              <div class="form-group form-submit">
+                <button type="submit" class="submit-ghost">
+                  <span class="submit-text">Send Inquiry</span>
+                  <span class="submit-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- RIGHT: Coordinates Sidebar -->
+          <div class="coordinates-sidebar reveal-coords">
+            <div class="coord-section">
+              <span class="coord-label">Telephone</span>
+              <a href="tel:+2348001234567" class="coord-value">+234 800 123 4567</a>
+            </div>
+
+            <div class="coord-section">
+              <span class="coord-label">Email</span>
+              <a href="mailto:inquiries@emilyhotels.com" class="coord-value">inquiries@emilyhotels.com</a>
+            </div>
+
+            <div class="coord-section">
+              <span class="coord-label">Address</span>
+              <address class="coord-value coord-address">
+                Emily Hotel<br />
+                123 Coastal Drive<br />
+                Lagos, Nigeria
+              </address>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Map Section -->
-      <section class="section-padding bg-dark">
-        <div class="container">
-          <div class="contact-map-section">
-            <span class="meta-text gold">Visit Us</span>
-            <h2 class="section-title">Find Your Way</h2>
-          </div>
-
-          <!-- Map Placeholder -->
-          <div class="contact-map-placeholder">
-            <div>
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--gold)"
-                stroke-width="1"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <p class="body-text">Interactive Map</p>
-              <a
-                href="https:/maps.google.com"
-                target="_blank"
-                class="contact-map-link btn-text-only dark"
-              >
-                Open in Google Maps
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                >
-                  <path
-                    d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </a>
+      <!-- ============================================
+           MAP SECTION - MINIMAL
+           ============================================ -->
+      <section class="contact-map-section">
+        <div class="map-container">
+          <div class="map-placeholder">
+            <div class="map-marker">
+              <div class="marker-pin"></div>
             </div>
-          </div>
-
-          <!-- Directions -->
-          <div class="contact-directions-grid">
-            <div class="contact-direction-card">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--gold)"
-                stroke-width="1.5"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M3 9h18M9 21V9" />
-              </svg>
-              <h4>From Airport</h4>
-              <p class="body-text">45 minutes drive</p>
-            </div>
-
-            <div class="contact-direction-card">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--gold)"
-                stroke-width="1.5"
-              >
-                <rect x="1" y="3" width="15" height="13" />
-                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-                <circle cx="5.5" cy="18.5" r="2.5" />
-                <circle cx="18.5" cy="18.5" r="2.5" />
-              </svg>
-              <h4>By Car</h4>
-              <p class="body-text">Free parking available</p>
-            </div>
-
-            <div class="contact-direction-card">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="var(--gold)"
-                stroke-width="1.5"
-              >
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                />
-              </svg>
-              <h4>Concierge</h4>
-              <p class="body-text">We can arrange transport</p>
-            </div>
+            <p class="map-text">Coastal Drive, Lagos</p>
           </div>
         </div>
       </section>
@@ -431,7 +254,7 @@
     <footer class="footer">
       <div class="footer-grid">
         <div class="footer-brand">
-          <span class="footer-logo">LUXURY HOTEL</span>
+          <span class="footer-logo">EMILY HOTEL</span>
           <p class="footer-tagline">
             Where every moment becomes a cherished memory.
           </p>
@@ -457,24 +280,21 @@
         <div class="footer-col">
           <h4 class="footer-title">Contact</h4>
           <ul class="footer-links">
-            <li>+234 800 123 4567</li>
-            <li>reservations@luxuryhotel.com</li>
+            <li>+234 (0) 1 888 0000</li>
+            <li>reservations@emilyhotels.com</li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <span class="footer-copyright"
-          >© 2024 Luxury Hotel. All rights reserved.</span
-        >
+        <span class="footer-copyright">© 2024 Emily Hotels. All rights reserved.</span>
       </div>
     </footer>
 
     <!-- Scripts -->
     <script src="/scripts/main.js"></script>
     <script src="/scripts/animations.js"></script>
-    <script src="/scripts/supabase.js"></script>
-    <script src="/scripts/auth.js"></script>
+    
     <!-- Lenis Smooth Scrolling Initialization -->
     <script>
       const lenis = new Lenis({
@@ -512,39 +332,316 @@
       window.lenis = lenis;
     </script>
 
+    <!-- Contact Page Specific Animations -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("contactForm");
-        const successMsg = document.getElementById("contactSuccess");
+        // ============================================
+        // EMILY EASE: 0.16, 1, 0.3, 1
+        // ============================================
+        const emilyEase = "cubic-bezier(0.16, 1, 0.3, 1)";
 
-        form?.addEventListener("submit", (e) => {
-          e.preventDefault();
+        // ============================================
+        // HEADER REVEAL ANIMATIONS
+        // ============================================
+        
+        // Label reveal
+        gsap.to('.reveal-label', {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: emilyEase,
+          delay: 0.3
+        });
 
-          / Get form data
-          const data = {
-            name: document.getElementById("contactName").value,
-            email: document.getElementById("contactEmail").value,
-            phone: document.getElementById("contactPhone").value,
-            subject: document.getElementById("contactSubject").value,
-            message: document.getElementById("contactMessage").value,
-          };
+        // Title reveal
+        gsap.to('.reveal-title', {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: emilyEase,
+          delay: 0.5
+        });
 
-          / Log form data (in production, send to server)
-          console.log("Contact form submitted:", data);
+        // ============================================
+        // FLOATING LABEL ANIMATIONS
+        // ============================================
+        
+        const floatingInputs = document.querySelectorAll('.floating-input');
+        const inputBorders = document.querySelectorAll('.input-border');
 
-          / Show success message using CSS class
-          form.classList.add("hidden");
-          successMsg.classList.add("visible");
+        floatingInputs.forEach((input, index) => {
+          const border = inputBorders[index];
+          
+          // Focus animation - border draws from center
+          input.addEventListener('focus', () => {
+            input.classList.add('focused');
+            
+            // GSAP center-out border expansion
+            gsap.fromTo(border, 
+              { 
+                scaleX: 0,
+                transformOrigin: 'center'
+              },
+              {
+                scaleX: 1,
+                duration: 0.5,
+                ease: emilyEase
+              }
+            );
 
-          / Animate success message
-          gsap.from(successMsg, {
-            y: 30,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power2.out",
+            // Border color change
+            gsap.to(border, {
+              backgroundColor: '#8b9a7d',
+              duration: 0.4,
+              ease: emilyEase
+            });
+
+            // Label floats upward and shrinks
+            const label = input.nextElementSibling;
+            if (label && label.classList.contains('floating-label')) {
+              gsap.to(label, {
+                y: -8,
+                fontSize: '0.625rem',
+                letterSpacing: '0.25em',
+                color: '#8b9a7d',
+                duration: 0.4,
+                ease: emilyEase
+              });
+            }
+          });
+          
+          // Blur animation
+          input.addEventListener('blur', () => {
+            if (!input.value || input.value.trim() === '') {
+              input.classList.remove('focused');
+              
+              // Border contracts to center
+              gsap.fromTo(border, 
+                { 
+                  scaleX: 1,
+                  transformOrigin: 'center'
+                },
+                {
+                  scaleX: 0,
+                  duration: 0.4,
+                  ease: emilyEase
+                }
+              );
+
+              // Border color back to charcoal
+              gsap.to(border, {
+                backgroundColor: '#1A1A1A',
+                duration: 0.4,
+                ease: emilyEase
+              });
+
+              // Label returns to line
+              const label = input.nextElementSibling;
+              if (label && label.classList.contains('floating-label')) {
+                gsap.to(label, {
+                  y: 0,
+                  fontSize: '0.7rem',
+                  letterSpacing: '0.2em',
+                  color: '#4d4d4d',
+                  duration: 0.4,
+                  ease: emilyEase
+                });
+              }
+            } else {
+              // Keep label floated if has value
+              const label = input.nextElementSibling;
+              if (label && label.classList.contains('floating-label')) {
+                gsap.to(label, {
+                  y: -8,
+                  fontSize: '0.625rem',
+                  letterSpacing: '0.25em',
+                  color: '#8b9a7d',
+                  duration: 0.4,
+                  ease: emilyEase
+                });
+              }
+            }
+          });
+
+          // Input animation - update label if has value
+          input.addEventListener('input', () => {
+            const label = input.nextElementSibling;
+            if (label && label.classList.contains('floating-label')) {
+              if (input.value.trim() !== '') {
+                gsap.to(label, {
+                  y: -8,
+                  fontSize: '0.625rem',
+                  letterSpacing: '0.25em',
+                  color: '#8b9a7d',
+                  duration: 0.3,
+                  ease: emilyEase
+                });
+              }
+            }
           });
         });
+
+        // ============================================
+        // GHOST BUTTON ANIMATION
+        // ============================================
+        
+        const submitBtn = document.querySelector('.submit-ghost');
+        
+        if (submitBtn) {
+          submitBtn.addEventListener('mouseenter', () => {
+            gsap.to(submitBtn, {
+              borderWidth: '1.5px',
+              duration: 0.3,
+              ease: emilyEase
+            });
+            gsap.to('.submit-text', {
+              y: -2,
+              duration: 0.3,
+              ease: emilyEase
+            });
+            gsap.to(submitBtn, {
+              backgroundColor: 'rgba(139, 154, 125, 0.05)',
+              duration: 0.3,
+              ease: emilyEase
+            });
+          });
+          
+          submitBtn.addEventListener('mouseleave', () => {
+            gsap.to(submitBtn, {
+              borderWidth: '1px',
+              duration: 0.3,
+              ease: emilyEase
+            });
+            gsap.to('.submit-text', {
+              y: 0,
+              duration: 0.3,
+              ease: emilyEase
+            });
+            gsap.to(submitBtn, {
+              backgroundColor: 'transparent',
+              duration: 0.3,
+              ease: emilyEase
+            });
+          });
+        }
+
+        // ============================================
+        // SCROLL REVEAL ANIMATIONS
+        // ============================================
+        
+        // Form column reveal
+        ScrollTrigger.create({
+          trigger: '.form-column',
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.fromTo('.form-column',
+              { opacity: 0, y: 50 },
+              { opacity: 1, y: 0, duration: 1, ease: emilyEase }
+            );
+          }
+        });
+
+        // Coordinates reveal
+        ScrollTrigger.create({
+          trigger: '.coordinates-sidebar',
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.fromTo('.coordinates-sidebar',
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, duration: 0.8, ease: emilyEase }
+            );
+          }
+        });
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          // Collect form data
+          const formData = {
+            name: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+          };
+          
+          console.log('Contact form submission:', formData);
+          
+          // Visual feedback
+          const btn = form.querySelector('.submit-ghost');
+          const originalContent = btn.innerHTML;
+          
+          gsap.to(btn, {
+            backgroundColor: '#8b9a7d',
+            borderColor: '#8b9a7d',
+            color: '#121212',
+            duration: 0.4,
+            ease: emilyEase
+          });
+          
+          btn.innerHTML = `
+            <span class="submit-text">Sent</span>
+            <span class="submit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+            </span>
+          `;
+          
+          setTimeout(() => {
+            btn.innerHTML = originalContent;
+            gsap.to(btn, {
+              backgroundColor: 'transparent',
+              borderColor: '#1A1A1A',
+              color: '#1A1A1A',
+              duration: 0.4,
+              ease: emilyEase
+            });
+            
+            // Reset form
+            form.reset();
+            floatingInputs.forEach((input, index) => {
+              const border = inputBorders[index];
+              const label = input.nextElementSibling;
+              if (label && label.classList.contains('floating-label')) {
+                gsap.to(label, {
+                  y: 0,
+                  fontSize: '0.7rem',
+                  letterSpacing: '0.2em',
+                  color: '#4d4d4d',
+                  duration: 0.4,
+                  ease: emilyEase
+                });
+              }
+            });
+          }, 2000);
+        });
+
+        // ============================================
+        // MAP MARKER ANIMATION
+        // ============================================
+        
+        const markerPin = document.querySelector('.marker-pin');
+        if (markerPin) {
+          ScrollTrigger.create({
+            trigger: '.contact-map-section',
+            start: 'top 70%',
+            onEnter: () => {
+              gsap.fromTo(markerPin,
+                { scale: 0, opacity: 0 },
+                { scale: 1, opacity: 1, duration: 1, ease: emilyEase }
+              );
+            }
+          });
+        }
       });
     </script>
   </body>
 </html>
+

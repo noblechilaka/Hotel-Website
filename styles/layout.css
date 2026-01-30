@@ -848,15 +848,79 @@ p[data-animate="staggered"] {
 
 /* Blur-to-Focus Animation */
 .blur-to-focus {
-  transition: filter 2s ease, opacity 2s ease;
+  filter: blur(20px);
+  opacity: 0;
+  transition: filter 2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: filter, opacity;
 }
 
-/* Curated Moments Grid - 4 Item Grid */
+.blur-to-focus.revealed {
+  filter: blur(0);
+  opacity: 1;
+}
+
+/* ============================================
+   THE PERSPECTIVE SECTION
+   Full-width quote section with blur-to-focus reveal
+   ============================================ */
+
+.perspective-section {
+  padding: 20vh var(--container-padding);
+  background: var(--obsidian-noir);
+  color: var(--optic-white);
+  text-align: center;
+}
+
+.perspective-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.perspective-quote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--optic-white);
+}
+
+.perspective-author {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--editorial-accent);
+  margin-top: var(--space-lg);
+}
+
+/* ============================================
+   CURATED MOMENTS (Asymmetrical Grid) - RESPONSIVE
+   Editorial rhythm: Items 1 & 3 are 100px taller
+   ============================================ */
+
+.curated-moments {
+  padding: 20vh 0;
+  background: var(--obsidian-noir);
+  color: var(--optic-white);
+}
+
+.curated-moments .section-title {
+  color: var(--optic-white);
+}
+
+.curated-moments .meta-text {
+  color: var(--editorial-accent);
+}
+
 .curated-moments-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-md);
+  padding: 0 var(--container-padding);
 }
 
 .curated-item {
@@ -867,22 +931,36 @@ p[data-animate="staggered"] {
 
 .curated-item .curated-image {
   width: 100%;
-  aspect-ratio: 4/3;
+  height: 100%;
   object-fit: cover;
   transform-origin: center center;
   will-change: transform;
-  transition: transform 0.6s ease;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Slow zoom on hover */
 .curated-item:hover .curated-image {
   transform: scale(1.05);
 }
 
+/* Asymmetrical Heights: Items 1 & 3 are 100px taller */
+.curated-item:nth-child(1),
+.curated-item:nth-child(3) {
+  height: calc(50vh + 100px);
+  min-height: 450px;
+}
+
+.curated-item:nth-child(2),
+.curated-item:nth-child(4) {
+  height: calc(50vh - 100px);
+  min-height: 300px;
+}
+
 .curated-tagline {
   position: absolute;
-  bottom: var(--space-md);
-  left: var(--space-md);
-  right: var(--space-md);
+  bottom: var(--space-lg);
+  left: var(--space-lg);
+  right: var(--space-lg);
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 400;
@@ -893,9 +971,32 @@ p[data-animate="staggered"] {
   transition: opacity 0.6s ease, letter-spacing 0.6s ease;
 }
 
+/* Sensory copy hidden by default */
+.curated-sensory {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-style: italic;
+  color: var(--optic-white);
+  text-align: center;
+  opacity: 0;
+  letter-spacing: 0.05em;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  width: 90%;
+}
+
+/* Tagline hover: reveal sensory copy + expand letter-spacing */
 .curated-item:hover .curated-tagline {
-  opacity: 1;
+  opacity: 0;
   letter-spacing: 5px;
+}
+
+.curated-item:hover .curated-sensory {
+  opacity: 1;
 }
 
 /* Enhanced Fade Up */
@@ -922,10 +1023,37 @@ p[data-animate="staggered"] {
 }
 
 /* Responsive - Curated Moments Grid */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .curated-moments {
+    padding: 15vh 0;
+  }
+
+  .curated-moments-grid {
+    gap: var(--space-sm);
+  }
+
+  .curated-item:nth-child(1),
+  .curated-item:nth-child(3) {
+    height: calc(40vh + 80px);
+    min-height: 350px;
+  }
+
+  .curated-item:nth-child(2),
+  .curated-item:nth-child(4) {
+    height: calc(40vh - 80px);
+    min-height: 250px;
+  }
+}
+
 @media (max-width: 767px) {
+  .curated-moments {
+    padding: 10vh 0;
+  }
+
   .curated-moments-grid {
     grid-template-columns: 1fr;
     gap: var(--space-sm);
+    padding: 0 var(--container-padding);
   }
 
   .curated-item .curated-image {
@@ -935,10 +1063,27 @@ p[data-animate="staggered"] {
   .curated-tagline {
     font-size: 0.6875rem;
     letter-spacing: 1px;
+    bottom: var(--space-md);
+    left: var(--space-md);
+    right: var(--space-md);
   }
 
   .curated-item:hover .curated-tagline {
     letter-spacing: 3px;
+  }
+
+  .curated-sensory {
+    font-size: 1.125rem;
+    padding: 0 var(--space-sm);
+  }
+
+  /* Reset asymmetrical heights on mobile */
+  .curated-item:nth-child(1),
+  .curated-item:nth-child(2),
+  .curated-item:nth-child(3),
+  .curated-item:nth-child(4) {
+    height: 40vh;
+    min-height: 280px;
   }
 }
 
@@ -1259,10 +1404,12 @@ p[data-animate="staggered"] {
 
 /* ============================================
    DISCOVERY SECTION (Asymmetric 2-col) - RESPONSIVE
+   Editorial Layout: Text overlaps image with door-opening reveal
    ============================================ */
 
 .discovery {
-  padding: var(--space-xl) 0;
+  padding: 20vh 0;
+  position: relative;
 }
 
 .discovery-grid {
@@ -1270,6 +1417,7 @@ p[data-animate="staggered"] {
   grid-template-columns: 1fr 1.5fr;
   gap: var(--space-lg);
   align-items: center;
+  position: relative;
 }
 
 /* Rotated section label */
@@ -1280,10 +1428,22 @@ p[data-animate="staggered"] {
   transform: translateY(-50%);
 }
 
-/* Oversized image bleeding outside */
+/* Asymmetrical Overlap: Text sits higher than image */
 .discovery-image-wrapper {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
+}
+
+/* Door Opening Effect - Clip Path Reveal */
+.door-opening-container {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0 50% 0 50%);
+  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.door-opening-container.revealed {
+  clip-path: inset(0 0 0 0);
 }
 
 .discovery-image {
@@ -1291,10 +1451,16 @@ p[data-animate="staggered"] {
   max-width: none;
   height: 80vh;
   object-fit: cover;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .discovery-content {
   padding-left: var(--space-lg);
+  /* Asymmetrical overlap: text sits higher than image */
+  margin-top: 8vh;
+  position: relative;
+  z-index: 1;
 }
 
 /* ============================================
@@ -1395,22 +1561,390 @@ p[data-animate="staggered"] {
 }
 
 /* ============================================
-   FEATURED ROOMS (Horizontal Scroll) - RESPONSIVE
+   QUIET LUXURY ROOMS SECTION
+   "The Monolith" - Vertical Staggered List
+   ============================================ */
+
+/* Main Section Container */
+.quiet-luxury-rooms {
+  position: relative;
+  width: 100%;
+  background: var(--obsidian-noir);
+  padding: 20vh 0;
+}
+
+/* Captivating Section Header */
+.quiet-rooms-header {
+  text-align: center;
+  margin-bottom: 15vh;
+  padding: 0 var(--container-padding);
+}
+
+.quiet-rooms-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.quiet-rooms-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--optic-white);
+  margin-bottom: var(--space-lg);
+}
+
+.title-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.quiet-rooms-intro {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
+  max-width: 400px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Header Animation States */
+.quiet-luxury-rooms.revealed .quiet-rooms-label {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s;
+}
+
+.quiet-luxury-rooms.revealed .title-line {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.2s ease 0.5s, transform 1.2s ease 0.5s;
+}
+
+.quiet-luxury-rooms.revealed .title-line:nth-child(2) {
+  transition-delay: 0.7s;
+}
+
+.quiet-luxury-rooms.revealed .quiet-rooms-intro {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.2s ease 0.9s, transform 1.2s ease 0.9s;
+}
+
+/* Container */
+.quiet-rooms-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* Individual Quiet Room Card */
+.quiet-room-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  padding: 30vh 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quiet-room-card:first-child {
+  padding-top: 0;
+}
+
+.quiet-room-card:last-child {
+  border-bottom: none;
+}
+
+/* Image Container - Vertical Portrait */
+.quiet-room-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  max-height: 80vh;
+}
+
+.quiet-room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* Subtle Light Shift Overlay */
+.quiet-room-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.quiet-room-image:hover::after {
+  opacity: 1;
+}
+
+/* Hover: subtle exposure/warmth shift */
+.quiet-room-image:hover img {
+  filter: brightness(1.05);
+}
+
+/* Content Container */
+.quiet-room-content {
+  padding: var(--space-lg);
+  max-width: 450px;
+}
+
+/* Alternating Layout */
+.quiet-room-card:nth-child(even) {
+  direction: rtl;
+}
+
+.quiet-room-card:nth-child(even) .quiet-room-content {
+  direction: ltr;
+  text-align: right;
+}
+
+.quiet-room-card:nth-child(even) .quiet-room-image {
+  order: 1;
+}
+
+/* Price */
+.quiet-room-price {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--editorial-accent);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  display: block;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Room Title */
+.quiet-room-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--optic-white);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Sensory Spec - Single Line */
+.quiet-room-spec {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Explore Button */
+.quiet-room-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--optic-white);
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.quiet-room-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.quiet-room-link:hover {
+  border-color: var(--optic-white);
+  color: var(--optic-white);
+}
+
+.quiet-room-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Active/Visible States for Animations */
+.quiet-room-card.revealed .quiet-room-price,
+.quiet-room-card.revealed .quiet-room-title,
+.quiet-room-card.revealed .quiet-room-spec,
+.quiet-room-card.revealed .quiet-room-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quiet-room-card.revealed .quiet-room-price {
+  transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s;
+}
+
+.quiet-room-card.revealed .quiet-room-title {
+  transition: opacity 1.2s ease 0.5s, transform 1.2s ease 0.5s;
+}
+
+.quiet-room-card.revealed .quiet-room-spec {
+  transition: opacity 1.2s ease 0.7s, transform 1.2s ease 0.7s;
+}
+
+.quiet-room-card.revealed .quiet-room-link {
+  transition: opacity 1.2s ease 0.9s, transform 1.2s ease 0.9s,
+    border-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   QUIET LUXURY ROOMS RESPONSIVE - TABLET
+   ============================================ */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .quiet-luxury-rooms {
+    padding: 15vh 0;
+  }
+
+  .quiet-room-card {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    padding: 20vh 0;
+  }
+
+  .quiet-room-image {
+    aspect-ratio: 4/5;
+    max-height: 60vh;
+  }
+
+  .quiet-room-content {
+    padding: var(--space-md);
+    max-width: 350px;
+  }
+
+  .quiet-room-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    margin-bottom: var(--space-md);
+  }
+
+  .quiet-room-spec {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-md);
+  }
+}
+
+/* ============================================
+   QUIET LUXURY ROOMS RESPONSIVE - MOBILE
+   ============================================ */
+
+@media (max-width: 767px) {
+  .quiet-luxury-rooms {
+    padding: 10vh 0;
+  }
+
+  .quiet-rooms-container {
+    padding: 0 var(--container-padding);
+  }
+
+  .quiet-room-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: 15vh 0;
+  }
+
+  .quiet-room-card:nth-child(even) {
+    direction: ltr;
+  }
+
+  .quiet-room-card:nth-child(even) .quiet-room-image {
+    order: 0;
+  }
+
+  .quiet-room-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    max-height: 40vh;
+  }
+
+  .quiet-room-content {
+    padding: 0;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .quiet-room-title {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .quiet-room-spec {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .quiet-room-link {
+    font-size: 0.6875rem;
+  }
+}
+
+/* ============================================
+   FEATURED ROOMS (Horizontal Scroll Snap) - RESPONSIVE
+   Discovery Carousel: Cards scroll within container
    ============================================ */
 
 .featured-rooms {
-  padding: var(--space-xl) 0;
-  overflow: auto;
+  padding: 20vh 0;
+  /* Allow horizontal overflow for scroll snap */
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .rooms-scroll-container {
   display: flex;
   gap: var(--space-md);
-  overflow-x: visible;
+  overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: var(--space-md) calc(var(--container-padding) + 2 * var(--space-md));
-  margin: 0 calc(-1 * var(--container-padding));
+  padding: var(--space-md) var(--container-padding);
+  margin: 0;
+  /* Ensure container can scroll */
+  width: 100%;
+  min-width: 0;
 
   /* Hide scrollbar */
   scrollbar-width: none;
@@ -1421,30 +1955,54 @@ p[data-animate="staggered"] {
   display: none;
 }
 
-.room-card {
-  flex: 0 0 380px;
-  min-width: 320px;
-  scroll-snap-align: start;
-  height: 60vh;
-  position: relative;
-  overflow: hidden;
+/* Desktop: Show 1.5 cards to hint at further content */
+@media (min-width: 1200px) {
+  .rooms-scroll-container {
+    padding-left: calc(25% + var(--container-padding));
+  }
+
+  .room-card {
+    flex: 0 0 50%;
+    min-width: 50%;
+    max-width: 500px;
+    scroll-snap-align: start;
+    height: 65vh;
+  }
 }
 
+/* Large screens: more card width */
 @media (min-width: 1440px) {
   .room-card {
-    flex: 0 0 35vw;
+    flex: 0 0 40%;
+    min-width: 40%;
+    max-width: 550px;
   }
+}
+
+.room-card {
+  flex: 0 0 60%;
+  min-width: 280px;
+  max-width: 400px;
+  scroll-snap-align: start;
+  height: 55vh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  /* Prevent container from growing */
+  flex-shrink: 0;
 }
 
 .room-card-image {
   width: 100%;
-  aspect-ratio: 3/4;
+  height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
 }
 
+/* Parallax on hover */
 .room-card:hover .room-card-image {
-  transform: scale(1.05);
+  transform: scale(1.08) translateX(-2%);
 }
 
 .room-card-overlay {
@@ -1452,11 +2010,11 @@ p[data-animate="staggered"] {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--space-md);
+  padding: var(--space-lg);
   background: linear-gradient(
     0deg,
-    rgba(14, 14, 14, 0.95) 0%,
-    rgba(14, 14, 14, 0.5) 60%,
+    rgba(14, 14, 14, 0.98) 0%,
+    rgba(14, 14, 14, 0.4) 50%,
     transparent 100%
   );
   transform: translateY(0);
@@ -1491,24 +2049,37 @@ p[data-animate="staggered"] {
   opacity: 1 !important;
 }
 
+/* Magnetic Button Effect */
+.room-card .btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.room-card:hover .btn-text {
+  transform: translateX(8px);
+}
+
 /* ============================================
    FEATURED ROOMS RESPONSIVE - TABLET
    ============================================ */
 
 @media (max-width: 1199px) and (min-width: 768px) {
   .featured-rooms {
-    padding: var(--space-lg) 0;
+    padding: 15vh 0;
   }
 
   .rooms-scroll-container {
     gap: var(--space-sm);
-    padding: var(--space-md) calc(var(--container-padding) + var(--space-md));
-    margin: 0 calc(-1 * var(--container-padding));
+    padding: var(--space-md) var(--container-padding);
   }
 
   .room-card {
-    flex: 0 0 320px;
+    flex: 0 0 65%;
     min-width: 280px;
+    max-width: 400px;
     height: 55vh;
   }
 
@@ -1527,32 +2098,31 @@ p[data-animate="staggered"] {
 
 @media (max-width: 767px) {
   .featured-rooms {
-    padding: var(--space-lg) 0;
+    padding: 10vh 0;
   }
 
   .rooms-scroll-container {
     gap: var(--space-sm);
     padding: var(--space-md) var(--container-padding);
-    margin: 0 calc(-1 * var(--container-padding));
-    /* Allow swipe with some preview */
-    padding-left: calc(var(--container-padding) - 0.5rem);
   }
 
   .room-card {
-    flex: 0 0 85vw;
+    flex: 0 0 80vw;
     min-width: 280px;
+    max-width: 320px;
     height: 50vh;
-    scroll-snap-align: center;
-    /* Center cards in viewport */
-    margin: 0 0.5rem;
+    scroll-snap-align: start;
+    flex-shrink: 0;
   }
 
   .room-card:first-child {
-    margin-left: var(--container-padding);
+    margin-left: 0;
   }
 
   .room-card:last-child {
-    margin-right: var(--container-padding);
+    margin-right: 0;
+    /* Add extra padding at end so last card is accessible */
+    padding-right: var(--container-padding);
   }
 
   .room-card-price {
@@ -1729,13 +2299,64 @@ p[data-animate="staggered"] {
 }
 
 /* ============================================
-   CTA SECTION - RESPONSIVE
+   CTA SECTION (Reserve Your Escape) - RESPONSIVE
+   Video background with staggered text reveal
    ============================================ */
 
 .cta-section {
-  padding: var(--space-xxl) var(--container-padding);
-  background: var(--smoked-forest);
+  position: relative;
+  padding: 20vh var(--container-padding);
+  background: var(--obsidian-noir);
   text-align: center;
+  overflow: hidden;
+}
+
+/* Video Background Placeholder */
+.cta-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.cta-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.8) 0%,
+    rgba(45, 52, 40, 0.6) 100%
+  );
+  z-index: 1;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Staggered Line-by-Line Text Reveal */
+.cta-heading-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.cta-heading-line {
+  display: block;
+  transform: translateY(100%);
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 .cta-heading {
@@ -1743,11 +2364,26 @@ p[data-animate="staggered"] {
   font-size: clamp(2.5rem, 6vw, 5rem);
   color: var(--optic-white);
   margin-bottom: var(--space-lg);
+  line-height: 1.1;
 }
 
-.cta-content {
-  max-width: 600px;
-  margin: 0 auto;
+.cta-meta {
+  display: block;
+  margin-bottom: var(--space-md);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.cta-cta-btn {
+  opacity: 0;
+  transform: translateY(20px);
+  margin-top: var(--space-lg);
+}
+
+/* CTA Background Transition - ScrollTrigger */
+.cta-section.bg-transition {
+  background: var(--smoked-forest);
+  transition: background-color 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ============================================
@@ -2010,6 +2646,557 @@ p[data-animate="staggered"] {
 
   .footer-bottom {
     justify-content: space-between;
+  }
+}
+
+/* ============================================
+   THE PRIVATE SANCTUARIES - ROOMS PAGE
+   Editorial Scroll Layout with Zigzag Asymmetry
+   ============================================ */
+
+/* THE HERO: The Passage of Light - Video Background */
+.rooms-hero-video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-video-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 18, 18, 0.4) 0%,
+    rgba(18, 18, 18, 0.6) 50%,
+    rgba(18, 18, 18, 0.8) 100%
+  );
+  z-index: -1;
+}
+
+.hero-video-content {
+  text-align: center;
+  z-index: 1;
+}
+
+.choose-stillness {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--optic-white);
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-indicator-hero {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  animation: fadeInUp 1s ease 0.5s forwards;
+  opacity: 0;
+}
+
+.scroll-indicator-hero svg {
+  width: 24px;
+  height: 24px;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ============================================
+   EDITORIAL ROOM SECTIONS
+   Large-Scale Vertical List with Zigzag Layout
+   ============================================ */
+
+.rooms-editorial-container {
+  background: var(--obsidian-noir);
+}
+
+.room-editorial-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 10vh var(--container-padding);
+  background: var(--obsidian-noir);
+  color: var(--optic-white);
+  overflow: hidden;
+}
+
+.room-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Zigzag: Alternate order for image/content */
+.room-editorial-reverse .room-editorial-grid {
+  direction: rtl;
+}
+
+.room-editorial-reverse .room-editorial-content {
+  direction: ltr;
+}
+
+/* Image Section */
+.room-editorial-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  max-height: 85vh;
+}
+
+.room-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.room-editorial-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.room-image-link:hover .room-editorial-img {
+  transform: scale(1.05);
+}
+
+.room-image-scrim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(18, 18, 18, 0.8), transparent);
+  pointer-events: none;
+}
+
+/* Content Section */
+.room-editorial-content {
+  padding: var(--space-lg);
+  max-width: 550px;
+}
+
+.room-content-inner {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.room-editorial-section.revealed .room-content-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.room-category {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-md);
+}
+
+.room-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--optic-white);
+  margin-bottom: var(--space-md);
+}
+
+.room-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--space-lg);
+}
+
+/* Room Specs Grid */
+.room-specs-grid {
+  display: flex;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-number {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--editorial-accent);
+  line-height: 1;
+}
+
+.spec-unit {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.25rem;
+}
+
+.spec-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.5rem;
+}
+
+/* Sensory Highlights - Minimalist Typography */
+.sensory-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.sensory-highlight {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.highlight-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--editorial-accent);
+  min-width: 60px;
+}
+
+.highlight-value {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--optic-white);
+}
+
+/* Sensory Specs List */
+.sensory-specs {
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid var(--editorial-accent);
+}
+
+.sensory-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--editorial-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.sensory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sensory-item {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.375rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sensory-item:last-child {
+  border-bottom: none;
+}
+
+/* CTA Row */
+.room-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.room-price {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--optic-white);
+}
+
+.room-price .price-period {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.room-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--optic-white);
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.room-cta-link:hover {
+  background: var(--optic-white);
+  border-color: var(--optic-white);
+  color: var(--obsidian-noir);
+}
+
+.room-cta-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.room-cta-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   EDITORIAL ROOM RESPONSIVE - TABLET
+   ============================================ */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .rooms-hero-video {
+    min-height: 600px;
+  }
+
+  .choose-stillness {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .room-editorial-section {
+    padding: 8vh var(--container-padding);
+  }
+
+  .room-editorial-grid {
+    gap: var(--space-md);
+  }
+
+  .room-editorial-image {
+    aspect-ratio: 3/4;
+    max-height: 60vh;
+  }
+
+  .room-editorial-content {
+    padding: var(--space-md);
+    max-width: 400px;
+  }
+
+  .room-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .room-specs-grid {
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .spec-number {
+    font-size: 1.25rem;
+  }
+
+  .room-price {
+    font-size: 1.25rem;
+  }
+}
+
+/* ============================================
+   EDITORIAL ROOM RESPONSIVE - MOBILE
+   ============================================ */
+
+@media (max-width: 767px) {
+  .rooms-hero-video {
+    min-height: 100vh;
+    height: 100vh;
+  }
+
+  .choose-stillness {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-style: italic;
+    padding: 0 var(--container-padding);
+  }
+
+  .scroll-indicator-hero {
+    bottom: var(--space-md);
+  }
+
+  .scroll-indicator-hero span {
+    display: none;
+  }
+
+  .room-editorial-section {
+    min-height: auto;
+    padding: var(--space-lg) 0;
+  }
+
+  .room-editorial-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .room-editorial-reverse .room-editorial-grid {
+    direction: ltr;
+  }
+
+  .room-editorial-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    max-height: 45vh;
+  }
+
+  .room-editorial-content {
+    padding: 0 var(--container-padding);
+    max-width: 100%;
+  }
+
+  .room-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-sm);
+  }
+
+  .room-description {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .room-specs-grid {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+
+  .spec-number {
+    font-size: 1.25rem;
+  }
+
+  .sensory-highlights {
+    gap: var(--space-xs);
+  }
+
+  .sensory-specs {
+    padding: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .sensory-item {
+    font-size: 0.8125rem;
+  }
+
+  .room-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .room-price {
+    font-size: 1.25rem;
+  }
+
+  .room-cta-link {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+  }
+}
+
+/* Desktop editorial rooms unchanged (≥1200px) */
+@media (min-width: 1200px) {
+  .room-editorial-grid {
+    gap: var(--space-xl);
+  }
+
+  .room-editorial-image {
+    aspect-ratio: 4/5;
+    max-height: 85vh;
+  }
+
+  .room-editorial-content {
+    padding: var(--space-lg);
+    max-width: 550px;
+  }
+
+  .room-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
   }
 }
 

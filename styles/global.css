@@ -470,47 +470,48 @@ p {
 
 /* ============================================
    SECTION SPACING UTILITIES - RESPONSIVE
+   Editorial Luxury: 20vh between sections for emphasis
    ============================================ */
 
 .section-padding {
-  padding: var(--space-xl) var(--container-padding);
+  padding: 20vh var(--container-padding);
 }
 
 .section-padding-lg {
-  padding: var(--space-xxl) var(--container-padding);
+  padding: 20vh var(--container-padding);
 }
 
 .section-margin {
-  margin: var(--space-xl) 0;
+  margin: 20vh 0;
 }
 
 /* Tablet Section Spacing */
 @media (max-width: 1199px) and (min-width: 768px) {
   .section-padding {
-    padding: var(--space-lg) var(--container-padding);
+    padding: 15vh var(--container-padding);
   }
 
   .section-padding-lg {
-    padding: var(--space-xl) var(--container-padding);
+    padding: 15vh var(--container-padding);
   }
 
   .section-margin {
-    margin: var(--space-lg) 0;
+    margin: 15vh 0;
   }
 }
 
 /* Mobile Section Spacing */
 @media (max-width: 767px) {
   .section-padding {
-    padding: var(--space-md) var(--container-padding);
+    padding: 10vh var(--container-padding);
   }
 
   .section-padding-lg {
-    padding: var(--space-lg) var(--container-padding);
+    padding: 10vh var(--container-padding);
   }
 
   .section-margin {
-    margin: var(--space-md) 0;
+    margin: 10vh 0;
   }
 }
 

@@ -1,16 +1,23 @@
 /**
  * LUXURY HOTEL - GSAP Animations
- * Scroll-based animations and interactions
+ * Editorial Motion System with Emily Ease
  */
 
 // ============================================
-// GSAP CONFIGURATION
+// GSAP CONFIGURATION & EMILY EASE
 // ============================================
 
 gsap.config({
   autoSleep: 60,
   nullTargetWarn: false,
 });
+
+// Emily Ease: The signature easing function
+// Values: 0.16, 1, 0.3, 1 - sophisticated, heavy feel
+const emilyEase = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+// Premium cubic bezier for sophisticated motion
+const premiumEase = emilyEase;
 
 // ============================================
 // SCROLL TRIGGER SETUP
@@ -21,14 +28,8 @@ if (typeof ScrollTrigger !== "undefined") {
 }
 
 // ============================================
-// HERO ANIMATIONS - MASKED REVEAL WITH CUSTOM EASING
+// HERO ANIMATIONS - MASKED REVEAL WITH EMILY EASE
 // ============================================
-
-/**
- * Premium cubic bezier for sophisticated, heavy feel
- * Values: 0.16, 1, 0.3, 1
- */
-const premiumEase = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 function initHeroAnimation() {
   const hero = DOM.select(".hero");
@@ -137,21 +138,24 @@ function initHeroAnimation() {
  */
 function initSoftLiftTitles() {
   const titles = DOM.selectAll(".section-title[data-animate='soft-lift']");
-  
+
   titles.forEach((title) => {
     // Wrap each line in a mask span
     const text = title.textContent.trim();
-    const lines = text.split('\n');
-    
+    const lines = text.split("\n");
+
     if (lines.length > 1) {
-      title.innerHTML = lines.map(line => 
-        `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${line}</span></span>`
-      ).join('');
+      title.innerHTML = lines
+        .map(
+          (line) =>
+            `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${line}</span></span>`
+        )
+        .join("");
     } else {
       // Single line - still wrap for consistency
       title.innerHTML = `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${text}</span></span>`;
     }
-    
+
     // Animate with ScrollTrigger
     ScrollTrigger.create({
       trigger: title,
@@ -163,9 +167,9 @@ function initSoftLiftTitles() {
           filter: "blur(0px)",
           duration: 1,
           stagger: 0.15,
-          ease: "power3.out"
+          ease: "power3.out",
         });
-      }
+      },
     });
   });
 }
@@ -176,17 +180,20 @@ function initSoftLiftTitles() {
  */
 function initStaggeredBodyText() {
   const paragraphs = DOM.selectAll("p[data-animate='staggered']");
-  
+
   paragraphs.forEach((p) => {
     // Split into lines based on sentence endings
     const text = p.textContent;
-    const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim());
-    
+    const sentences = text.split(/(?<=[.!?])\s+/).filter((s) => s.trim());
+
     if (sentences.length > 1) {
-      p.innerHTML = sentences.map(sentence => 
-        `<span class="body-line" style="display: block; opacity: 0; transform: translateY(5px);">${sentence.trim()}</span>`
-      ).join(' ');
-      
+      p.innerHTML = sentences
+        .map(
+          (sentence) =>
+            `<span class="body-line" style="display: block; opacity: 0; transform: translateY(5px);">${sentence.trim()}</span>`
+        )
+        .join(" ");
+
       // Animate with stagger
       ScrollTrigger.create({
         trigger: p,
@@ -198,9 +205,9 @@ function initStaggeredBodyText() {
             y: 0,
             duration: 0.8,
             stagger: 0.1,
-            ease: "power2.out"
+            ease: "power2.out",
           });
-        }
+        },
       });
     }
   });
@@ -212,17 +219,17 @@ function initStaggeredBodyText() {
  */
 function initInsetScaleImages() {
   const containers = DOM.selectAll(".inset-scale-container");
-  
+
   containers.forEach((container) => {
     const img = container.querySelector("img");
     if (!img) return;
-    
+
     // Set initial state
     gsap.set(img, {
       scale: 1.15,
-      transformOrigin: "center center"
+      transformOrigin: "center center",
     });
-    
+
     // Animate on scroll
     ScrollTrigger.create({
       trigger: container,
@@ -231,107 +238,295 @@ function initInsetScaleImages() {
         gsap.to(img, {
           scale: 1,
           duration: 1.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       },
       onLeaveBack: () => {
         gsap.to(img, {
           scale: 1.15,
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         });
-      }
+      },
     });
   });
 }
 
 /**
- * "Blur-to-Focus" - Guest Perspective / Social Proof
- * Transitions from blur(15px)/opacity 0 to blur(0)/opacity 1 over 2s
+ * "Blur-to-Focus" - Perspective Quote Reveal
+ * Transitions from blur(20px)/opacity 0 to blur(0)/opacity 1 over 2s
+ * Uses Emily Ease for sophisticated motion
  */
 function initBlurToFocus() {
   const elements = DOM.selectAll(".blur-to-focus");
-  
+
   elements.forEach((el) => {
-    // Set initial blurred state
+    // Set initial blurred state (already set in CSS, but ensuring JS control)
     gsap.set(el, {
-      filter: "blur(15px)",
+      filter: "blur(20px)",
       opacity: 0,
-      transformOrigin: "center center"
+      transformOrigin: "center center",
     });
-    
-    // Animate to focus
+
+    // Animate to focus with Emily Ease
     ScrollTrigger.create({
       trigger: el,
-      start: "top 75%",
+      start: "top 70%",
       onEnter: () => {
         gsap.to(el, {
           filter: "blur(0px)",
           opacity: 1,
           duration: 2,
-          ease: "power2.out"
+          ease: emilyEase,
+          className: "blur-to-focus revealed", // Add revealed class
         });
       },
       onLeaveBack: () => {
         gsap.to(el, {
-          filter: "blur(15px)",
+          filter: "blur(20px)",
           opacity: 0,
-          duration: 0.5
+          duration: 0.8,
+          ease: emilyEase,
         });
-      }
+      },
     });
   });
 }
 
 /**
- * Curated Moments Grid - 4-Item Grid with Hover Effects
+ * "Door Opening" - Image Reveal Animation
+ * Uses clip-path: inset(0 50% 0 50%) → inset(0 0 0 0)
+ * Creates a vertical slit reveal effect
+ */
+function initDoorOpeningReveal() {
+  const doorContainers = DOM.selectAll(".door-opening-container");
+
+  doorContainers.forEach((container) => {
+    // Set initial clip-path state
+    gsap.set(container, {
+      clipPath: "inset(0 50% 0 50%)",
+    });
+
+    // Animate to full reveal with Emily Ease
+    ScrollTrigger.create({
+      trigger: container,
+      start: "top 65%",
+      onEnter: () => {
+        gsap.to(container, {
+          clipPath: "inset(0 0 0 0)",
+          duration: 1.5,
+          ease: emilyEase,
+          className: "door-opening-container revealed",
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(container, {
+          clipPath: "inset(0 50% 0 50%)",
+          duration: 0.8,
+          ease: emilyEase,
+        });
+      },
+    });
+  });
+}
+
+/**
+ * "Magnetic Button" - Cursor-Following Button Effect
+ * Button subtly moves toward cursor on hover
+ */
+function initMagneticButtons() {
+  const magneticBtns = DOM.selectAll(".room-card .btn-text");
+
+  magneticBtns.forEach((btn) => {
+    if (!btn) return;
+
+    btn.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      gsap.to(btn, {
+        x: x * 0.15,
+        y: y * 0.15,
+        duration: 0.4,
+        ease: emilyEase,
+      });
+    });
+
+    btn.addEventListener("mouseleave", () => {
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        duration: 0.6,
+        ease: "elastic.out(1, 0.3)",
+      });
+    });
+  });
+}
+
+/**
+ * "Staggered Line Reveal" - CTA Text Animation
+ * Lines float in one by one as background transitions
+ */
+function initCTAStaggeredReveal() {
+  const ctaSections = DOM.selectAll(".cta-section");
+
+  ctaSections.forEach((section) => {
+    const headingLines = section.querySelectorAll(".cta-heading-line");
+    const meta = section.querySelector(".cta-meta");
+    const btn = section.querySelector(".cta-cta-btn");
+
+    if (headingLines.length === 0) return;
+
+    // Create timeline for staggered reveal
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top 60%",
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    // Animate heading lines
+    tl.to(headingLines, {
+      y: "0%",
+      opacity: 1,
+      duration: 1,
+      stagger: 0.2,
+      ease: emilyEase,
+    });
+
+    // Animate meta text
+    if (meta) {
+      tl.to(
+        meta,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: emilyEase,
+        },
+        "-=0.5"
+      );
+    }
+
+    // Animate button
+    if (btn) {
+      tl.to(
+        btn,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: emilyEase,
+        },
+        "-=0.3"
+      );
+    }
+  });
+}
+
+/**
+ * Background Color Fade Transition
+ * Fades from #1A1A1A to #2d3428 (Forest Green) at CTA section
+ */
+function initCTABackgroundTransition() {
+  const ctaSection = DOM.select(".cta-section");
+
+  if (!ctaSection) return;
+
+  ScrollTrigger.create({
+    trigger: ctaSection,
+    start: "top 70%",
+    end: "top 30%",
+    scrub: 1,
+    onUpdate: (self) => {
+      // Interpolate between charcoal and forest green
+      const progress = self.progress;
+
+      // Color interpolation: #1A1A1A → #2d3428
+      // RGB: 26,26,26 → 45,52,40
+      const r = Math.round(26 + (45 - 26) * progress);
+      const g = Math.round(26 + (52 - 26) * progress);
+      const b = Math.round(26 + (40 - 26) * progress);
+
+      ctaSection.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    },
+  });
+}
+
+/**
+ * Curated Moments Grid - Editorial Interactions
+ * Hover: Image zoom + sensory copy reveal + letter-spacing expansion
  */
 function initCuratedMomentsGrid() {
   const grid = DOM.select(".curated-moments-grid");
   if (!grid) return;
-  
+
   const items = grid.querySelectorAll(".curated-item");
-  
+
   items.forEach((item) => {
     const img = item.querySelector(".curated-image");
     const tagline = item.querySelector(".curated-tagline");
-    
-    if (!img || !tagline) return;
-    
+    const sensory = item.querySelector(".curated-sensory");
+
+    if (!img) return;
+
+    // Set initial states
+    gsap.set([tagline, sensory], { willChange: "opacity" });
+
     // Hover enter
     item.addEventListener("mouseenter", () => {
-      // Image scales to 1.05
+      // Image slow zoom
       gsap.to(img, {
         scale: 1.05,
-        duration: 0.6,
-        ease: "power2.out"
+        duration: 1.2,
+        ease: emilyEase,
       });
-      
-      // Tagline appears with letter-spacing expansion
+
+      // Tagline fades out
       gsap.to(tagline, {
-        opacity: 1,
+        opacity: 0,
         letterSpacing: "5px",
         duration: 0.6,
-        ease: "power2.out"
+        ease: emilyEase,
       });
+
+      // Sensory copy fades in
+      if (sensory) {
+        gsap.to(sensory, {
+          opacity: 1,
+          duration: 0.6,
+          ease: emilyEase,
+        });
+      }
     });
-    
+
     // Hover leave
     item.addEventListener("mouseleave", () => {
-      // Image scales back
+      // Image returns to normal
       gsap.to(img, {
         scale: 1,
-        duration: 0.6,
-        ease: "power2.out"
+        duration: 1,
+        ease: emilyEase,
       });
-      
-      // Tagline fades and letter-spacing contracts
+
+      // Tagline fades back in
       gsap.to(tagline, {
         opacity: 0.7,
         letterSpacing: "2px",
         duration: 0.6,
-        ease: "power2.out"
+        ease: emilyEase,
       });
+
+      // Sensory copy fades out
+      if (sensory) {
+        gsap.to(sensory, {
+          opacity: 0,
+          duration: 0.6,
+          ease: emilyEase,
+        });
+      }
     });
   });
 }
@@ -342,43 +537,309 @@ function initCuratedMomentsGrid() {
 function initEnhancedSectionAnimations() {
   // Enhanced fade up with more subtle motion
   const fadeUps = DOM.selectAll(".fade-up-enhanced");
-  
+
   fadeUps.forEach((el) => {
     ScrollTrigger.create({
       trigger: el,
       start: "top 85%",
       onEnter: () => {
-        gsap.fromTo(el,
+        gsap.fromTo(
+          el,
           { y: 30, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
         );
-      }
+      },
     });
   });
-  
+
   // Staggered grid items
   const staggerGrids = DOM.selectAll(".stagger-grid");
-  
+
   staggerGrids.forEach((grid) => {
     const items = grid.children;
-    
+
     ScrollTrigger.create({
       trigger: grid,
       start: "top 80%",
       onEnter: () => {
-        gsap.fromTo(items,
+        gsap.fromTo(
+          items,
           { y: 40, opacity: 0 },
-          { 
-            y: 0, 
-            opacity: 1, 
-            duration: 0.8, 
-            stagger: 0.1, 
-            ease: "power3.out" 
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
           }
         );
-      }
+      },
     });
   });
+}
+
+/**
+ * Cinematic Horizontal Scroll Rooms Section
+ * "The Cinematic Track" - Fluid Displacement Effect
+ *
+ * Features:
+ * - Horizontal scroll pinning with Emily Ease
+ * - Parallax layering within each room card
+ * - Letter-spacing reveal animation on titles
+ * - Staggered fade-in of sensory specs
+ * - Custom cursor transformation
+ */
+function initCinematicRoomsSection() {
+  const section = DOM.select(".cinematic-rooms-section");
+  if (!section) return;
+
+  const trackWrapper = DOM.select(".rooms-track-wrapper");
+  const track = DOM.select(".rooms-track");
+  const cards = DOM.selectAll(".room-card-cinematic");
+  const cursor = DOM.select(".rooms-cursor");
+
+  if (!trackWrapper || !track || cards.length === 0) return;
+
+  // ============================================
+  // EMILY EASE CONFIGURATION
+  // ============================================
+  const emilyEase = "cubic-bezier(0.16, 1, 0.3, 1)";
+
+  // ============================================
+  // HORIZONTAL SCROLL PINNING
+  // ============================================
+
+  // Calculate total scroll distance
+  const getScrollAmount = () => {
+    const trackWidth = track.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    return trackWidth - viewportWidth;
+  };
+
+  // Create horizontal scroll tween
+  const trackTween = gsap.to(track, {
+    x: () => -getScrollAmount(),
+    ease: "none",
+    scrollTrigger: {
+      trigger: section,
+      start: "top top",
+      end: () => "+=" + getScrollAmount(),
+      pin: true,
+      scrub: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        // Update progress for parallax calculations
+        if (window.cinematicRoomsProgress !== undefined) {
+          window.cinematicRoomsProgress = self.progress;
+        }
+      },
+    },
+  });
+
+  // Store reference for parallax
+  window.cinematicRoomsScroll = trackTween;
+
+  // ============================================
+  // INTERNAL PARALLAX FOR EACH CARD
+  // ============================================
+
+  cards.forEach((card, index) => {
+    const imgContainer = card.querySelector(".room-card-image-container");
+    const img = card.querySelector(".room-card-image-cinematic");
+
+    if (!img) return;
+
+    // Set initial scale
+    gsap.set(img, {
+      scale: 1.2,
+      transformOrigin: "center center",
+    });
+
+    // Parallax effect: image moves opposite to scroll direction
+    // This creates the "window" effect where you feel like looking into the room
+    ScrollTrigger.create({
+      trigger: card,
+      start: "left right",
+      end: "right left",
+      horizontal: true,
+      scrub: true,
+      onUpdate: (self) => {
+        // Calculate parallax offset based on scroll progress
+        // Move image slightly in opposite direction for depth effect
+        const parallaxAmount = (self.progress - 0.5) * 30; // -15% to +15%
+        gsap.to(img, {
+          xPercent: parallaxAmount,
+          ease: "none",
+          overwrite: "auto",
+        });
+      },
+    });
+
+    // Scale animation: returns to normal as card enters viewport
+    ScrollTrigger.create({
+      trigger: card,
+      start: "left 80%",
+      end: "left 20%",
+      horizontal: true,
+      scrub: true,
+      onUpdate: (self) => {
+        // Scale from 1.2 to 1.0 as card scrolls into view
+        const scaleValue = 1.2 - self.progress * 0.2;
+        gsap.to(img, {
+          scale: scaleValue,
+          ease: "none",
+          overwrite: "auto",
+        });
+      },
+    });
+
+    // ============================================
+    // CARD ACTIVATION & CONTENT REVEAL
+    // ============================================
+
+    ScrollTrigger.create({
+      trigger: card,
+      start: "left 60%",
+      end: "left 40%",
+      horizontal: true,
+      onEnter: () => {
+        card.classList.add("active");
+      },
+      onLeaveBack: () => {
+        card.classList.remove("active");
+      },
+      onEnterBack: () => {
+        card.classList.add("active");
+      },
+    });
+  });
+
+  // ============================================
+  // CUSTOM CURSOR TRANSFORMATION
+  // ============================================
+
+  if (cursor) {
+    // Show cursor when entering section
+    section.addEventListener("mouseenter", () => {
+      cursor.classList.add("visible");
+    });
+
+    section.addEventListener("mouseleave", () => {
+      cursor.classList.remove("visible");
+    });
+
+    // Follow mouse movement within section
+    section.addEventListener("mousemove", (e) => {
+      const rect = section.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Clamp cursor to section bounds with padding
+      const padding = 60;
+      const clampedX = Math.max(padding, Math.min(x, rect.width - padding));
+      const clampedY = Math.max(padding, Math.min(y, rect.height - padding));
+
+      gsap.to(cursor, {
+        left: clampedX,
+        top: clampedY,
+        xPercent: -50,
+        yPercent: -50,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    });
+
+    // Cursor click effect
+    section.addEventListener("mousedown", () => {
+      gsap.to(cursor, {
+        scale: 0.9,
+        duration: 0.15,
+        ease: "power2.out",
+      });
+    });
+
+    section.addEventListener("mouseup", () => {
+      gsap.to(cursor, {
+        scale: 1,
+        duration: 0.15,
+        ease: "power2.out",
+      });
+    });
+  }
+
+  // ============================================
+  // MAGNETIC BUTTON EFFECT
+  // ============================================
+
+  const magneticBtns = DOM.selectAll(".book-now-magnetic");
+
+  magneticBtns.forEach((btn) => {
+    if (!btn) return;
+
+    btn.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      gsap.to(btn, {
+        x: x * 0.2,
+        y: y * 0.2,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    });
+
+    btn.addEventListener("mouseleave", () => {
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        duration: 0.5,
+        ease: "elastic.out(1, 0.3)",
+      });
+    });
+  });
+
+  // ============================================
+  // LETTER-SPACING REVEAL ANIMATION
+  // Already handled via CSS transitions triggered by .active class
+  // Additional GSAP enhancement for smoother timing
+  // ============================================
+
+  cards.forEach((card) => {
+    const titleTexts = card.querySelectorAll(".title-text");
+
+    // Ensure initial state
+    gsap.set(titleTexts, {
+      letterSpacing: "-0.02em",
+    });
+
+    // Watch for active class changes and animate
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.target.classList.contains("active")) {
+          gsap.to(titleTexts, {
+            letterSpacing: "0.02em",
+            duration: 0.8,
+            stagger: 0.1,
+            ease: emilyEase,
+          });
+        } else {
+          gsap.to(titleTexts, {
+            letterSpacing: "-0.02em",
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        }
+      });
+    });
+
+    observer.observe(card, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  });
+
+  console.log("Cinematic Rooms Section initialized");
 }
 
 /**
@@ -386,13 +847,14 @@ function initEnhancedSectionAnimations() {
  */
 function initParallaxReveal() {
   const parallaxImages = DOM.selectAll(".parallax-reveal");
-  
+
   parallaxImages.forEach((container) => {
     const img = container.querySelector("img");
     if (!img) return;
-    
+
     // Initial reveal animation
-    gsap.fromTo(img,
+    gsap.fromTo(
+      img,
       { scale: 1.1 },
       {
         scale: 1,
@@ -403,10 +865,10 @@ function initParallaxReveal() {
           start: "top 80%",
           end: "bottom top",
           scrub: true,
-        }
+        },
       }
     );
-    
+
     // Parallax effect
     gsap.to(img, {
       yPercent: 15,
@@ -416,7 +878,7 @@ function initParallaxReveal() {
         start: "top bottom",
         end: "bottom top",
         scrub: true,
-      }
+      },
     });
   });
 }
@@ -1167,6 +1629,259 @@ function initCursorEffects() {
 }
 
 // ============================================
+// ABOUT PAGE SPECIFIC ANIMATIONS
+// ============================================
+
+/**
+ * Slow-Reveal Image Animation
+ * Images expand from a vertical slit to full rectangle (clip-path)
+ * Feels like a door opening slowly
+ */
+function initSlowRevealImages() {
+  const slowRevealImages = document.querySelectorAll(".slow-reveal-image");
+
+  slowRevealImages.forEach((img) => {
+    ScrollTrigger.create({
+      trigger: img,
+      start: "top 70%",
+      onEnter: () => {
+        img.classList.add("revealed");
+      },
+      onLeaveBack: () => {
+        img.classList.remove("revealed");
+      },
+    });
+  });
+}
+
+/**
+ * Ghost Text Animation
+ * Subtle parallax on body text - moves at 0.95x speed
+ * Makes text feel like it's floating above the background
+ */
+function initGhostText() {
+  const ghostTextBlocks = document.querySelectorAll(".ghost-text");
+
+  ghostTextBlocks.forEach((block) => {
+    const paragraphs = block.querySelectorAll("p");
+
+    paragraphs.forEach((p) => {
+      gsap.to(p, {
+        y: -15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: block,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.95, // Subtle parallax at 0.95x speed
+        },
+      });
+    });
+  });
+}
+
+/**
+ * Ink Drop Animation for Map Markers
+ * Points of interest bloom onto map like ink drops
+ */
+function initInkDropMarkers() {
+  const poiMarkers = document.querySelectorAll(".poi-marker:not(.active)");
+
+  poiMarkers.forEach((marker, index) => {
+    ScrollTrigger.create({
+      trigger: ".neighborhood-map",
+      start: "top 60%",
+      onEnter: () => {
+        // Stagger the animation
+        setTimeout(() => {
+          marker.classList.add("active");
+        }, index * 200);
+      },
+    });
+  });
+}
+
+/**
+ * Maker Portrait Hover Animation
+ * Title fades out, personal quote fades in on hover
+ */
+function initMakerCardHovers() {
+  const makerCards = document.querySelectorAll(".maker-card");
+
+  makerCards.forEach((card) => {
+    const portrait = card.querySelector(".maker-portrait");
+    const info = card.querySelector(".maker-info");
+    const quote = card.querySelector(".maker-quote");
+
+    if (!portrait || !info || !quote) return;
+
+    card.addEventListener("mouseenter", () => {
+      gsap.to(portrait, {
+        filter: "grayscale(0%) contrast(1)",
+        scale: 1.02,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      gsap.to(info, {
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out",
+      });
+
+      gsap.to(quote, {
+        opacity: 1,
+        duration: 0.4,
+        delay: 0.1,
+        ease: "power2.out",
+      });
+    });
+
+    card.addEventListener("mouseleave", () => {
+      gsap.to(portrait, {
+        filter: "grayscale(100%) contrast(1.1)",
+        scale: 1,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      gsap.to(info, {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out",
+      });
+
+      gsap.to(quote, {
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out",
+      });
+    });
+  });
+}
+
+/**
+ * Section Color Transition
+ * Smoothly transitions background color between sections
+ */
+function initColorTransitions() {
+  // Transition from light to dark section
+  const colorTransitionTrigger = document.querySelector(".makers-section");
+  const narrativeSection = document.querySelector(".narrative-section");
+
+  if (colorTransitionTrigger && narrativeSection) {
+    ScrollTrigger.create({
+      trigger: colorTransitionTrigger,
+      start: "top center",
+      end: "center center",
+      onEnter: () => {
+        gsap.to(narrativeSection, {
+          backgroundColor: "#121212", // obsidian-noir
+          duration: 1.5,
+          onComplete: () => {
+            narrativeSection.classList.add("dark-theme");
+          },
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(narrativeSection, {
+          backgroundColor: "#f2f0ed", // bone-linen
+          duration: 1.5,
+          onComplete: () => {
+            narrativeSection.classList.remove("dark-theme");
+          },
+        });
+      },
+    });
+  }
+}
+
+/**
+ * Hero Statement Reveal Animation
+ * For about page hero with macro video background
+ */
+function initHeroStatementAnimation() {
+  const heroStatement = document.querySelector(".hero-statement");
+
+  if (heroStatement) {
+    gsap.to(heroStatement, {
+      opacity: 1,
+      y: 0,
+      duration: 1.8,
+      ease: "power3.out",
+      delay: 0.3,
+    });
+  }
+
+  const scrollIndicator = document.querySelector(".hero-scroll-indicator");
+  if (scrollIndicator) {
+    gsap.to(scrollIndicator, {
+      opacity: 1,
+      duration: 1,
+      delay: 1.5,
+    });
+  }
+}
+
+/**
+ * Split Screen Sticky Layout
+ * Left side sticky, right side scrolls with parallax
+ */
+function initSplitScreenLayout() {
+  const narrativeSection = document.querySelector(".narrative-section");
+  const stickySide = document.querySelector(".narrative-sticky");
+  const scrollingSide = document.querySelector(".narrative-scrolling");
+
+  if (narrativeSection && stickySide && scrollingSide) {
+    ScrollTrigger.create({
+      trigger: narrativeSection,
+      start: "top top",
+      end: "bottom bottom",
+      pin: stickySide,
+      scrub: true,
+    });
+
+    // Parallax on scrolling content
+    gsap.to(scrollingSide, {
+      yPercent: -10,
+      ease: "none",
+      scrollTrigger: {
+        trigger: narrativeSection,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  }
+}
+
+/**
+ * Macro Grid Animation
+ * Subtle movement in material close-up grid
+ */
+function initMacroGridAnimation() {
+  const macroCells = document.querySelectorAll(".macro-cell img");
+
+  if (macroCells.length > 0) {
+    gsap.fromTo(
+      macroCells,
+      { scale: 1.3 },
+      {
+        scale: 1.4,
+        duration: 20,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        stagger: {
+          each: 0.5,
+          from: "random",
+        },
+      }
+    );
+  }
+}
+
+// ============================================
 // INITIALIZE ALL ANIMATIONS
 // ============================================
 
@@ -1178,6 +1893,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initStaggeredBodyText();
     initInsetScaleImages();
     initBlurToFocus();
+    initDoorOpeningReveal();
+    initMagneticButtons();
     initCuratedMomentsGrid();
     initEnhancedSectionAnimations();
     initParallaxReveal();
@@ -1197,6 +1914,23 @@ document.addEventListener("DOMContentLoaded", () => {
     initLoadingAnimation();
     initPageTransition();
     initCursorEffects();
+
+    // New Editorial Animations
+    initCTAStaggeredReveal();
+    initCTABackgroundTransition();
+
+    // Cinematic Horizontal Scroll Rooms
+    initCinematicRoomsSection();
+
+    // About page specific animations
+    initSlowRevealImages();
+    initGhostText();
+    initInkDropMarkers();
+    initMakerCardHovers();
+    initColorTransitions();
+    initHeroStatementAnimation();
+    initSplitScreenLayout();
+    initMacroGridAnimation();
 
     // Initialize Lenis smooth scrolling (if not already done in HTML)
     if (typeof Lenis !== "undefined" && !window.lenis) {

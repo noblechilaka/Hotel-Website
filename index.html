@@ -123,7 +123,7 @@ close
 
         <!-- Bottom Caption -->
         <div class="hero-caption">
-          <p data-animate="subtext">Where timeless elegance meets contemporary design. Experience the art of hospitality in the heart of the city.</p>
+          <p data-animate="subtext">Where timeless elegance meets contemporary design. Experience the warmth and stature of high-end Nigerian hospitality in the heart of Lagos.</p>
         </div>
       </section>
 
@@ -249,7 +249,7 @@ close
         </div>
       </section> -->
 
-      <!-- Discovery Section -->
+            <!-- Discovery Section -->
       <section class="discovery section-padding">
         <div class="container">
           <div class="discovery-grid">
@@ -258,8 +258,8 @@ close
                 <span class="rotated-label">Our Story</span>
               </div>
               
-              <!-- Inset Scale Image Reveal -->
-              <div class="inset-scale-container">
+              <!-- Door Opening Effect Container -->
+              <div class="door-opening-container">
                 <img
                   src="/assets/imgs/Luxuriant Modern Lounge.png"
                   alt="Hotel Exterior at Sunset"
@@ -310,131 +310,48 @@ close
         </div>
       </section>
 
-            <!-- Featured Rooms -->
-      <section class="featured-rooms section-padding bg-light">
-        <div class="container">
-          <div
-            style="
-              display: flex;
-              justify-content: space-between;
-              align-items: flex-end;
-              margin-bottom: 3rem;
-            "
-          >
-            <div>
-              <span
-                class="meta-text gold"
-                style="margin-bottom: 0.5rem; display: block"
-                >Accommodations</span>
-              <h2 class="section-title" style="color: var(--text-dark)">
-                Our Rooms
-              </h2>
-            </div>
-            <a
-              href="/rooms.html"
-              class="btn-text-only dark"
-              style="color: var(--gold)"
-            >
-              View All
-            </a>
-          </div>
-
-        <div class="rooms-scroll-container">
-        <!-- Room Card 1 -->
-          <a
-            href="/room-details.html?room=ocean-view-suite"
-            class="room-card"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
-              alt="Ocean View Suite"
-              class="room-card-image"
-            />
-            <div class="room-card-overlay">
-              <span class="room-card-price">From $450/night</span>
-              <h3 class="room-card-title" style="color: var(--text-light)">
-                Ocean View Suite
-              </h3>
-              <!-- <p class="room-card-description">
-                Panoramic ocean views with private terrace
-              </p> -->
-              <span class="btn-text" style="color: var(--editorial-accent);"
-                >View Details →</span>
-            </div>
-          </a>
-
-          <!-- Room Card 2 -->
-          <a
-            href="/room-details.html?room=garden-retreat"
-            class="room-card"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800"
-              alt="Garden Retreat"
-              class="room-card-image"
-            />
-            <div class="room-card-overlay">
-              <span class="room-card-price">From $320/night</span>
-              <h3 class="room-card-title" style="color: var(--text-light)">
-                Garden Retreat
-              </h3>
-              <!-- <p class="room-card-description">
-                Private sanctuary in tropical gardens
-              </p> -->
-              <span class="btn-text" style="color: var(--editorial-accent)"
-                >View Details →</span>
-            </div>
-          </a>
-
-          <!-- Room Card 3 -->
-          <a
-            href="/room-details.html?room=presidential-suite"
-            class="room-card"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800"
-              alt="Presidential Suite"
-              class="room-card-image"
-            />
-            <div class="room-card-overlay">
-              <span class="room-card-price">From $1,200/night</span>
-              <h3 class="room-card-title" style="color: var(--text-light)">
-                Presidential Suite
-              </h3>
-              <!-- <p class="room-card-description">
-                Ultimate luxury with exclusive amenities
-              </p> -->
-              <span class="btn-text" style="color: var(--editorial-accent)"
-                >View Details →</span>
-            </div>
-          </a>
-
-          <!-- Room Card 4 -->
-          <a
-            href="/room-details.html?room=beach-villa"
-            class="room-card"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800"
-              alt="Beach Villa"
-              class="room-card-image"
-            />
-            <div class="room-card-overlay">
-              <span class="room-card-price">From $850/night</span>
-              <h3 class="room-card-title" style="color: var(--text-light)">
-                Beach Villa
-              </h3>
-              <!-- <p class="room-card-description">
-                Direct beach access with private pool
-              </p> -->
-              <span class="btn-text" style="color: var(--editorial-accent)"
-                >View Details →</span>
-            </div>
-          </a>
+      <!-- ============================================
+           QUIET LUXURY ROOMS SECTION
+           "The Monolith" - Vertical Staggered List
+           ============================================ -->
+      <section class="quiet-luxury-rooms">
+        <!-- Captivating Section Header -->
+        <div class="quiet-rooms-header">
+          <span class="quiet-rooms-label">Our Accommodations</span>
+          <h2 class="quiet-rooms-title">
+            <span class="title-line">The Art of</span>
+            <span class="title-line">Retreat</span>
+          </h2>
+          <p class="quiet-rooms-intro">
+            Four distinct spaces. Each a study in quiet luxury.
+          </p>
         </div>
+        
+        <div class="quiet-rooms-container" id="quiet-rooms-container">
+          <!-- Quiet luxury rooms will be loaded here by JavaScript -->
+        </div>
+
+        <script>
+          // Initialize quiet luxury rooms on page load
+          document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('quiet-rooms-container');
+            if (container && window.RoomManager) {
+              container.innerHTML = window.RoomManager.getAll('cinematic')
+                .map((room, index) => window.RoomManager.renderQuietRoomCard(room, index))
+                .join('');
+              
+              // Initialize quiet luxury animations after DOM is rendered
+              if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                setTimeout(() => {
+                  window.RoomManager.initQuietLuxuryAnimations();
+                }, 100);
+              }
+            }
+          });
+        </script>
       </section>
 
-
+    
            <!-- Curated Moments Grid -->
       <section class="curated-moments section-padding">
         <div class="container">
@@ -453,7 +370,7 @@ close
           </h2>
         </div>
         
-        <div class="curated-moments-grid" style="padding: 0 var(--container-padding);">
+        <div class="curated-moments-grid">
           <!-- Item 1 -->
           <div class="curated-item">
             <img
@@ -462,6 +379,7 @@ close
               class="curated-image"
             />
             <span class="curated-tagline">The architecture of restoration</span>
+            <span class="curated-sensory">Liquid gold and velvet nights</span>
           </div>
           
           <!-- Item 2 -->
@@ -472,6 +390,7 @@ close
               class="curated-image"
             />
             <span class="curated-tagline">Culinary artistry</span>
+            <span class="curated-sensory">Where flavor meets memory</span>
           </div>
           
           <!-- Item 3 -->
@@ -482,6 +401,7 @@ close
               class="curated-image"
             />
             <span class="curated-tagline">Waterside elegance</span>
+            <span class="curated-sensory">Golden hour in every glass</span>
           </div>
           
           <!-- Item 4 -->
@@ -492,39 +412,53 @@ close
               class="curated-image"
             />
             <span class="curated-tagline">Ocean horizon views</span>
+            <span class="curated-sensory">Infinity begins at the edge</span>
           </div>
         </div>
       </section>
 
       <!-- CTA Section -->
       <section class="cta-section">
+        <!-- Video Background Placeholder -->
+        <video 
+          class="cta-video-bg" 
+          autoplay 
+          muted 
+          loop 
+          playsinline
+          poster="/assets/imgs/Luxurious Hotel Lobby.png"
+        >
+          <!-- Placeholder video source - replace with actual video -->
+          <source src="" type="video/mp4">
+        </video>
+        <div class="cta-video-overlay"></div>
+        
         <div class="cta-content">
-          <span
-            class="meta-text"
-            style="color: var(--gold); margin-bottom: 1rem; display: block"
-            >Begin Your Journey</span
-          >
-          <h2 class="cta-heading">Reserve Your<br />Escape Today</h2>
-          <a
-            href="/booking.html"
-            class="btn btn-primary"
-            style="border-color: var(--text-light); margin-top: 2rem"
-          >
-            Book Your Stay
-          </a>
+          <span class="cta-meta meta-text gold" style="color: var(--editorial-accent);">Begin Your Journey</span>
+          <div class="cta-heading-lines">
+            <span class="cta-heading cta-heading-line">Reserve Your</span>
+            <span class="cta-heading cta-heading-line">Escape Today</span>
+          </div>
+          <div class="cta-cta-btn">
+            <a
+              href="/booking.html"
+              class="btn btn-primary"
+              style="border-color: var(--text-light); margin-top: 2rem"
+            >
+              Book Your Stay
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- Guest Perspective - Blur to Focus -->
-      <section class="guest-perspective section-padding" style="background: var(--obsidian-noir); text-align: center;">
-        <div class="container" style="max-width: 800px;">
+      <!-- The Perspective Section -->
+      <section class="perspective-section section-padding">
+        <div class="perspective-content">
           <div class="blur-to-focus">
-            <p style="font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2rem); font-style: italic; color: var(--optic-white); line-height: 1.6;">
+            <p class="perspective-quote">
               "A rare masterclass in silence. The Emily doesn't just house you; it exhales with you."
             </p>
-            <p style="font-family: var(--font-body); font-size: 0.75rem; color: var(--editorial-accent); text-transform: uppercase; letter-spacing: 0.2em; margin-top: var(--space-md);">
-              — L'Art de Vivre
-            </p>
+            <p class="perspective-author">— L'Art de Vivre</p>
           </div>
         </div>
       </section>
@@ -590,6 +524,7 @@ close
     <script src="/scripts/animations.js"></script>
     <script src="/scripts/supabase.js"></script>
     <script src="/scripts/auth.js"></script>
+    <script src="/scripts/rooms-data.js"></script>
 
     <!-- Lenis Smooth Scrolling Initialization -->
     <script>
