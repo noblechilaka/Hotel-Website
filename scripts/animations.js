@@ -4,6 +4,12 @@
  */
 
 // ============================================
+// MOBILE DETECTION HELPER
+// ============================================
+
+const isMobile = () => window.innerWidth < 768;
+
+// ============================================
 // GSAP CONFIGURATION & EMILY EASE
 // ============================================
 
@@ -98,34 +104,36 @@ function initHeroAnimation() {
     );
   }
 
-  // 4. Parallax effect on scroll
-  gsap.to(".hero-bg", {
-    yPercent: 30,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-    },
-  });
-
-  // 5. Background scale subtle effect
-  gsap.fromTo(
-    ".hero-bg",
-    { scale: 1.05 },
-    {
-      scale: 1,
-      duration: 2,
-      ease: "power2.out",
+  // 4. Parallax effect on scroll (disabled on mobile)
+  if (!isMobile()) {
+    gsap.to(".hero-bg", {
+      yPercent: 30,
+      ease: "none",
       scrollTrigger: {
         trigger: ".hero",
         start: "top top",
         end: "bottom top",
         scrub: true,
       },
-    }
-  );
+    });
+
+    // 5. Background scale subtle effect
+    gsap.fromTo(
+      ".hero-bg",
+      { scale: 1.05 },
+      {
+        scale: 1,
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      }
+    );
+  }
 }
 
 // ============================================
@@ -157,20 +165,20 @@ function initSoftLiftTitles() {
     }
 
     // Animate with ScrollTrigger
-  ScrollTrigger.create({
-    trigger: title,
-    start: "top 80%",
-    onEnter: () => {
-      const lines = title.querySelectorAll(".soft-lift-text");
-      gsap.to(lines, {
-        y: "0%",
-        filter: "blur(0px)",
-        duration: 1,
-        stagger: 0.15,
-        ease: "power3.out",
-      });
-    },
-  });
+    ScrollTrigger.create({
+      trigger: title,
+      start: "top 80%",
+      onEnter: () => {
+        const lines = title.querySelectorAll(".soft-lift-text");
+        gsap.to(lines, {
+          y: "0%",
+          filter: "blur(0px)",
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      },
+    });
   });
 }
 
@@ -337,13 +345,16 @@ function initScaleZoomReveal() {
 /**
  * Discovery Parallax & Reveal Mask
  * Smooth Image Scrub with Parallax Depth
- * 
+ *
  * Features:
  * - Parallax: image moves at different speed than scroll (creates depth)
  * - Reveal Mask: image scales down as it enters viewport
  * - Creates "walking through" hotel feeling
  */
 function initDiscoveryParallax() {
+  // Skip parallax on mobile - too heavy for touch devices
+  if (isMobile()) return;
+
   const parallaxContainers = DOM.selectAll(".discovery-parallax-container");
 
   parallaxContainers.forEach((container) => {
@@ -360,7 +371,7 @@ function initDiscoveryParallax() {
     // ============================================
     // REVEAL ANIMATION (Scale down as enters viewport)
     // ============================================
-    
+
     ScrollTrigger.create({
       trigger: container,
       start: "top 85%",
@@ -387,7 +398,7 @@ function initDiscoveryParallax() {
     // ============================================
     // PARALLAX EFFECT (Image moves slower than scroll)
     // ============================================
-    
+
     // Parallax creates depth - image appears to be "behind" the viewport
     gsap.to(image, {
       yPercent: -10, // Move image upward as scroll progresses
@@ -409,6 +420,9 @@ function initDiscoveryParallax() {
  * Button subtly moves toward cursor on hover
  */
 function initMagneticButtons() {
+  // Skip on mobile - no cursor to follow on touch devices
+  if (isMobile()) return;
+
   const magneticBtns = DOM.selectAll(".room-card .btn-text");
 
   magneticBtns.forEach((btn) => {
@@ -664,6 +678,9 @@ function initEnhancedSectionAnimations() {
  * - Custom cursor transformation
  */
 function initCinematicRoomsSection() {
+  // Skip on mobile - horizontal scroll doesn't work well on touch devices
+  if (isMobile()) return;
+
   const section = DOM.select(".cinematic-rooms-section");
   if (!section) return;
 
@@ -1342,6 +1359,9 @@ function initSmoothScrollSections() {
 // ============================================
 
 function initLenisSmoothScroll() {
+  // Skip on mobile - native scroll is better for touch devices
+  if (isMobile()) return;
+
   // Check if Lenis is available
   if (typeof Lenis === "undefined") {
     console.warn("Lenis library not loaded, using native smooth scroll");
@@ -1627,6 +1647,9 @@ function initPageTransition() {
 // ============================================
 
 function initCursorEffects() {
+  // Skip on mobile - no cursor on touch devices
+  if (isMobile()) return;
+
   // Check if device supports hover
   if (window.matchMedia("(hover: none)").matches) return;
 

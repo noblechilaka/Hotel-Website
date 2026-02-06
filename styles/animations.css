@@ -331,3 +331,87 @@
     transform: scale(1);
   }
 }
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATION
+   Disable heavy GSAP animations on touch devices
+   ============================================ */
+
+@media (max-width: 767px) {
+  /* Disable horizontal scroll pinned sections */
+  .cinematic-rooms-section,
+  .rooms-track-wrapper,
+  .rooms-track {
+    transform: none !important;
+    position: relative !important;
+    pin: none !important;
+  }
+
+  /* Disable discovery parallax containers */
+  .discovery-parallax-container,
+  .discovery-parallax-image {
+    transform: none !important;
+    parallax: none !important;
+  }
+
+  /* Disable hero parallax effects */
+  .hero-bg {
+    transform: none !important;
+  }
+
+  /* Hide custom cursor on mobile */
+  .cursor-dot,
+  .cursor-follower {
+    display: none !important;
+  }
+
+  /* Disable smooth scroll sections */
+  .smooth-scroll .smooth-container {
+    transform: none !important;
+  }
+
+  /* Disable page transitions */
+  .page-transition-overlay {
+    display: none !important;
+  }
+
+  /* Simplify reveal animations - instant appearance */
+  .soft-lift-text,
+  .body-line,
+  .blur-to-focus,
+  .scale-zoom-container,
+  .inset-scale-container,
+  .cta-heading-line,
+  .cta-meta,
+  .cta-cta-btn {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  /* Simple fade for basic reveals */
+  .fade-up-enhanced,
+  .stagger-grid > *,
+  .gallery-item,
+  .experience-item,
+  .masonry-item,
+  .room-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+
+  /* Disable cinematically scaled images */
+  .room-card-image-cinematic {
+    transform: none !important;
+    scale: 1 !important;
+  }
+
+  /* Disable magnetic button effects */
+  .book-now-magnetic,
+  .room-card .btn-text {
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -1282,13 +1282,14 @@ p[data-animate="staggered"] {
   }
 
   .hero-booking-bar {
-    bottom: var(--space-md);
+    bottom: var(--space-lg);
     max-width: 800px;
+    margin-bottom: 180px;
   }
 
   .editorial-filters {
     gap: var(--space-md);
-    margin-bottom: 200px;
+  
   }
 
   .filter-label {

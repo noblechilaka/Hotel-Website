@@ -1737,7 +1737,7 @@
 /* FAB Panel - Expanded State */
 .fab-panel {
   position: fixed;
-  bottom: 44px;
+  bottom: 0;
   left: 0;
   right: 0;
   background: #f5f3f0;
