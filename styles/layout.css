@@ -1099,13 +1099,27 @@ p[data-animate="staggered"] {
 
 .hero-booking-bar {
   position: absolute;
-  bottom: 260px;
+  bottom: 210px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 1000px;
-  padding: 0 var(--container-padding);
+  padding: 30px var(--container-padding);
   z-index: 10;
+
+  /* Frosted Glass Effect */
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+  /* Ensure proper rendering */
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* Editorial Filters Row */
@@ -1325,6 +1339,7 @@ p[data-animate="staggered"] {
   }
 
   .hero-booking-bar {
+    display: none;
     bottom: 150px;
     top: auto;
     margin-left: 20px;
@@ -1372,6 +1387,7 @@ p[data-animate="staggered"] {
 
   .booking-cta {
     width: 50%;
+    display: none;
     text-align: center;
     padding: var(--space-sm) 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1380,7 +1396,7 @@ p[data-animate="staggered"] {
     transform: translateX(-40px);
   }
   .book-now-btn {
-    display: block;
+    display: none;
     background: var(--bg-light);
     color: var(--bg-dark);
     transform: translateX(-40px);
@@ -1434,16 +1450,20 @@ p[data-animate="staggered"] {
   overflow: hidden;
 }
 
-/* Door Opening Effect - Clip Path Reveal */
-.door-opening-container {
+/* Scale Zoom Effect - Transform Scale Reveal */
+.scale-zoom-container {
   position: relative;
   overflow: hidden;
-  clip-path: inset(0 50% 0 50%);
-  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.door-opening-container.revealed {
-  clip-path: inset(0 0 0 0);
+.scale-zoom-container .discovery-image {
+  transform: scale(0.8);
+  transform-origin: center center;
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scale-zoom-container.revealed .discovery-image {
+  transform: scale(1);
 }
 
 .discovery-image {
@@ -1453,6 +1473,102 @@ p[data-animate="staggered"] {
   object-fit: cover;
   transform-origin: center center;
   will-change: transform;
+}
+
+/* ============================================
+   DISCOVERY PARALLAX & REVEAL MASK
+   Smooth Image Scrub with Parallax Depth
+   ============================================ */
+
+/* Parallax container - overflow hidden for mask effect */
+.discovery-parallax-container {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reveal mask state - starts hidden */
+.discovery-parallax-container.reveal-masked {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Image wrapper for parallax movement */
+.discovery-image-wrapper-inner {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+/* The actual image with parallax and scale */
+.discovery-parallax-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center center;
+  will-change: transform;
+  /* Initial state: slightly larger and offset for reveal effect */
+  transform: scale(1.15) translateY(0);
+  transition: transform 0.1s ease-out;
+}
+
+/* Revealed state: normal scale and position */
+.discovery-parallax-container.revealed .discovery-parallax-image {
+  transform: scale(1) translateY(0);
+}
+
+/* Desktop parallax settings */
+@media (min-width: 1200px) {
+  .discovery-parallax-container {
+    height: 80vh;
+  }
+
+  .discovery-parallax-image {
+    height: 120%;
+    width: 120%;
+    max-width: none;
+    /* Initial: image slightly zoomed in and moved down */
+    transform: scale(1.15) translateY(5%);
+  }
+
+  .discovery-parallax-container.revealed .discovery-parallax-image {
+    /* Parallax offset will be applied by JS */
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Tablet parallax settings */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .discovery-parallax-container {
+    height: 60vh;
+  }
+
+  .discovery-parallax-image {
+    height: 120%;
+    width: 110%;
+    transform: scale(1.15) translateY(5%);
+  }
+
+  .discovery-parallax-container.revealed .discovery-parallax-image {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mobile parallax settings */
+@media (max-width: 767px) {
+  .discovery-parallax-container {
+    height: 50vh;
+  }
+
+  .discovery-parallax-image {
+    height: 110%;
+    width: 100%;
+    transform: scale(1.1);
+  }
+
+  .discovery-parallax-container.revealed .discovery-parallax-image {
+    transform: scale(1);
+  }
 }
 
 .discovery-content {
@@ -2731,8 +2847,13 @@ p[data-animate="staggered"] {
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
 }
 
 @keyframes fadeInUp {

@@ -16,9 +16,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close" />
 
-    <!-- Styles -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/typography.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
@@ -207,7 +207,10 @@ close
             <button type="submit" class="booking-cta book-now-btn"  id="bookNowBtn">BOOK NOW</button>
           </form>
         </div>
+
       </section>
+
+      
 
       <!-- Quick Booking Widget (Below Hero)
       <section class="booking-widget-section">
@@ -258,12 +261,12 @@ close
                 <span class="rotated-label">Our Story</span>
               </div>
               
-              <!-- Door Opening Effect Container -->
-              <div class="door-opening-container">
+              <!-- Discovery Parallax with Reveal Mask -->
+              <div class="discovery-parallax-container">
                 <img
                   src="/assets/imgs/Luxuriant Modern Lounge.png"
                   alt="Hotel Exterior at Sunset"
-                  class="discovery-image"
+                  class="discovery-parallax-image"
                   style="border-radius: 4px"
                 />
               </div>
@@ -286,7 +289,7 @@ close
               </h2>
               
               <!-- Staggered Body Text -->
-              <p class="body-text" data-animate="staggered" style="margin-bottom: 1.5rem">
+              <p class="body-text" data-animate="" style="margin-bottom: 1.5rem">
                 Nestled along the pristine coastline, Luxury Hotel offers an escape from the ordinary. Every detail has been crafted to create moments of pure indulgence and profound peace.
               </p>
               <p class="body-text" data-animate="staggered" style="margin-bottom: 2rem; opacity: 0.7">
@@ -790,7 +793,7 @@ close
           const checkIn = document.getElementById('homeCheckIn').value;
           const checkOut = document.getElementById('homeCheckOut').value;
           const guests = parseInt(guestCountEl.textContent);
-          
+
           // Store booking data in sessionStorage
           const bookingData = {
             checkIn,
@@ -802,5 +805,311 @@ close
         });
       });
     </script>
+
+    <!-- Mobile Booking FAB -->
+    <div class="fab-backdrop" id="fabBackdrop"></div>
+
+    <!-- FAB Button - Minimized State -->
+    <button class="mobile-booking-fab" id="fabButton" aria-label="Open booking">
+ <span class="material-symbols-outlined">
+calendar_month
+</span>
+      <span class="fab-text">Book Now</span>
+    </button>
+
+    <!-- FAB Panel - Expanded State -->
+    <div class="fab-panel" id="fabPanel">
+      <div class="fab-panel-header">
+        <h3 class="fab-panel-title">Your Stay</h3>
+        <button class="fab-close" id="fabClose" aria-label="Close booking panel">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      
+      <div class="fab-field-group">
+        <div class="fab-field">
+          <label class="fab-label">Arrival</label>
+          <input type="text" id="fabCheckIn" class="fab-input" placeholder="Today" readonly />
+        </div>
+        
+        <div class="fab-field">
+          <label class="fab-label">Departure</label>
+          <input type="text" id="fabCheckOut" class="fab-input" placeholder="Tomorrow" readonly />
+        </div>
+        
+        <div class="fab-field">
+          <label class="fab-label">Guests</label>
+          <select id="fabGuests" class="fab-input">
+            <option value="1">1 Adult</option>
+            <option value="2" selected>2 Adults</option>
+            <option value="3">3 Adults</option>
+            <option value="4">4 Adults</option>
+          </select>
+        </div>
+      </div>
+      
+      <button class="fab-submit" id="fabSubmit">Check Availability</button>
+    </div>
+
+    <!-- FAB Calendar Overlay -->
+    <div class="fab-calendar-overlay" id="fabCalendarOverlay">
+      <div class="fab-calendar-header">
+        <span class="fab-calendar-title">Select Date</span>
+        <button class="fab-calendar-close" id="fabCalendarClose" aria-label="Close calendar">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div id="fabCalendarContainer"></div>
+    </div>
+
+    <!-- Mobile Booking FAB JavaScript -->
+    <script>
+      (function() {
+        'use strict';
+        
+        // FAB Elements
+        const fabButton = document.getElementById('fabButton');
+        const fabPanel = document.getElementById('fabPanel');
+        const fabBackdrop = document.getElementById('fabBackdrop');
+        const fabClose = document.getElementById('fabClose');
+        const fabCalendarOverlay = document.getElementById('fabCalendarOverlay');
+        const fabCalendarClose = document.getElementById('fabCalendarClose');
+        const fabCalendarContainer = document.getElementById('fabCalendarContainer');
+        const fabCheckIn = document.getElementById('fabCheckIn');
+        const fabCheckOut = document.getElementById('fabCheckOut');
+        const fabGuests = document.getElementById('fabGuests');
+        const fabSubmit = document.getElementById('fabSubmit');
+        
+        // State
+        let isPanelOpen = false;
+        let isCalendarOpen = false;
+        let calendarMode = 'checkin';
+        let checkInDate = null;
+        let checkOutDate = null;
+        let calendarFp = null;
+        
+        // Initialize
+        function init() {
+          // Set default dates (today, tomorrow)
+          const today = new Date();
+          const tomorrow = new Date(today);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          
+          checkInDate = today;
+          checkOutDate = tomorrow;
+          
+          updateDateInputs();
+          
+          // Event listeners
+          if (fabButton) {
+            fabButton.addEventListener('click', openPanel);
+          }
+          if (fabClose) {
+            fabClose.addEventListener('click', closePanel);
+          }
+          if (fabBackdrop) {
+            fabBackdrop.addEventListener('click', closePanel);
+          }
+          if (fabCalendarClose) {
+            fabCalendarClose.addEventListener('click', closeCalendar);
+          }
+          if (fabCheckIn) {
+            fabCheckIn.addEventListener('click', function() {
+              openCalendar('checkin');
+            });
+          }
+          if (fabCheckOut) {
+            fabCheckOut.addEventListener('click', function() {
+              openCalendar('checkout');
+            });
+          }
+          if (fabSubmit) {
+            fabSubmit.addEventListener('click', handleSubmit);
+          }
+          
+          // Keyboard accessibility
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+              if (isCalendarOpen) {
+                closeCalendar();
+              } else if (isPanelOpen) {
+                closePanel();
+              }
+            }
+          });
+          
+          console.log('Mobile Booking FAB initialized');
+        }
+        
+        // Open FAB panel
+        function openPanel() {
+          isPanelOpen = true;
+          if (fabPanel) {
+            fabPanel.classList.add('active');
+          }
+          if (fabBackdrop) {
+            fabBackdrop.classList.add('active');
+          }
+          document.body.style.overflow = 'hidden';
+          
+          // Haptic feedback
+          if (navigator.vibrate) {
+            navigator.vibrate(10);
+          }
+        }
+        
+        // Close FAB panel
+        function closePanel() {
+          isPanelOpen = false;
+          if (fabPanel) {
+            fabPanel.classList.remove('active');
+          }
+          if (fabBackdrop) {
+            fabBackdrop.classList.remove('active');
+          }
+          document.body.style.overflow = '';
+          
+          // Close calendar if open
+          if (isCalendarOpen) {
+            closeCalendar();
+          }
+        }
+        
+        // Open calendar overlay
+        function openCalendar(mode) {
+          calendarMode = mode;
+          isCalendarOpen = true;
+          if (fabCalendarOverlay) {
+            fabCalendarOverlay.classList.add('active');
+          }
+          
+          renderCalendar();
+          
+          // Haptic feedback
+          if (navigator.vibrate) {
+            navigator.vibrate(10);
+          }
+        }
+        
+        // Close calendar overlay
+        function closeCalendar() {
+          isCalendarOpen = false;
+          if (fabCalendarOverlay) {
+            fabCalendarOverlay.classList.remove('active');
+          }
+        }
+        
+        // Render calendar using Flatpickr
+        function renderCalendar() {
+          if (!fabCalendarContainer) return;
+          
+          fabCalendarContainer.innerHTML = '';
+          
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.id = 'fabCalendarInput';
+          input.style.display = 'none';
+          fabCalendarContainer.appendChild(input);
+          
+          // Destroy existing instance
+          if (calendarFp) {
+            calendarFp.destroy();
+          }
+          
+          // Configure flatpickr
+          const minDate = calendarMode === 'checkout' && checkInDate 
+            ? new Date(checkInDate.getTime() + 86400000) 
+            : 'today';
+          
+          const defaultDate = calendarMode === 'checkin' ? checkInDate : checkOutDate;
+          
+          if (typeof flatpickr !== 'undefined') {
+            calendarFp = flatpickr(input, {
+              inline: true,
+              minDate: minDate,
+              defaultDate: defaultDate,
+              mode: 'range',
+              showMonths: 1,
+              static: true,
+              onChange: function(selectedDates, dateStr) {
+                if (calendarMode === 'checkin' && selectedDates.length > 0) {
+                  checkInDate = selectedDates[0];
+                  
+                  // Auto-set checkout to next day
+                  const nextDay = new Date(checkInDate);
+                  nextDay.setDate(nextDay.getDate() + 1);
+                  
+                  if (!checkOutDate || checkOutDate <= checkInDate) {
+                    checkOutDate = nextDay;
+                  }
+                  
+                  updateDateInputs();
+                  closeCalendar();
+                  
+                  // Haptic feedback
+                  if (navigator.vibrate) {
+                    navigator.vibrate(10);
+                  }
+                } else if (calendarMode === 'checkout' && selectedDates.length > 0) {
+                  const lastDate = selectedDates[selectedDates.length - 1];
+                  checkOutDate = lastDate;
+                  
+                  updateDateInputs();
+                  closeCalendar();
+                  
+                  // Haptic feedback
+                  if (navigator.vibrate) {
+                    navigator.vibrate(10);
+                  }
+                }
+              }
+            });
+          }
+        }
+        
+        // Update date input displays
+        function updateDateInputs() {
+          if (fabCheckIn && checkInDate) {
+            fabCheckIn.value = formatDate(checkInDate);
+          }
+          if (fabCheckOut && checkOutDate) {
+            fabCheckOut.value = formatDate(checkOutDate);
+          }
+        }
+        
+        // Format date for display
+        function formatDate(date) {
+          const options = { weekday: 'short', month: 'short', day: 'numeric' };
+          return date.toLocaleDateString('en-US', options);
+        }
+        
+        // Handle form submission
+        function handleSubmit() {
+          const bookingData = {
+            checkIn: checkInDate.toISOString().split('T')[0],
+            checkOut: checkOutDate.toISOString().split('T')[0],
+            guests: parseInt(fabGuests ? fabGuests.value : '2'),
+            fromMobileFAB: true
+          };
+          
+          // Store in sessionStorage
+          sessionStorage.setItem('mobileBookingData', JSON.stringify(bookingData));
+          
+          // Close panel
+          closePanel();
+          
+          // Redirect to rooms page
+          window.location.href = '/rooms.html';
+        }
+        
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+
   </body>
 </html>

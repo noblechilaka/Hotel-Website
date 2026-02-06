@@ -148,29 +148,29 @@ function initSoftLiftTitles() {
       title.innerHTML = lines
         .map(
           (line) =>
-            `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${line}</span></span>`
+            `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(0px); transform: translateY(100%);">${line}</span></span>`
         )
         .join("");
     } else {
       // Single line - still wrap for consistency
-      title.innerHTML = `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(10px); transform: translateY(100%);">${text}</span></span>`;
+      title.innerHTML = `<span class="soft-lift-line" style="display: block; overflow: hidden;"><span class="soft-lift-text" style="display: block; filter: blur(0px); transform: translateY(100%);">${text}</span></span>`;
     }
 
     // Animate with ScrollTrigger
-    ScrollTrigger.create({
-      trigger: title,
-      start: "top 80%",
-      onEnter: () => {
-        const lines = title.querySelectorAll(".soft-lift-text");
-        gsap.to(lines, {
-          y: "0%",
-          filter: "blur(0px)",
-          duration: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-        });
-      },
-    });
+  ScrollTrigger.create({
+    trigger: title,
+    start: "top 80%",
+    onEnter: () => {
+      const lines = title.querySelectorAll(".soft-lift-text");
+      gsap.to(lines, {
+        y: "0%",
+        filter: "blur(0px)",
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
+      });
+    },
+  });
   });
 }
 
@@ -294,40 +294,114 @@ function initBlurToFocus() {
 }
 
 /**
- * "Door Opening" - Image Reveal Animation
- * Uses clip-path: inset(0 50% 0 50%) → inset(0 0 0 0)
- * Creates a vertical slit reveal effect
+ * "Scale Zoom" - Image Reveal Animation
+ * Uses transform: scale(0.8) → scale(1.0) on the image itself
+ * Creates a zoom-in reveal effect with depth
  */
-function initDoorOpeningReveal() {
-  const doorContainers = DOM.selectAll(".door-opening-container");
+function initScaleZoomReveal() {
+  const scaleContainers = DOM.selectAll(".scale-zoom-container");
 
-  doorContainers.forEach((container) => {
-    // Set initial clip-path state
-    gsap.set(container, {
-      clipPath: "inset(0 50% 0 50%)",
+  scaleContainers.forEach((container) => {
+    const image = container.querySelector(".discovery-image");
+    if (!image) return;
+
+    // Set initial scale state on the image
+    gsap.set(image, {
+      scale: 0.8,
+      transformOrigin: "center center",
     });
 
     // Animate to full reveal with Emily Ease
     ScrollTrigger.create({
       trigger: container,
-      start: "top 65%",
+      start: "top 80%",
       onEnter: () => {
-        gsap.to(container, {
-          clipPath: "inset(0 0 0 0)",
-          duration: 1.5,
+        gsap.to(image, {
+          scale: 1,
+          duration: 2,
           ease: emilyEase,
-          className: "door-opening-container revealed",
+          className: "scale-zoom-container revealed",
         });
       },
       onLeaveBack: () => {
-        gsap.to(container, {
-          clipPath: "inset(0 50% 0 50%)",
-          duration: 0.8,
+        gsap.to(image, {
+          scale: 0.8,
+          duration: 1.5,
           ease: emilyEase,
         });
       },
     });
   });
+}
+
+/**
+ * Discovery Parallax & Reveal Mask
+ * Smooth Image Scrub with Parallax Depth
+ * 
+ * Features:
+ * - Parallax: image moves at different speed than scroll (creates depth)
+ * - Reveal Mask: image scales down as it enters viewport
+ * - Creates "walking through" hotel feeling
+ */
+function initDiscoveryParallax() {
+  const parallaxContainers = DOM.selectAll(".discovery-parallax-container");
+
+  parallaxContainers.forEach((container) => {
+    const image = container.querySelector(".discovery-parallax-image");
+    if (!image) return;
+
+    // Initial state: image is zoomed in and masked
+    gsap.set(image, {
+      scale: 1.15,
+      yPercent: 5,
+      transformOrigin: "center center",
+    });
+
+    // ============================================
+    // REVEAL ANIMATION (Scale down as enters viewport)
+    // ============================================
+    
+    ScrollTrigger.create({
+      trigger: container,
+      start: "top 85%",
+      onEnter: () => {
+        container.classList.add("revealed");
+        gsap.to(image, {
+          scale: 1,
+          yPercent: 0,
+          duration: 1.8,
+          ease: emilyEase,
+        });
+      },
+      onLeaveBack: () => {
+        container.classList.remove("revealed");
+        gsap.to(image, {
+          scale: 1.15,
+          yPercent: 5,
+          duration: 1,
+          ease: emilyEase,
+        });
+      },
+    });
+
+    // ============================================
+    // PARALLAX EFFECT (Image moves slower than scroll)
+    // ============================================
+    
+    // Parallax creates depth - image appears to be "behind" the viewport
+    gsap.to(image, {
+      yPercent: -10, // Move image upward as scroll progresses
+      ease: "none",
+      scrollTrigger: {
+        trigger: container,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+  });
+
+  console.log("Discovery Parallax Animation initialized");
 }
 
 /**
@@ -1893,7 +1967,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initStaggeredBodyText();
     initInsetScaleImages();
     initBlurToFocus();
-    initDoorOpeningReveal();
+    initScaleZoomReveal();
     initMagneticButtons();
     initCuratedMomentsGrid();
     initEnhancedSectionAnimations();
@@ -1921,6 +1995,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Cinematic Horizontal Scroll Rooms
     initCinematicRoomsSection();
+
+    // Discovery Parallax Animation
+    initDiscoveryParallax();
 
     // About page specific animations
     initSlowRevealImages();

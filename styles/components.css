@@ -1204,8 +1204,912 @@
   .btn {
     display: none;
   }
+}
 
-  main {
-    padding-top: 0 !important;
+/* ============================================
+   MOBILE BOOKING DRAWER
+   Persistent Drawer Widget for Mobile
+   ============================================ */
+
+/* Hide on desktop */
+
+@media (min-width: 768px) {
+  .mobile-booking-drawer {
+    display: none !important;
+  }
+}
+
+/* Mobile Booking Drawer - Base */
+.mobile-booking-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* Minimized Tab State */
+.mobile-booking-tab {
+  position: absolute;
+  /* bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%); */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: rgba(242, 240, 237, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  border-radius: 50px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Breathe animation */
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.mobile-booking-tab:hover {
+  background: rgba(242, 240, 237, 0.95);
+  transform: translateX(-50%) scale(1.02);
+  box-shadow: 0 6px 40px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-booking-tab .tab-icon {
+  font-size: 20px;
+  color: var(--onyx);
+}
+
+.mobile-booking-tab .tab-text {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--onyx);
+}
+
+/* Breathe animation keyframes */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.02);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Pause animation when drawer is expanded */
+.mobile-booking-drawer.expanded .mobile-booking-tab {
+  animation-play-state: paused;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Expanded Drawer State */
+.mobile-booking-content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45vh;
+  max-height: 400px;
+  background: #f5f3f0;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.15);
+  padding: 24px 24px 32px;
+  pointer-events: auto;
+
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-booking-drawer.expanded .mobile-booking-content {
+  transform: translateY(0);
+}
+
+/* Drawer Close Button */
+.drawer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.drawer-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.drawer-close .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--onyx);
+}
+
+/* Drawer Title */
+.drawer-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--onyx);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Drawer Field Groups */
+.drawer-field-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  position: relative;
+}
+
+.drawer-field-group:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(51, 51, 51, 0.5);
+}
+
+.drawer-label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--graphite);
+  margin-bottom: 8px;
+}
+
+/* Drawer Inputs */
+.drawer-input {
+  width: 100%;
+  padding: 8px 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--onyx);
+  background: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.drawer-input::placeholder {
+  color: rgba(26, 26, 26, 0.4);
+}
+
+/* Custom select arrow for drawer */
+.drawer-field-group:has(.drawer-input:not([type="text"])) {
+  position: relative;
+}
+
+.drawer-field-group:has(.drawer-input:not([type="text"]))::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--onyx);
+  pointer-events: none;
+}
+
+/* Drawer CTA Button */
+.drawer-cta {
+  width: 100%;
+  padding: 16px 24px;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  background: var(--onyx);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drawer-cta:hover {
+  background: #2a2a2a;
+  transform: translateY(-1px);
+}
+
+.drawer-cta:active {
+  transform: translateY(0);
+}
+
+/* Full Screen Calendar Overlay */
+.drawer-calendar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(18, 18, 18, 0.95);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawer-calendar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.drawer-calendar-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--optic-white);
+}
+
+.drawer-calendar-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.drawer-calendar-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.drawer-calendar-close .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--optic-white);
+}
+
+/* Flatpickr customization for drawer calendar */
+.drawer-calendar-overlay .flatpickr-calendar {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 16px;
+}
+
+.drawer-calendar-overlay .flatpickr-days {
+  width: 100%;
+  max-width: 100%;
+}
+
+.drawer-calendar-overlay .dayContainer {
+  max-width: 100%;
+}
+
+.drawer-calendar-overlay .flatpickr-day {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--optic-white);
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  border-radius: 8px;
+  margin: 2px;
+  width: calc(14.285% - 4px);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-calendar-overlay .flatpickr-day:hover {
+  background: rgba(139, 154, 125, 0.3);
+  border-color: var(--editorial-accent);
+}
+
+.drawer-calendar-overlay .flatpickr-day.selected {
+  background: var(--editorial-accent);
+  border-color: var(--editorial-accent);
+  color: var(--obsidian-noir);
+}
+
+.drawer-calendar-overlay .flatpickr-day.inRange {
+  background: rgba(139, 154, 125, 0.2);
+  border-color: var(--editorial-accent);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.drawer-calendar-overlay .flatpickr-day.startRange,
+.drawer-calendar-overlay .flatpickr-day.endRange {
+  background: var(--editorial-accent);
+  border-color: var(--editorial-accent);
+  color: var(--obsidian-noir);
+  border-radius: 8px;
+}
+
+.drawer-calendar-overlay .flatpickr-day.prevMonthDay,
+.drawer-calendar-overlay .flatpickr-day.nextMonthDay {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.drawer-calendar-overlay .flatpickr-months {
+  margin-bottom: 16px;
+}
+
+.drawer-calendar-overlay .flatpickr-month {
+  color: var(--optic-white);
+}
+
+.drawer-calendar-overlay .flatpickr-current-month {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  padding: 8px 0;
+}
+
+.drawer-calendar-overlay .flatpickr-current-month .cur-month {
+  color: var(--optic-white);
+}
+
+.drawer-calendar-overlay .numInputWrapper {
+  color: var(--optic-white);
+}
+
+.drawer-calendar-overlay .arrowUp,
+.drawer-calendar-overlay .arrowDown {
+  border-bottom-color: var(--optic-white);
+}
+
+.drawer-calendar-overlay .arrowUp::before,
+.drawer-calendar-overlay .arrowDown::before {
+  border-bottom-color: var(--optic-white);
+}
+
+.drawer-calendar-overlay .flatpickr-weekday {
+  background: transparent;
+  color: var(--editorial-accent);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+
+.drawer-calendar-overlay .flatpickr-weekdays {
+  margin-bottom: 8px;
+}
+
+/* Backdrop click to close */
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9997;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.mobile-booking-drawer.expanded .drawer-backdrop {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-booking-tab,
+  .mobile-booking-content,
+  .drawer-calendar-overlay {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Safe area for iPhone X+ */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-booking-content {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   MOBILE BOOKING FAB (Alternative to Drawer)
+   Floating Action Button for Quick Booking
+   ============================================ */
+
+/* Hide existing drawer when using FAB */
+.mobile-booking-drawer {
+  display: none !important;
+}
+
+/* FAB Button - Minimized State */
+.mobile-booking-fab {
+  position: fixed;
+  bottom: 24px;
+  margin-bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  /* Pill-shaped appearance */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 28px;
+   /* Frosted Glass Effect */
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+
+
+  /* Typography */
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-light);
+
+  /* Animation */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  /* Subtle breathe animation */
+  animation: fabBreathe 4s ease-in-out infinite;
+}
+
+.mobile-booking-fab:hover {
+  transform: translateX(-50%) scale(1.02);
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.25);
+  background: initial;
+}
+
+.mobile-booking-fab .fab-icon {
+  font-size: 20px;
+  color: var(--onyx);
+}
+
+.mobile-booking-fab .fab-text {
+  font-weight: 600;
+}
+
+/* FAB breathe animation */
+@keyframes fabBreathe {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.015);
+    box-shadow: 0 14px 50px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* FAB Panel - Expanded State */
+.fab-panel {
+  position: fixed;
+  bottom: 44px;
+  left: 0;
+  right: 0;
+  background: #f5f3f0;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.15);
+  padding: 24px 24px 32px;
+  z-index: 10000;
+
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.fab-panel.active {
+  transform: translateY(0);
+}
+
+/* FAB Panel Header */
+.fab-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fab-panel-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--onyx);
+}
+
+.fab-close {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.fab-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.fab-close .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--onyx);
+}
+
+/* FAB Form Fields */
+.fab-field-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fab-field {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 0;
+  position: relative;
+}
+
+.fab-field:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0.5px;
+  background: rgba(51, 51, 51, 0.5);
+}
+
+.fab-label {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--graphite);
+  margin-bottom: 8px;
+}
+
+.fab-input {
+  width: 100%;
+  padding: 8px 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--onyx);
+  background: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.fab-input::placeholder {
+  color: rgba(26, 26, 26, 0.4);
+}
+
+/* Custom select arrow */
+.fab-field:has(.fab-input:not([type="text"])) {
+  position: relative;
+}
+
+.fab-field:has(.fab-input:not([type="text"]))::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--onyx);
+  pointer-events: none;
+}
+
+/* FAB Submit Button */
+.fab-submit {
+  width: 100%;
+  padding: 16px 24px;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  background: var(--onyx);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fab-submit:hover {
+  background: #2a2a2a;
+  transform: translateY(-1px);
+}
+
+.fab-submit:active {
+  transform: translateY(0);
+}
+
+/* FAB Backdrop */
+.fab-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.fab-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* FAB Calendar Overlay */
+.fab-calendar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(18, 18, 18, 0.95);
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab-calendar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fab-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.fab-calendar-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--optic-white);
+}
+
+.fab-calendar-close {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.fab-calendar-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.fab-calendar-close .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--optic-white);
+}
+
+/* Flatpickr customization for FAB calendar */
+.fab-calendar-overlay .flatpickr-calendar {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 16px;
+}
+
+.fab-calendar-overlay .flatpickr-days {
+  width: 100%;
+  max-width: 100%;
+}
+
+.fab-calendar-overlay .dayContainer {
+  max-width: 100%;
+}
+
+.fab-calendar-overlay .flatpickr-day {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--optic-white);
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  border-radius: 8px;
+  margin: 2px;
+  width: calc(14.285% - 4px);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab-calendar-overlay .flatpickr-day:hover {
+  background: rgba(139, 154, 125, 0.3);
+  border-color: var(--editorial-accent);
+}
+
+.fab-calendar-overlay .flatpickr-day.selected {
+  background: var(--editorial-accent);
+  border-color: var(--editorial-accent);
+  color: var(--obsidian-noir);
+}
+
+.fab-calendar-overlay .flatpickr-day.inRange {
+  background: rgba(139, 154, 125, 0.2);
+  border-color: var(--editorial-accent);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.fab-calendar-overlay .flatpickr-day.startRange,
+.fab-calendar-overlay .flatpickr-day.endRange {
+  background: var(--editorial-accent);
+  border-color: var(--editorial-accent);
+  color: var(--obsidian-noir);
+  border-radius: 8px;
+}
+
+.fab-calendar-overlay .flatpickr-day.prevMonthDay,
+.fab-calendar-overlay .flatpickr-day.nextMonthDay {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.fab-calendar-overlay .flatpickr-months {
+  margin-bottom: 16px;
+}
+
+.fab-calendar-overlay .flatpickr-month {
+  color: var(--optic-white);
+}
+
+.fab-calendar-overlay .flatpickr-current-month {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  padding: 8px 0;
+}
+
+.fab-calendar-overlay .flatpickr-current-month .cur-month {
+  color: var(--optic-white);
+}
+
+.fab-calendar-overlay .numInputWrapper {
+  color: var(--optic-white);
+}
+
+.fab-calendar-overlay .arrowUp,
+.fab-calendar-overlay .arrowDown {
+  border-bottom-color: var(--optic-white);
+}
+
+.fab-calendar-overlay .arrowUp::before,
+.fab-calendar-overlay .arrowDown::before {
+  border-bottom-color: var(--optic-white);
+}
+
+.fab-calendar-overlay .flatpickr-weekday {
+  background: transparent;
+  color: var(--editorial-accent);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+}
+
+.fab-calendar-overlay .flatpickr-weekdays {
+  margin-bottom: 8px;
+}
+
+/* Hide FAB on desktop */
+@media (min-width: 768px) {
+  .mobile-booking-fab,
+  .fab-panel,
+  .fab-backdrop,
+  .fab-calendar-overlay {
+    display: none !important;
+  }
+}
+
+/* Reduced motion for FAB */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-booking-fab,
+  .fab-panel,
+  .fab-backdrop,
+  .fab-calendar-overlay {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Safe area for iPhone X+ */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-booking-fab {
+    bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .fab-panel {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
   }
 }
