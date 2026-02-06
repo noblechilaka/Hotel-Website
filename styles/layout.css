@@ -1289,7 +1289,6 @@ p[data-animate="staggered"] {
 
   .editorial-filters {
     gap: var(--space-md);
-  
   }
 
   .filter-label {
@@ -5388,5 +5387,48 @@ p[data-animate="staggered"] {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: var(--space-xl);
+  }
+}
+
+/* ============================================
+   MOBILE SMOOTH SCROLL ENHANCEMENT
+   Native momentum scrolling for smoother mobile experience
+   ============================================ */
+
+@media (max-width: 767px) {
+  /* Enable smooth scrolling behavior on mobile */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Enable momentum scrolling on body */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Smooth scrolling containers */
+  .scrollable,
+  .rooms-scroll-container,
+  .masonry-grid,
+  .experiences-grid {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Smooth anchor link scrolling */
+  a[href^="#"] {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent scroll bouncing artifacts */
+  .hero,
+  .hero-bg,
+  .discovery,
+  .featured-rooms {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
   }
 }
